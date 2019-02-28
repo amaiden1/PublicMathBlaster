@@ -26,6 +26,13 @@ This guide is designed to explain and set forth coding conventions and styles, a
 
 #### Indentation
 - Indentation shall be in the form of tabs, 4 spaces in width.
+- **⚠️WARNING!** If you are using Netbeans, please do the following to ensure indentation works correctly:
+	1. Go to Tools > Options
+	2. Go to Editor > Formatting
+	3. Select "All Languages" from dropdown
+	4. Uncheck "Expand Spaces to Tabs"
+	5. Set tab width to 4, close and apply \
+*If you do not do this, the indentation will not work correctly for everyone else!*
 
 #### Spaces, Braces, Brackets, Parentheses
 - Loops and statements shall use spaces between the variable and value.
