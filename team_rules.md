@@ -23,6 +23,8 @@ We will contact our group members through an established communication method (I
 ## How we will back up each other to ensure that deadlines are not missed
 Members that have finished their assigned tasks will be able to help the members that are having difficulties in order for us to stay on time.
 
-
+## Punishments
+- missing 3 meetings without 24 hours notice will result in a letter grade dropped on your peer review. 
+- Failure to complete your assigned task on time will result in another letter grade docked, unless discussed with the team prior so that we can work together to try to complete the task in a timely manner.
 
 
