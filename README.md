@@ -9,7 +9,7 @@ ITEC 371 group project
 - John Laws (`<<username_here>>`)
 - Emmanuel Edamwen (`<<username_here>>`)
 
-##### Assignment Notes (to be deleted)
+##### Assignment Notes
 
 It took roughly 5 minutes to complete this exercise.
 
