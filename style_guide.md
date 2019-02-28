@@ -12,6 +12,7 @@ This guide is designed to explain and set forth coding conventions and styles, a
   - Good: `updatePosition()`
   - Bad: `updateThePlayerPosition()`
 - Methods should be 50 lines or less. Certain circumstances may prompt for exceptions, however.
+- The use of frequent helper method is encouraged.
 
 #### Variables and Constants
 - All variable names shall use `lowerCamelCase`.
@@ -31,8 +32,11 @@ This guide is designed to explain and set forth coding conventions and styles, a
   - Good: `for (int i = 0 ; i < 42 ; i++)`
   - Also good: `for(int i = 0; i < 42; i++)`
   - Bad: `for(int i=0;i<42;i++)`
-- Braces shall follow the line that the code is entered on, separated from the preceding line by a space.
-  - Example: `public class Foo {`
+- Braces shall follow the line after the code is entered on.
+  - Example: `public class Foo 
+  {
+	`someCode`
+  }`
 - There shall be at least one blank line between each method in a class.
 
 ## Coding Practices
