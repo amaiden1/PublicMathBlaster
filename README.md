@@ -5,6 +5,8 @@ ITEC 371 group project
 
 This project is going to be a simple shooter game that tests the user's math skills in a race against time.
 
+**If you are using Netbeans,** [go here to ensure your indentation is set up correctly](https://github.com/nierardi/mathblaster/blob/master/style_guide.md#indentation). Please do this before cloning the repo.
+
 ### Contributors
 - Joe Semendinger (`jsemendinger`)
 - Austin Maiden (`amaiden1`)
