@@ -35,22 +35,30 @@ public class Shooter {
 
 	public void incX(double x) {
 		this.x += x;
-		iv.setX(x);
 		System.out.println("x increased");
 		System.out.println("iv layout x:" + iv.getLayoutX());
 		System.out.println("iv x:" + iv.getX());
+		relocate();
 	}
 
 	public void decX(double x) {
 		this.x -= x;
-		iv.setX(x);
 		System.out.println("x decresed");
 		System.out.println("iv layout x:" + iv.getLayoutX());
 		System.out.println("iv x:" + iv.getX());
+		relocate();
+	}
+
+	private void relocate() {
+		iv.relocate(x, y);
 	}
 
 	public ImageView getIV() {
 		return iv;
+	}
+
+	public Bullet shoot() {
+		return new Bullet(x, y);
 	}
 
 }
