@@ -3,7 +3,7 @@
 ITEC 371 group project
 
 ### Contributors
-- Joe Semendinger (`<<username_here>>`)
+- Joe Semendinger (`jsemendinger`)
 - Austin Maiden (`amaiden1`)
 - Nolan Ierardi (`nierardi`)
 - John Laws (`<<Darki>>`)
