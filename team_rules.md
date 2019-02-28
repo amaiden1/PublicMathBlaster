@@ -1,4 +1,4 @@
-# Team NN Rules
+# Team 04 Rules
 
 These rules establish how our team will assign tasks,
 track progress on each task, and communicate with each other 
@@ -9,7 +9,7 @@ and will hopefully lead to productive team work with fewer conflicts
 and missed deadlines.
 
 ## How we will assign (and reassign) tasks
-
+We will meet up and discuss what we believe to be fair assignments.
 
 
 ## How will we will track progress (and follow-up) on completion of tasks
