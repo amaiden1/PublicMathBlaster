@@ -21,11 +21,19 @@ This guide is designed to explain and set forth coding conventions and styles, a
   - Where necessary for constants to be accessed by many classes, they should reside in the Constants class, named `public static final`.
     - To import constants from the Constants class, use `import static Constants.CONSTANT_NAME`, or rather, `import static Constants.*`.
 
+## Layout
+
+#### Indentation
+- Indentation shall be in the form of tabs, 4 spaces in width.
+
 #### Spaces, Braces, Brackets, Parentheses
 - Loops and statements shall use spaces between the variable and value.
   - Good: `for (int i = 0 ; i < 42 ; i++)`
-  - Good: `for (int i = 0 ; i < 42 ; i++)`
-
+  - Also good: `for(int i = 0; i < 42; i++)`
+  - Bad: `for(int i=0;i<42;i++)`
+- Braces shall follow the line that the code is entered on, separated from the preceding line by a space.
+  - Example: `public class Foo {`
+- There shall be at least one blank line between each method in a class.
 
 ## Coding Practices
 
