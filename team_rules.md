@@ -9,7 +9,7 @@ and will hopefully lead to productive team work with fewer conflicts
 and missed deadlines.
 
 ## How we will assign (and reassign) tasks
-We will meet up and discuss the what we believe to be fair assignments and when everyone agrees that the assignments re fair, then we will go with those assignments.
+We will meet up and discuss the what we believe to be fair assignments and when everyone agrees that the assignments are fair, then we will go with those assignments.
 
 
 ## How will we will track progress (and follow-up) on completion of tasks
