@@ -1,6 +1,6 @@
 # Team 04 Style Guide
 
-This guide is designed to explain and set forth coding conventions and styles, as well as other guidelines for ensuring a uniform, easy-to-understand style for coding.
+This guide is designed to explain and set forth coding conventions and styles, as well as other guidelines for ensuring a uniform, easy to understand style for coding.
 
 ## Naming Conventions
 
