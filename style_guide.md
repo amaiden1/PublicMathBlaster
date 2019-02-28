@@ -40,10 +40,12 @@ This guide is designed to explain and set forth coding conventions and styles, a
   - Also good: `for(int i = 0; i < 42; i++)`
   - Bad: `for(int i=0;i<42;i++)`
 - Braces shall follow the line after the code is entered on.
-  - Example: `public class Foo 
-  {
-	`someCode`
-  }`
+  - Example:
+    ```
+    public class Foo 
+    {
+        someCode
+    }
 - There shall be at least one blank line between each method in a class.
 
 ## Coding Practices
