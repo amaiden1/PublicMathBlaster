@@ -42,3 +42,4 @@ This guide is designed to explain and set forth coding conventions and styles, a
 ## Coding Practices
 
 - Lambda functions are preferred to anonymous classes when possible.
+- Anonymous objects are allowed and encouraged.
