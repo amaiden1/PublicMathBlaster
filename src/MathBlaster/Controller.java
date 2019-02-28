@@ -10,6 +10,7 @@ import javafx.util.Duration;
 
 public class Controller {
 
+    //I am testing this to test committing to git
 	private Scene scene;
 	private Pane pane;
 	private boolean leftPressed;
