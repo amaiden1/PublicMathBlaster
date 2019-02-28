@@ -6,7 +6,7 @@ ITEC 371 group project
 - Joe Semendinger (`<<username_here>>`)
 - Austin Maiden (`amaiden1`)
 - Nolan Ierardi (`nierardi`)
-- John Laws (`<<username_here>>`)
+- John Laws (`<<Darki>>`)
 - Emmanuel Edamwen (`<<username_here>>`)
 
 ##### Assignment Notes
