@@ -1,6 +1,9 @@
 # S.M.I.L.E. Math Blaster
 
 ITEC 371 group project
+### Project Description
+
+This project is going to be a simple shooter game that tests the user's math skills in a race against time.
 
 ### Contributors
 - Joe Semendinger (`jsemendinger`)
