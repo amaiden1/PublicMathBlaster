@@ -12,7 +12,7 @@ public class Bullet {
 
 	public Bullet(double x, double y) {
 		bull = new Circle(10);
-		bull.setFill(Paint.valueOf("RED"));
+		bull.setFill(Paint.valueOf("BLUE"));
 		this.x = x;
 		this.y = y;
 	}
