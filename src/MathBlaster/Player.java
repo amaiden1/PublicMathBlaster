@@ -1,3 +1,7 @@
+package MathBlaster;
+
+//Emmanuel Edamwen
+
 public class Player {
     //private String playerName;
     private int lives;
