@@ -1,6 +1,6 @@
 public class Player {
     //private String playerName;
-    private int lives;
+    private int lives; //player will have 3 lives
     private int score;
 
     public Player(int lives, int score){
