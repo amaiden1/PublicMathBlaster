@@ -34,27 +34,16 @@ public class Controller {
 		shooty = new Shooter(400, 500);
 		bulletsOnScreen = new ArrayList<>();
 		getRect = new ArrayList<>();
-		getRect.add(new Button("0"));
-		getRect.get(0).setPrefSize(120, 120);
-		getRect.get(0).relocate(0,0);
-		getRect.get(0).setDisable(true);
-		getRect.add(new Button("1"));
-		getRect.get(1).setPrefSize(120, 120);
-		getRect.get(1).relocate(120,0);
-		getRect.get(1).setDisable(true);
-		getRect.add(new Button("2"));
-		getRect.get(2).setPrefSize(120, 120);
-		getRect.get(2).relocate(240,0);
-		getRect.get(2).setDisable(true);
-		getRect.add(new Button("3"));
-		getRect.get(3).setPrefSize(120, 120);
-		getRect.get(3).relocate(360,0);
-		getRect.get(3).setDisable(true);
-		getRect.add(new Button("4"));
-		getRect.get(4).setPrefSize(120, 120);
-		getRect.get(4).relocate(480,0);
-		getRect.get(4).setDisable(true);
-		
+	
+		//Blocks
+		for (int i = 0; i <= 4; i++) 
+		{
+		getRect.add(new Button(Integer.toString(i)));
+		getRect.get(i).setPrefSize(120, 120);
+		getRect.get(i).relocate(i * 120,0);
+		getRect.get(i).setDisable(true);
+			
+		}
 
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
