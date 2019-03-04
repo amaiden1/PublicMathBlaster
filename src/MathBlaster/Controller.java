@@ -79,7 +79,7 @@ public class Controller {
 			for(Bullet b : bulletsOnScreen) {
 				b.decY(BULLET_DELTA);
 				for(Button butt: getRect) {
-					if(b.getIV().intersects(butt.getBoundsInParent())){
+					if(b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())){
 						pane.getChildren().remove(butt);
 						pane.getChildren().remove(b.getIV());
 						System.out.println("Boom!");
