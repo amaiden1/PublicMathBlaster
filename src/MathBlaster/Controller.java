@@ -8,6 +8,9 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import javafx.scene.control.Button;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class Controller {
 
@@ -19,6 +22,7 @@ public class Controller {
 	private boolean rightPressed;
 	private Shooter shooty;
 	private ArrayList<Bullet> bulletsOnScreen;
+	private ArrayList<Button> getRect;
 
 	private final int SHOOTER_DELTA = 5;
 	private final int BULLET_DELTA = 3;
@@ -29,6 +33,17 @@ public class Controller {
 		scene = new Scene(pane);
 		shooty = new Shooter(400, 500);
 		bulletsOnScreen = new ArrayList<>();
+		getRect = new ArrayList<>();
+	
+		//Blocks
+		for (int i = 0; i <= 4; i++) 
+		{
+		getRect.add(new Button(Integer.toString(i)));
+		getRect.get(i).setPrefSize(120, 120);
+		getRect.get(i).relocate(i * 120,0);
+		getRect.get(i).setDisable(true);
+			
+		}
 
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
@@ -65,6 +80,13 @@ public class Controller {
 		    // update bullets
 			for(Bullet b : bulletsOnScreen) {
 				b.decY(BULLET_DELTA);
+				for(Button butt: getRect) {
+					if(b.getIV().intersects(butt.getBoundsInParent())){
+						pane.getChildren().remove(butt);
+						pane.getChildren().remove(b.getIV());
+						System.out.println("Boom!");
+					}
+				}
 				if(b.willDespawn()) {
 					// despawn bullet
 					pane.getChildren().remove(b.getIV());
@@ -75,7 +97,9 @@ public class Controller {
 		update.play();
 
 		// add all things to pane
-		pane.getChildren().add(shooty.getIV());
+		pane.getChildren().addAll(shooty.getIV(),getRect.get(0),
+				getRect.get(1),getRect.get(2),getRect.get(3),getRect.get(4));
+		
 
 	}
 
