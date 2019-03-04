@@ -61,4 +61,6 @@ public class Shooter {
 		return new Bullet(x, y);
 	}
 
+
+
 }
