@@ -12,9 +12,9 @@ public class Shooter {
 	{
 		this.x = x;
 		this.y = y;
-		iv = new ImageView("/img/glock.jpg");
-		iv.setFitWidth(50);
-		iv.setFitHeight(50);
+		iv = new ImageView("/img/spaceship.jpg");
+		iv.setFitWidth(80);
+		iv.setFitHeight(100);
 	}
 
 	public void setX(double x) {
@@ -60,5 +60,7 @@ public class Shooter {
 	public Bullet shoot() {
 		return new Bullet(x, y);
 	}
+
+
 
 }
