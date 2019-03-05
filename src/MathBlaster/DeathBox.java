@@ -28,11 +28,12 @@ public class DeathBox extends Controller{
         //Button no = new Button("No");
 
         VBox layout = new VBox(10);
+        layout.getStyleClass().addAll("mathblaster");
 
 
         yes.setOnAction(e -> {
-            newGame = true;
-         window.close();
+            Controller getMethod = new Controller();
+            getMethod.resetGame();
         });
 
         layout.getChildren().addAll(label, yes);
@@ -43,12 +44,6 @@ public class DeathBox extends Controller{
 
         return answer;
     }
-
-    /**
-     *
-     * @param message - Message we send user to ask for information
-     * @return - Returns if its an int or not
-     */
 
     public boolean setNewGame(){
         boolean check = false;

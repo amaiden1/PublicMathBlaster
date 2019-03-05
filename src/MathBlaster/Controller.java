@@ -203,13 +203,11 @@ public class Controller extends Main {
 	}
 
 	public void checkDeath(){
-		if (player.getLives() == 0){
+		if (player.getLives() <= 0){
 			update.stop();
 			DeathBox deathbox = new DeathBox();
 			deathbox.display("Game Over!", "Want to play again?", update);
 			if(deathbox.setNewGame()){
-			    update.play();
-			   update.playFromStart();
 			   player.setLives(3);
             }
 
@@ -217,5 +215,8 @@ public class Controller extends Main {
 	}
 
 	//public void scoreIncrease()
+	public void resetGame(){
+		System.out.println("Well yes button works");
+	}
 
 }
