@@ -51,7 +51,7 @@ public class Controller {
 		pane = new Pane();
 		pane.setPrefSize(600,600);
 		scene = new Scene(pane);
-		shooty = new Shooter(400, 500);
+		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
 		bulletsOnScreen = new ArrayList<>();
 		
 		resetButtons();

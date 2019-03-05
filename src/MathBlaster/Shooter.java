@@ -8,13 +8,13 @@ public class Shooter {
 	private double x;
 	private double y;
 
-	public Shooter(int x, int y)
+	public Shooter(double x, double y)
 	{
 		this.x = x;
 		this.y = y;
 		iv = new ImageView("/img/spaceship.jpg");
 		iv.setFitWidth(80);
-		iv.setFitHeight(100);
+		iv.setFitHeight(80);
 		iv.relocate(x, y);
 	}
 
