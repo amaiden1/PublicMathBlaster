@@ -15,7 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
-public class Controller extends Main {
+public class Controller {
 
 	//I am testing this to test committing to git
     // this is another comment
@@ -83,8 +83,6 @@ public class Controller extends Main {
 			
 		    // update bullets
             try {
-
-
                 for (Bullet b : bulletsOnScreen) {
                     b.decY(BULLET_DELTA);
                     for (Button butt : getRect) {
@@ -103,8 +101,6 @@ public class Controller extends Main {
                             pane.getChildren().remove(b.getIV());
                             System.out.println("Boom!");
                         }
-						
-						
                     }
                     if (b.willDespawn()) {
                         // despawn bullet
@@ -112,17 +108,14 @@ public class Controller extends Main {
 						bulletsOnScreen.remove(b);
                     }
                 }
-
             } catch (ConcurrentModificationException e) {
-				
             }
 
-//why so many spaces???
+//why so many spaces??? 
 
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
-		
 	}
 	
 	private void resetButtons(){
@@ -184,7 +177,6 @@ public class Controller extends Main {
 			}
 		}
 		System.out.println("current level: " + currentLevel + "\nAnswer: " + answer + "\nBox with answer: " + getRect.indexOf(answerBox));
-		
 	}
 
 	public void updateShooter() {
@@ -197,7 +189,6 @@ public class Controller extends Main {
 		    // move left
 			shooty.decX(SHOOTER_DELTA);
 		}
-
 	}
 
 	public Scene getScene() {
@@ -218,7 +209,6 @@ public class Controller extends Main {
 			if(deathbox.setNewGame()){
 			   player.setLives(3);
             }
-
 		}
 	}
 
@@ -226,5 +216,4 @@ public class Controller extends Main {
 	public void resetGame(){
 		System.out.println("Well yes button works");
 	}
-
 }
