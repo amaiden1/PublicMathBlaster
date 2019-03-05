@@ -15,7 +15,7 @@ public class DeathBox extends Controller{
     //Variables gotten from pop up box
     private int answer;
     private boolean newGame = false;
-
+	
     public int display(String title, String message, Timeline game) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
