@@ -11,7 +11,9 @@ import java.util.ConcurrentModificationException;
 import java.util.Random;
 
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -67,6 +69,12 @@ public class Controller {
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
 				System.out.println("SHOOTING");
+			}
+			if(event.getCode() == KeyCode.ESCAPE) {
+				//pause
+				update.pause();
+				new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
+				update.play();
 			}
 			System.out.println("a key pressed");
 		});
