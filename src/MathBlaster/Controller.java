@@ -36,11 +36,16 @@ public class Controller {
 	private Label livesLabel;
 	private Label equationLabel;
 	private Player player = new Player(3, 0);
+	private final boolean DEV_MODE = true;
 
 	private final int SHOOTER_DELTA = 5;
 	private final int BULLET_DELTA = 3;
 
 	public Controller() {
+		if(DEV_MODE)
+		{
+			player.setLives(Integer.MAX_VALUE);
+		}
 		pane = new Pane();
 		pane.setPrefSize(600,600);
 		scene = new Scene(pane);
@@ -154,10 +159,10 @@ public class Controller {
 	 * @param level the numerical value of the new level
 	 */
 	public void newLevel(int level){
-		initialize();
 		currentLevel = level;
 		Random rand = new Random();
 		answer = rand.nextInt(ANSWER_LIMIT);
+		initialize();
 		int answerIndex = rand.nextInt(getRect.size()-1);
 		answerBox = getRect.get(answerIndex);
 		ArrayList<Integer> answers = new ArrayList<>();
@@ -198,6 +203,7 @@ public class Controller {
 	public void minusLife(){
 		player.setLives(player.getLives() - 1);
 		System.out.print(player.getLives());
+		livesLabel.setText(Integer.toString(player.getLives()));
 		checkDeath();
 	}
 
