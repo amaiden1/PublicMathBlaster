@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class Controller {
 
-	//I am testing this to test committing to git
+	//plz work
     // this is another comment
 	private Scene scene;
 	private Pane pane;
@@ -138,9 +138,9 @@ public class Controller {
 		levelLabel = new Label("level: " + currentLevel);
 		levelLabel.relocate(0,0);
 		equationLabel = new Label("Answer: " + answer);
-		equationLabel.relocate(50, 0);
+		equationLabel.relocate(200, 0);
 		livesLabel = new Label("Lives: " + player.getLives());
-		livesLabel.relocate(200, 0);
+		livesLabel.relocate(500, 0);
 		pane.getChildren().addAll(levelLabel, equationLabel, livesLabel);
 	}
 	
