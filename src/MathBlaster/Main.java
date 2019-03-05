@@ -23,16 +23,11 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
-		/*Controller ctrl = new Controller();
-		primaryStage.setScene(ctrl.getScene());
-		primaryStage.show();*/
+		
 		Pane root = FXMLLoader.load(getClass().getResource("Main_Menu.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setTitle("Mathblaster");
         primaryStage.setScene(scene);
         primaryStage.show();
-
 	}
-
 }
