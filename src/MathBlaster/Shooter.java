@@ -15,6 +15,7 @@ public class Shooter {
 		iv = new ImageView("/img/spaceship.jpg");
 		iv.setFitWidth(80);
 		iv.setFitHeight(100);
+		iv.relocate(x, y);
 	}
 
 	public void setX(double x) {
