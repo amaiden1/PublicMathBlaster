@@ -29,6 +29,7 @@ public class Controller extends Main {
 	private int answer;
 	private Button answerBox;
 	private final int ANSWER_LIMIT = 5;
+	private final int NUM_BUTTONS = 5;
 	private Player player = new Player(3, 0);
 
 	private final int SHOOTER_DELTA = 5;
@@ -40,17 +41,8 @@ public class Controller extends Main {
 		scene = new Scene(pane);
 		shooty = new Shooter(400, 500);
 		bulletsOnScreen = new ArrayList<>();
-		getRect = new ArrayList<>();
-	
-		//Blocks
-		for (int i = 0; i <= 4; i++) 
-		{
-		getRect.add(new Button(Integer.toString(new Random().nextInt(11))));
-		getRect.get(i).setPrefSize(120, 120);
-		getRect.get(i).relocate(i * 120,0);
-		getRect.get(i).setDisable(true);
-			
-		}
+		
+		resetButtons();
 
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
@@ -95,21 +87,22 @@ public class Controller extends Main {
                     b.decY(BULLET_DELTA);
                     for (Button butt : getRect) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
+							if(butt == answerBox){
+								System.out.println("good work!");
+								newLevel(currentLevel+1);
+							}
+							else{
+								System.out.println("Wrong button, pal");
+								minusLife();
+							}
                             pane.getChildren().remove(butt);
-
-                    /*
-						try {
                             bulletsOnScreen.remove(b);
-                        }catch (Exception e) {
-
-                        }
-                    */
-                            bulletsOnScreen.remove(b);
-                            //b = null;
-                            minusLife();
+                            
                             pane.getChildren().remove(b.getIV());
                             System.out.println("Boom!");
                         }
+						
+						
                     }
                     if (b.willDespawn()) {
                         // despawn bullet
@@ -126,11 +119,33 @@ public class Controller extends Main {
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
-
-		// add all things to pane
-		pane.getChildren().addAll(shooty.getIV(),getRect.get(0),
-				getRect.get(1),getRect.get(2),getRect.get(3),getRect.get(4));
 		
+	}
+	
+	
+	private void resetButtons(){
+		getRect = new ArrayList<>();
+		for(int i = 0; i < NUM_BUTTONS; i++){
+			getRect.add(new Button());
+			getRect.get(i).setPrefSize(120, 120);
+			getRect.get(i).relocate(i * 120,0);
+			getRect.get(i).setDisable(true);
+			pane.getChildren().add(getRect.get(i));
+		}
+	}
+	
+	private void updateLabels(){
+		//do nothing yet
+	}
+	
+	public void initialize(){
+		pane.getChildren().clear();
+		//must reset buttons
+		resetButtons();
+		//must relocate player
+		pane.getChildren().add(shooty.getIV());
+		//must update labels
+		updateLabels();
 	}
 	
 	/**
@@ -138,6 +153,7 @@ public class Controller extends Main {
 	 * @param level 
 	 */
 	public void newLevel(int level){
+		initialize();
 		currentLevel = level;
 		Random rand = new Random();
 		answer = rand.nextInt(ANSWER_LIMIT);
