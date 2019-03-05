@@ -6,6 +6,9 @@
 package MathBlaster;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -21,9 +24,14 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
-		Controller ctrl = new Controller();
+		/*Controller ctrl = new Controller();
 		primaryStage.setScene(ctrl.getScene());
-		primaryStage.show();
+		primaryStage.show();*/
+		Pane root = FXMLLoader.load(getClass().getResource("Main_Menu.fxml"));
+        Scene scene = new Scene(root);
+        primaryStage.setTitle("Mathblaster");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
 	}
 
