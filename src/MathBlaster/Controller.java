@@ -68,14 +68,9 @@ public class Controller {
 				Bullet bullet = shooty.shoot();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
+			}
 				System.out.println("SHOOTING");
-			}
-			if(event.getCode() == KeyCode.ESCAPE) {
-				//pause
-				update.pause();
-				new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
-				update.play();
-			}
+				
 			System.out.println("a key pressed");
 		});
 
@@ -85,6 +80,11 @@ public class Controller {
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = false;
+			}if(event.getCode() == KeyCode.ESCAPE) {
+				//pause
+				update.pause();
+				new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
+				update.play();
 			}
 			System.out.println("a key released");
 		});
