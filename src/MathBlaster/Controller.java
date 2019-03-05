@@ -133,7 +133,7 @@ public class Controller extends Main {
 			pane.getChildren().add(getRect.get(i));
 		}
 	}
-	
+	//Test?
 	private void updateLabels(){
 		//do nothing yet
 	}
