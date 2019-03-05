@@ -13,6 +13,7 @@ public class Menu {
     private Button playBtn;
 	private Controller ctrl;
 	private Stage stg;
+	private Stage menuStage;
 
 	@FXML
 	private void play()
@@ -21,5 +22,10 @@ public class Menu {
 	stg = new Stage();
 	stg.setScene(ctrl.getScene());
 	stg.show();
+	menuStage.hide();
 }
+	public void setMenuStage(Stage stage)
+	{
+		menuStage = stage;
+	}
 }
