@@ -12,6 +12,8 @@ import java.util.Random;
 
 import java.util.ArrayList;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class Controller extends Main {
 
@@ -30,6 +32,9 @@ public class Controller extends Main {
 	private Button answerBox;
 	private final int ANSWER_LIMIT = 5;
 	private final int NUM_BUTTONS = 5;
+	private Label levelLabel;
+	private Label livesLabel;
+	private Label equationLabel;
 	private Player player = new Player(3, 0);
 
 	private final int SHOOTER_DELTA = 5;
@@ -75,11 +80,8 @@ public class Controller extends Main {
 		update = new Timeline(new KeyFrame(Duration.millis(10), event -> {
 			// update shooter
 		    updateShooter();
-
-
-
+			
 		    // update bullets
-
             try {
 
 
@@ -107,6 +109,7 @@ public class Controller extends Main {
                     if (b.willDespawn()) {
                         // despawn bullet
                         pane.getChildren().remove(b.getIV());
+						bulletsOnScreen.remove(b);
                     }
                 }
 
@@ -122,20 +125,25 @@ public class Controller extends Main {
 		
 	}
 	
-	
 	private void resetButtons(){
 		getRect = new ArrayList<>();
 		for(int i = 0; i < NUM_BUTTONS; i++){
 			getRect.add(new Button());
 			getRect.get(i).setPrefSize(120, 120);
-			getRect.get(i).relocate(i * 120,0);
+			getRect.get(i).relocate(i * 120,30);
 			getRect.get(i).setDisable(true);
 			pane.getChildren().add(getRect.get(i));
 		}
 	}
-	//Test?
+	//test?
 	private void updateLabels(){
-		//do nothing yet
+		levelLabel = new Label("level: " + currentLevel);
+		levelLabel.relocate(0,0);
+		equationLabel = new Label("Answer: " + answer);
+		equationLabel.relocate(50, 0);
+		livesLabel = new Label("Lives: " + player.getLives());
+		livesLabel.relocate(200, 0);
+		pane.getChildren().addAll(levelLabel, equationLabel, livesLabel);
 	}
 	
 	public void initialize(){
@@ -150,7 +158,7 @@ public class Controller extends Main {
 	
 	/**
 	 * initializes new level
-	 * @param level 
+	 * @param level the numerical value of the new level
 	 */
 	public void newLevel(int level){
 		initialize();
