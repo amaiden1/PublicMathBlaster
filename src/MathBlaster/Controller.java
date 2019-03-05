@@ -135,7 +135,7 @@ public class Controller extends Main {
 			pane.getChildren().add(getRect.get(i));
 		}
 	}
-	
+	//test?
 	private void updateLabels(){
 		levelLabel = new Label("level: " + currentLevel);
 		levelLabel.relocate(0,0);
