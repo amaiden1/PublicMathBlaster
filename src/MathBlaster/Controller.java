@@ -28,26 +28,23 @@ public class Controller {
 	private boolean rightPressed;
 	private Shooter shooty;
 	private ArrayList<Bullet> bulletsOnScreen;
-	private ArrayList<Button> getRect;
+	private ArrayList<Button> buttList;
 	private int currentLevel;
 	private int answer;
 	private Button answerBox;
+	private final boolean DEV_MODE = false;
 	private final int ANSWER_LIMIT = 5;
 	private final int NUM_BUTTONS = 5;
 	private Label levelLabel;
 	private Label livesLabel;
 	private Label equationLabel;
-	private Player player = new Player(3, 0);
-	private final boolean DEV_MODE = true;
+	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
+	
 
 	private final int SHOOTER_DELTA = 5;
 	private final int BULLET_DELTA = 3;
 
 	public Controller() {
-		if(DEV_MODE)
-		{
-			player.setLives(Integer.MAX_VALUE);
-		}
 		pane = new Pane();
 		pane.setPrefSize(600,600);
 		scene = new Scene(pane);
@@ -98,7 +95,7 @@ public class Controller {
             try {
                 for (Bullet b : bulletsOnScreen) {
                     b.decY(BULLET_DELTA);
-                    for (Button butt : getRect) {
+                    for (Button butt : buttList) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 							if(butt == answerBox){
 								System.out.println("good work!");
@@ -132,13 +129,13 @@ public class Controller {
 	}
 	
 	private void resetButtons(){
-		getRect = new ArrayList<>();
+		buttList = new ArrayList<>();
 		for(int i = 0; i < NUM_BUTTONS; i++){
-			getRect.add(new Button());
-			getRect.get(i).setPrefSize(120, 120);
-			getRect.get(i).relocate(i * 120,30);
-			getRect.get(i).setDisable(true);
-			pane.getChildren().add(getRect.get(i));
+			buttList.add(new Button());
+			buttList.get(i).setPrefSize(120, 120);
+			buttList.get(i).relocate(i * 120,30);
+			buttList.get(i).setDisable(true);
+			pane.getChildren().add(buttList.get(i));
 		}
 	}
 	//test?
@@ -171,13 +168,13 @@ public class Controller {
 		Random rand = new Random();
 		answer = rand.nextInt(ANSWER_LIMIT);
 		initialize();
-		int answerIndex = rand.nextInt(getRect.size()-1);
-		answerBox = getRect.get(answerIndex);
+		int answerIndex = rand.nextInt(buttList.size()-1);
+		answerBox = buttList.get(answerIndex);
 		ArrayList<Integer> answers = new ArrayList<>();
-		for(int i = 0; i < getRect.size(); i++){
+		for(int i = 0; i < buttList.size(); i++){
 			answers.add(answer);
 			if(i == answerIndex){
-				getRect.get(i).setText("" + answer);
+				buttList.get(i).setText("" + answer);
 			}
 			else{
 				int wrongAnswer;
@@ -186,10 +183,10 @@ public class Controller {
 					System.out.println("generating: " + wrongAnswer);
 				}while(wrongAnswer == answer || answers.contains((Integer)wrongAnswer));
 				answers.set(i, wrongAnswer);
-				getRect.get(i).setText("" + wrongAnswer);
+				buttList.get(i).setText("" + wrongAnswer);
 			}
 		}
-		System.out.println("current level: " + currentLevel + "\nAnswer: " + answer + "\nBox with answer: " + getRect.indexOf(answerBox));
+		System.out.println("current level: " + currentLevel + "\nAnswer: " + answer + "\nBox with answer: " + buttList.indexOf(answerBox));
 	}
 
 	public void updateShooter() {
@@ -211,7 +208,7 @@ public class Controller {
 	public void minusLife(){
 		player.setLives(player.getLives() - 1);
 		System.out.print(player.getLives());
-		livesLabel.setText(Integer.toString(player.getLives()));
+		livesLabel.setText("Lives: " + player.getLives());
 		checkDeath();
 	}
 
@@ -221,7 +218,9 @@ public class Controller {
 			DeathBox deathbox = new DeathBox();
 			deathbox.display("Game Over!", "Want to play again?", update);
 			if(deathbox.setNewGame()){
-			   player.setLives(3);
+				initialize();
+				player.setLives(3);
+				update.play();
             }
 		}
 	}
