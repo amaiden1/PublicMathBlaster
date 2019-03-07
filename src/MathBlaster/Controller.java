@@ -145,7 +145,7 @@ public class Controller {
 	}
 	//test?
 	private void updateLabels(){
-		levelLabel = new Label("level: " + currentLevel);
+		levelLabel = new Label("Level: " + currentLevel);
 		levelLabel.relocate(0,0);
 		levelLabel.setTextFill(Color.WHITE);
 		equationLabel = new Label("Answer: " + answer);

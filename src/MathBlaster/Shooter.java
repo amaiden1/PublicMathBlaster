@@ -12,7 +12,7 @@ public class Shooter {
 	{
 		this.x = x;
 		this.y = y;
-		iv = new ImageView("/img/spaceship.jpg");
+		iv = new ImageView("/img/spaceship.png");
 		iv.setFitWidth(80);
 		iv.setFitHeight(80);
 		iv.relocate(x, y);
