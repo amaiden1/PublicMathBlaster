@@ -1,33 +1,3 @@
-.text {
-    -fx-font-family: "Roboto Condensed";
-    -fx-fill: white;
-    -fx-font-size: 20;
-}
-
-.button {
-    -fx-background-color:black ;
-    -fx-border-color:transparent;
-    -fx-border-width: 0 3 3 0;
-
-    -fx-background-radius: 5,4,3,5;
-    -fx-background-insets: 0,1,2,0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-padding: 10 20 10 20;
-
-}
-
-.button:hover {
-    -fx-background-color:lightslategray;
-    -fx-background-radius:0;
-    -fx-border-color:lightslategray;
-    -fx-border-width: 0 3 3 0;
-
-    -fx-background-radius: 5,4,3,5;
-    -fx-background-insets: 0,1,2,0;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
-    -fx-padding: 10 20 10 20;
-}
-
-.button:hover .text{
-    -fx-fill: white;
+.pane {
+    -fx-background-color: #000000;
 }

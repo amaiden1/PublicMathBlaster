@@ -12,8 +12,8 @@ public class Bullet {
 
 	public Bullet(double x, double y) {
 		bull = new Circle(10);
-		bull.setFill(Paint.valueOf("BLUE"));
-		this.x = x;
+		bull.setFill(Paint.valueOf("0xa4b7d6"));
+		this.x = x + 30;
 		this.y = y;
 	}
 

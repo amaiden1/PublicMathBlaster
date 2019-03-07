@@ -158,6 +158,7 @@ public class Controller {
 	}
 	
 	public void initialize(){
+		bulletsOnScreen.clear();
 		pane.getChildren().clear();
 		//must reset buttons
 		resetButtons();
