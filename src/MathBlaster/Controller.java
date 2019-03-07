@@ -16,6 +16,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Controller {
@@ -140,6 +142,8 @@ public class Controller {
 			buttList.get(i).setPrefSize(120, 120);
 			buttList.get(i).relocate(i * 120,30);
 			buttList.get(i).setDisable(true);
+			buttList.get(i).setFont(new Font(30));
+			buttList.get(i).setTextFill(Paint.valueOf("0xbf3de2"));
 			pane.getChildren().add(buttList.get(i));
 		}
 	}
@@ -148,12 +152,15 @@ public class Controller {
 		levelLabel = new Label("Level: " + currentLevel);
 		levelLabel.relocate(0,0);
 		levelLabel.setTextFill(Color.WHITE);
+		levelLabel.setFont(new Font(25));
 		equationLabel = new Label("Answer: " + answer);
 		equationLabel.relocate(200, 0);
 		equationLabel.setTextFill(Color.WHITE);
+		equationLabel.setFont(new Font(25));
 		livesLabel = new Label("Lives: " + player.getLives());
 		livesLabel.relocate(500, 0);
 		livesLabel.setTextFill(Color.WHITE);
+		livesLabel.setFont(new Font(25));
 		pane.getChildren().addAll(levelLabel, equationLabel, livesLabel);
 	}
 	
