@@ -5,6 +5,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 import java.util.ConcurrentModificationException;
@@ -48,6 +49,10 @@ public class Controller {
 		pane = new Pane();
 		pane.setPrefSize(600,600);
 		scene = new Scene(pane);
+		scene.getStylesheets().addAll("mathblaster.css");
+
+
+		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); -fx-background-repeat: stretch; -fx-background-size: 600 600; -fx-text-fill: white; -fx-background-position: center center;");
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
 		bulletsOnScreen = new ArrayList<>();
 		
@@ -142,10 +147,13 @@ public class Controller {
 	private void updateLabels(){
 		levelLabel = new Label("level: " + currentLevel);
 		levelLabel.relocate(0,0);
+		levelLabel.setTextFill(Color.WHITE);
 		equationLabel = new Label("Answer: " + answer);
 		equationLabel.relocate(200, 0);
+		equationLabel.setTextFill(Color.WHITE);
 		livesLabel = new Label("Lives: " + player.getLives());
 		livesLabel.relocate(500, 0);
+		livesLabel.setTextFill(Color.WHITE);
 		pane.getChildren().addAll(levelLabel, equationLabel, livesLabel);
 	}
 	
