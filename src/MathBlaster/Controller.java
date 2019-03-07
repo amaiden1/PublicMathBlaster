@@ -2,12 +2,14 @@ package MathBlaster;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
@@ -242,7 +244,18 @@ public class Controller {
 	}
 
 	//public void scoreIncrease()
-	public void resetGame(){
-		System.out.println("Well yes button works");
+	public void resetGame(Stage primaryStage) throws IOException {
+
+
+		Menu mainMenu = new Menu();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
+		loader.setController(mainMenu);
+		Pane root = loader.load();
+		Scene scene = new Scene(root);
+		primaryStage.setTitle("Mathblaster");
+		primaryStage.setScene(scene);
+		mainMenu.setMenuStage(primaryStage);
+		primaryStage.show();
+
 	}
 }

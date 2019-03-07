@@ -11,6 +11,8 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 import javafx.animation.Timeline;
 
+import java.io.IOException;
+
 public class DeathBox extends Controller{
     //Variables gotten from pop up box
     private int answer;
@@ -33,7 +35,13 @@ public class DeathBox extends Controller{
 
         yes.setOnAction(e -> {
             Controller getMethod = new Controller();
-            getMethod.resetGame();
+            window.close();
+            Stage primaryStage = new Stage();
+            try {
+                getMethod.resetGame(primaryStage);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
 
         layout.getChildren().addAll(label, yes);
