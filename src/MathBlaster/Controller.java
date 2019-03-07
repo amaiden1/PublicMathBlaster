@@ -29,6 +29,7 @@ public class Controller {
 	private Timeline update;
 	private boolean leftPressed;
 	private boolean rightPressed;
+	private boolean isPaused;
 	private Shooter shooty;
 	private ArrayList<Bullet> bulletsOnScreen;
 	private ArrayList<Button> buttList;
@@ -86,9 +87,18 @@ public class Controller {
 			    rightPressed = false;
 			}if(event.getCode() == KeyCode.ESCAPE) {
 				//pause
+				if(!isPaused)
+				{
 				update.pause();
+				isPaused = true;
 				new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
 				update.play();
+				}
+				else
+				{
+					update.play();
+					isPaused = false;
+				}
 			}
 			System.out.println("a key released");
 		});
@@ -244,5 +254,6 @@ public class Controller {
 	//public void scoreIncrease()
 	public void resetGame(){
 		System.out.println("Well yes button works");
+		
 	}
 }
