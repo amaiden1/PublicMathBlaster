@@ -27,6 +27,7 @@ public class Controller {
 	//plz work
     // this is another comment
 	private Scene scene;
+	private Stage stage;
 	private Pane pane;
 	private Timeline update;
 	private boolean leftPressed;
@@ -54,6 +55,9 @@ public class Controller {
 		pane = new Pane();
 		pane.setPrefSize(600,600);
 		scene = new Scene(pane);
+		stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 		scene.getStylesheets().addAll("mathblaster.css");
 
 
@@ -145,6 +149,9 @@ public class Controller {
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
+	}
+	public Controller(boolean b)
+	{
 	}
 	
 	private void resetButtons(){
@@ -241,9 +248,9 @@ public class Controller {
 	}
 
 	public void checkDeath(){
-		if (player.getLives() <= 0){
+		if (player.getLives() == 0){
 			update.stop();
-			DeathBox deathbox = new DeathBox();
+			DeathBox deathbox = new DeathBox(this.getStage());
 			deathbox.display("Game Over!", "Want to play again?", update);
 			if(deathbox.setNewGame()){
 				initialize();
@@ -256,7 +263,6 @@ public class Controller {
 	//public void scoreIncrease()
 	public void resetGame(Stage primaryStage) throws IOException {
 
-
 		Menu mainMenu = new Menu();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
 		loader.setController(mainMenu);
@@ -267,5 +273,13 @@ public class Controller {
 		mainMenu.setMenuStage(primaryStage);
 		primaryStage.show();
 
+	}
+
+	public Stage getStage() {
+		return stage;
+	}
+
+	public void setStage(Stage stage) {
+		this.stage = stage;
 	}
 }

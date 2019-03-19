@@ -13,13 +13,19 @@ import javafx.animation.Timeline;
 
 import java.io.IOException;
 
-public class DeathBox extends Controller{
+public class DeathBox{
     //Variables gotten from pop up box
     private int answer;
     private boolean newGame = false;
+	private Stage stage;
+	
+	public DeathBox(Stage stayyyyge)
+	{
+		stage = stayyyyge;
+	}
 	
     public int display(String title, String message, Timeline game) {
-        Stage window = new Stage();
+		Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
         window.setMinWidth(250);
@@ -34,7 +40,8 @@ public class DeathBox extends Controller{
 
 
         yes.setOnAction(e -> {
-            Controller getMethod = new Controller();
+            stage.close();
+			Controller getMethod = new Controller(false);
             window.close();
             Stage primaryStage = new Stage();
             try {
