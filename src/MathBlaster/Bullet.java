@@ -21,8 +21,8 @@ public class Bullet {
 	public Bullet(double x, double y) {
 
         iv = new ImageView(image);
-        iv.setFitHeight(90);
-        iv.setFitWidth(24);
+        iv.setFitHeight(70);
+        iv.setFitWidth(20);
 
 		this.x = x + 50;
 		this.y = y;
