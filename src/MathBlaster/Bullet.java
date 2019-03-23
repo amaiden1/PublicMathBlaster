@@ -1,19 +1,30 @@
 package MathBlaster;
 
 import javafx.scene.Node;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.transform.Rotate;
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Bullet {
 
-	private Circle bull;
-	private double x;
+    private Image image = new Image("/img/bblast.png");
+    private ImageView iv;
+
+    private double x;
 	private double y;
 
 	public Bullet(double x, double y) {
-		bull = new Circle(10);
-		bull.setFill(Paint.valueOf("0xa4b7d6"));
-		this.x = x + 30;
+
+        iv = new ImageView(image);
+        iv.setFitHeight(90);
+        iv.setFitWidth(24);
+
+		this.x = x + 50;
 		this.y = y;
 	}
 
@@ -39,7 +50,7 @@ public class Bullet {
 	}
 
 	private void relocate() {
-		bull.relocate(x, y);
+		iv.relocate(x, y);
 	}
 
 	public boolean willDespawn() {
@@ -47,7 +58,7 @@ public class Bullet {
 	}
 
 	public Node getIV() {
-		return bull;
+		return iv;
 	}
 
 }

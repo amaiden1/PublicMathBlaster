@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaView;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.AudioTrack;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -39,7 +44,7 @@ public class Controller {
 	private int currentLevel;
 	private int answer;
 	private Button answerBox;
-	private final boolean DEV_MODE = false;
+	private final boolean DEV_MODE = true;
 	private final int ANSWER_LIMIT = 5;
 	private final int NUM_BUTTONS = 5;
 	private Label levelLabel;
@@ -274,6 +279,10 @@ public class Controller {
 		primaryStage.show();
 
 	}
+
+	public void playAudio() {
+
+    }
 
 	public Stage getStage() {
 		return stage;
