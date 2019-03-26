@@ -56,6 +56,9 @@ public class Controller {
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
 	
+	AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
+	//AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
+	
 
 	private final int SHOOTER_DELTA = 5;
 	private final int BULLET_DELTA = 3;
@@ -75,16 +78,20 @@ public class Controller {
 		bulletsOnScreen = new ArrayList<>();
 		
 		resetButtons();
+		
 
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
 			    leftPressed = true;
+				//move.play();
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = true;
+				//move.play();
 			}
 			if(event.getCode() == KeyCode.SPACE) {
 				// shoot
+				shoot.play();
 				Bullet bullet = shooty.shoot();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
@@ -299,10 +306,6 @@ public class Controller {
 		primaryStage.show();
 
 	}
-
-	public void playAudio() {
-
-    }
 
 	public Stage getStage() {
 		return stage;
