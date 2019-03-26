@@ -1,5 +1,6 @@
 package MathBlaster;
 
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaView;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.AudioTrack;
+import javafx.geometry.Bounds;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -35,6 +37,7 @@ public class Controller {
 	private Stage stage;
 	private Pane pane;
 	private Timeline update;
+	private Timeline buttonTimeline;
 	private boolean leftPressed;
 	private boolean rightPressed;
 	private boolean isPaused;
@@ -43,6 +46,7 @@ public class Controller {
 	private ArrayList<Button> buttList;
 	private int currentLevel;
 	private int answer;
+	private int minusButtSpeed = 1;
 	private Button answerBox;
 	private final boolean DEV_MODE = true;
 	private final int ANSWER_LIMIT = 5;
@@ -146,6 +150,7 @@ public class Controller {
 						bulletsOnScreen.remove(b);
                     }
                 }
+
             } catch (ConcurrentModificationException e) {
             }
 
@@ -154,6 +159,21 @@ public class Controller {
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
+
+
+		//moves the buttons down
+		buttonTimeline  = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+			for (Button butt: buttList){
+				butt.setLayoutY(butt.getLayoutY() + 3);
+
+				//Collision hasn't been dealt with yet
+
+			}
+		}));
+
+		buttonTimeline.setCycleCount(Timeline.INDEFINITE);
+		buttonTimeline.play();
+
 	}
 	public Controller(boolean b)
 	{
