@@ -41,6 +41,7 @@ public class Controller {
 	private boolean leftPressed;
 	private boolean rightPressed;
 	private boolean isPaused;
+	private boolean fastMode;
 	private Shooter shooty;
 	private ArrayList<Bullet> bulletsOnScreen;
 	private ArrayList<Button> buttList;
@@ -169,9 +170,10 @@ public class Controller {
 
 
 		//moves the buttons down
-		buttonTimeline  = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+		// original values: 3 seconds, 10 pixels
+		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), event -> {
 			for (Button butt: buttList){
-				butt.setLayoutY(butt.getLayoutY() + 3);
+				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
 
 				//Collision hasn't been dealt with yet
 
@@ -184,11 +186,14 @@ public class Controller {
 	}
 	public Controller(boolean b)
 	{
+		// does nothing, but it's supposed to ;)
 	}
 	
-	private void resetButtons(){
+	private void resetButtons()
+	{
 		buttList = new ArrayList<>();
-		for(int i = 0; i < NUM_BUTTONS; i++){
+		for(int i = 0; i < NUM_BUTTONS; i++)
+		{
 			buttList.add(new Button());
 			buttList.get(i).setPrefSize(120, 120);
 			buttList.get(i).relocate(i * 120,30);
@@ -305,6 +310,10 @@ public class Controller {
 		mainMenu.setMenuStage(primaryStage);
 		primaryStage.show();
 
+	}
+
+	public void setFastMode(boolean fastMode) {
+		this.fastMode = fastMode;
 	}
 
 	public Stage getStage() {
