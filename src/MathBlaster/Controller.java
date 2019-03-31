@@ -49,7 +49,7 @@ public class Controller {
 	private int answer;
 	private int minusButtSpeed = 1;
 	private Button answerBox;
-	private final boolean DEV_MODE = true;
+	private final boolean DEV_MODE = false;
 	private final int ANSWER_LIMIT = 5;
 	private final int NUM_BUTTONS = 5;
 	private Label levelLabel;
@@ -304,9 +304,9 @@ public class Controller {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
-		Scene scene = new Scene(root);
+		mainMenu.postInit();
 		primaryStage.setTitle("Mathblaster");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(new Scene(root));
 		mainMenu.setMenuStage(primaryStage);
 		primaryStage.show();
 

@@ -2,39 +2,82 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="250.0" prefWidth="326.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="505.0" prefWidth="738.0" style="-fx-background-color: BLACK;" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="246.0" prefWidth="326.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="246.0" prefWidth="482.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="62.0" layoutY="14.0" style="&#10;" text="Welcome to Mathblaster!" textAlignment="CENTER" textFill="#ca1515" wrapText="false">
+        <Label alignment="CENTER" layoutX="19.0" layoutY="14.0" style="&#10;" text="MATH" textAlignment="CENTER" textFill="#8571cd" wrapText="false">
           <font>
-            <Font name="Roboto Medium" size="18.0" />
+            <Font name="Roboto Bold" size="37.0" />
           </font>
         </Label>
-            <VBox alignment="CENTER" layoutX="83.0" layoutY="37.0" prefHeight="145.0" prefWidth="158.0">
+            <Label alignment="CENTER" layoutX="19.0" layoutY="57.0" style="&#10;" text="BLASTER" textAlignment="CENTER" textFill="#961eff" wrapText="false">
+               <font>
+                  <Font name="Roboto Bold" size="37.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="21.0" layoutY="124.0" style="&#10;" text="Start a new game:" textAlignment="CENTER" textFill="#45c9f2" wrapText="false">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <ScrollPane layoutX="353.0" layoutY="14.0" prefHeight="477.0" prefWidth="371.0">
+               <content>
+                  <HBox prefHeight="475.0" prefWidth="369.0">
+                     <children>
+                        <VBox prefHeight="475.0" prefWidth="232.0" />
+                        <VBox prefHeight="475.0" prefWidth="136.0" />
+                     </children>
+                  </HBox>
+               </content>
+            </ScrollPane>
+            <Label alignment="CENTER" layoutX="237.0" layoutY="89.0" rotate="-90.0" style="&#10;" text="HIGH SCORES" textAlignment="CENTER" textFill="#3a5ff0" wrapText="false">
+               <font>
+                  <Font name="Roboto Medium" size="29.0" />
+               </font>
+            </Label>
+            <VBox layoutX="22.0" layoutY="156.0" prefHeight="205.0" prefWidth="174.0" spacing="5.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="18.0" prefWidth="158.0" text="Choose Your Difficulty" />
-                  <RadioButton fx:id="diff1" contentDisplay="TOP" mnemonicParsing="false" prefHeight="18.0" prefWidth="100.0" selected="true" text="Difficulty 1" textAlignment="CENTER">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="g1" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="diff2" contentDisplay="TOP" mnemonicParsing="false" prefHeight="18.0" prefWidth="100.0" text="Difficulty 2" textAlignment="CENTER" toggleGroup="$g1" />
-                  <RadioButton fx:id="diff3" mnemonicParsing="false" prefHeight="18.0" prefWidth="100.0" text="Difficulty 3" toggleGroup="$g1" />
-                  <RadioButton fx:id="diff4" mnemonicParsing="false" prefHeight="18.0" prefWidth="100.0" text="Difficulty 4" toggleGroup="$g1" />
-                  <RadioButton fx:id="diff5" mnemonicParsing="false" prefHeight="18.0" prefWidth="100.0" text="Difficulty 5" toggleGroup="$g1" />
-                  <ToggleButton fx:id="fsModeBtn" mnemonicParsing="false" prefHeight="26.0" prefWidth="166.0" text="Fastmode" />
-                  <Button fx:id="leadBtn" mnemonicParsing="false" text="Leaderboard" />
-                  <Button fx:id="playBtn" alignment="CENTER" mnemonicParsing="false" onAction="#play" text="Play game" />
+                  <Button fx:id="playD1Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD1BtnClicked" prefHeight="37.0" prefWidth="213.0" style="-fx-border-color: #2db2ef;" text="Beginner" textFill="#2db2ef">
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font></Button>
+                  <Button fx:id="playD2Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD2BtnClicked" prefHeight="37.0" prefWidth="330.0" style="-fx-border-color: #4081f9;" text="Easy" textFill="#4081f9">
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font></Button>
+                  <Button fx:id="playD3Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD3BtnClicked" prefHeight="37.0" prefWidth="285.0" style="-fx-border-color: #ad88f7;" text="Medium" textFill="#ad88f7">
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font></Button>
+                  <Button fx:id="playD4Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD4BtnClicked" prefHeight="37.0" prefWidth="190.0" style="-fx-border-color: #9c41d8;" text="Hard" textFill="#9c41d8">
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font></Button>
+                  <Button fx:id="playD5Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD5BtnClicked" prefHeight="37.0" prefWidth="381.0" style="-fx-border-color: #dc2def;" text="Difficult" textFill="#dc2def">
+                     <font>
+                        <Font name="Roboto" size="18.0" />
+                     </font></Button>
                </children>
             </VBox>
+            <Label alignment="CENTER" layoutX="21.0" layoutY="374.0" style="&#10;" text="Fast Mode" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Slider fx:id="fastModeSlider" layoutX="118.0" layoutY="376.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" prefHeight="16.0" prefWidth="42.0" snapToTicks="true" />
+            <Button fx:id="clearHighScoresBtn" alignment="CENTER" layoutX="301.0" layoutY="228.0" mnemonicParsing="false" onAction="#clearHighScoresBtnClicked" prefHeight="25.0" prefWidth="57.0" rotate="-90.0" style="-fx-border-color: #f74040;" text="Clear" textFill="#f74040">
+               <font>
+                  <Font name="Roboto" size="12.0" />
+               </font>
+            </Button>
       </children>
     </AnchorPane>
   </children>
