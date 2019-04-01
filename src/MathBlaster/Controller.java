@@ -106,46 +106,45 @@ public class Controller {
 			}
 			if(event.getCode() == KeyCode.ESCAPE) {
 				//pause
-				if(!isPaused) {
-					update.pause();
-					isPaused = true;
+				System.out.println("ESC!");
+				update.pause();
+				buttonTimeline.pause();
+				isPaused = true;
 
-					// create pause menu
-					try {
+				// create pause menu
+				try {
 
-						// set up OVs for continue and exit triggers
-						BooleanProperty continueValue = new SimpleBooleanProperty(false);
-						BooleanProperty quitValue = new SimpleBooleanProperty(false);
+					// set up OVs for continue and exit triggers
+					BooleanProperty continueValue = new SimpleBooleanProperty(false);
+					BooleanProperty quitValue = new SimpleBooleanProperty(false);
 
-						// create and show the menu
-						Stage pauseStage = new Stage();
-						PauseMenu pauseMenu = new PauseMenu();
-						FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
-						loader.setController(pauseMenu);
-						Pane root = loader.load();
-						// do post init things here
-						pauseMenu.setThisStage(pauseStage);
-						pauseMenu.setContinueValueListener(continueValue);
-						pauseMenu.setQuitValueListener(quitValue);
-						// end post init things
-						pauseStage.setTitle("Game Over");
-						pauseStage.setScene(new Scene(root));
-						pauseStage.initStyle(StageStyle.UNDECORATED);
-						pauseStage.show();
+					// create and show the menu
+					Stage pauseStage = new Stage();
+					PauseMenu pauseMenu = new PauseMenu();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+					loader.setController(pauseMenu);
+					Pane root = loader.load();
+					// do post init things here
+					pauseMenu.setThisStage(pauseStage);
+					pauseMenu.setContinueValueListener(continueValue);
+					pauseMenu.setQuitValueListener(quitValue);
+					// end post init things
+					pauseStage.setTitle("Game Over");
+					pauseStage.setScene(new Scene(root));
+					pauseStage.initStyle(StageStyle.UNDECORATED);
+					pauseStage.show();
 
-						// these OVs trigger whenever the user clicks conitnue or exit respectively
-						continueValue.addListener(observable -> update.play());
-						quitValue.addListener(observable -> Platform.exit());
+					// these OVs trigger whenever the user clicks conitnue or exit respectively
+					continueValue.addListener(observable -> {
+						update.play();
+						buttonTimeline.play();
+						isPaused = false;
+					});
+					quitValue.addListener(observable -> Platform.exit());
 
-						//new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
-					}
-					catch (IOException e) {
-
-					}
 				}
-				else {
-					update.play();
-					isPaused = false;
+				catch (IOException e) {
+					System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
 				}
 			}
 			System.out.println("a key released");
@@ -162,11 +161,11 @@ public class Controller {
                     b.decY(BULLET_DELTA);
                     for (Button butt : buttList) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
-							if(butt == answerBox){
+							if(butt == answerBox) {
 								System.out.println("good work!");
 								newLevel(currentLevel+1);
 							}
-							else{
+							else {
 								System.out.println("Wrong button, pal");
 								minusLife();
 							}
@@ -185,7 +184,7 @@ public class Controller {
                 }
 
             } catch (ConcurrentModificationException e) {
-            	// do nothing, sweet sweet nothing
+            	// do nothing
             }
 
 		}));
@@ -196,7 +195,7 @@ public class Controller {
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), event -> {
-			for (Button butt: buttList){
+			for (Button butt: buttList) {
 				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
 
 				//Collision hasn't been dealt with yet
@@ -334,7 +333,7 @@ public class Controller {
 					update.play();
 				}
 			} catch (IOException e) {
-				System.out.println("Fatal Error, cannot find the death box files. The game will crash.");
+				System.out.println("Fatal Error: cannot load death box FXML. The game will crash.");
 			}
 
 			/*
@@ -358,9 +357,9 @@ public class Controller {
 		loader.setController(mainMenu);
 		Pane root = loader.load();
 		mainMenu.postInit();
+		mainMenu.setMenuStage(primaryStage);
 		primaryStage.setTitle("Mathblaster");
 		primaryStage.setScene(new Scene(root));
-		mainMenu.setMenuStage(primaryStage);
 		primaryStage.show();
 
 	}
