@@ -5,6 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.nio.charset.MalformedInputException;
 
 /**
  *
@@ -23,9 +26,12 @@ public class Main extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
+		mainMenu.postInit();
         Scene scene = new Scene(root);
         primaryStage.setTitle("Mathblaster");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.initStyle(StageStyle.UNDECORATED);
 		mainMenu.setMenuStage(primaryStage);
         primaryStage.show();
 	}

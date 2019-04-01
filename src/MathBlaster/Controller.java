@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -49,7 +50,7 @@ public class Controller {
 	private int answer;
 	private int minusButtSpeed = 1;
 	private Button answerBox;
-	private final boolean DEV_MODE = true;
+	private final boolean DEV_MODE = false;
 	private final int ANSWER_LIMIT = 5;
 	private final int NUM_BUTTONS = 5;
 	private Label levelLabel;
@@ -287,6 +288,33 @@ public class Controller {
 	public void checkDeath(){
 		if (player.getLives() == 0){
 			update.stop();
+
+			try {
+				Stage deathBoxStage = new Stage();
+				DeathBox2 deathBox2 = new DeathBox2();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("DeathBox2.fxml"));
+				loader.setController(deathBox2);
+				Pane root = loader.load();
+				// do post init things here
+				deathBox2.setGameStage(getStage());
+				deathBox2.setThisStage(deathBoxStage);
+				deathBox2.setScore(player.getScore());
+				deathBox2.postInit();
+				// end post init things
+				deathBoxStage.setTitle("Game Over");
+				deathBoxStage.setScene(new Scene(root));
+				deathBoxStage.show();
+
+				if (deathBox2.isNewGame()) {
+					initialize();
+					player.setLives(3);
+					update.play();
+				}
+			} catch (IOException e) {
+				System.out.println("Fatal Error, cannot find the death box files. The game will crash.");
+			}
+
+			/*
 			DeathBox deathbox = new DeathBox(this.getStage());
 			deathbox.display("Game Over!", "Want to play again?", update);
 			if(deathbox.setNewGame()){
@@ -294,6 +322,8 @@ public class Controller {
 				player.setLives(3);
 				update.play();
             }
+            */
+
 		}
 	}
 
@@ -304,9 +334,9 @@ public class Controller {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
-		Scene scene = new Scene(root);
+		mainMenu.postInit();
 		primaryStage.setTitle("Mathblaster");
-		primaryStage.setScene(scene);
+		primaryStage.setScene(new Scene(root));
 		mainMenu.setMenuStage(primaryStage);
 		primaryStage.show();
 
