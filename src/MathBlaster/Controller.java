@@ -56,8 +56,8 @@ public class Controller {
 	private Label livesLabel;
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
-	
-//	AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
+
+	//  AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
 	//AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
 	
 
