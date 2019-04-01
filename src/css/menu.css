@@ -1,6 +1,6 @@
 @font-face {
     font-family: Roboto;
-    src: url('Roboto.ttf');
+    src: url('fonts/Roboto-Regular.ttf');
 }
 
 .root { 
@@ -64,4 +64,23 @@
 
 .on-slider .track {
 	-fx-border-color: #2cff4c;
+}
+
+.scroll-pane {
+	-fx-background-color: black;
+    -fx-border-radius: 1;
+    -fx-border-color: -fx-theme-color;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.text-field {
+	-fx-border-radius: 3;
+	-fx-background-radius: 3;
+	-fx-background-color: black;
+	-fx-border-width: 1;
+	-fx-border-color: white;
+	-fx-background-insets: 0;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0.0, 0, 2);
 }

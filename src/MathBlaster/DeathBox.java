@@ -39,15 +39,15 @@ public class DeathBox{
         layout.getStyleClass().addAll("mathblaster");
 
 
-        yes.setOnAction(e -> {
+        yes.setOnAction(event -> {
             stage.close();
-			Controller getMethod = new Controller(false);
+			Controller controller = new Controller(false);
             window.close();
             Stage primaryStage = new Stage();
             try {
-                getMethod.resetGame(primaryStage);
-            } catch (IOException e1) {
-                e1.printStackTrace();
+                controller.resetGame(primaryStage);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
