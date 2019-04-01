@@ -1,29 +1,24 @@
 package MathBlaster;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaView;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.AudioTrack;
-import javafx.geometry.Bounds;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -49,7 +44,7 @@ public class Controller {
 	private int answer;
 	private int minusButtSpeed = 1;
 	private Button answerBox;
-	private final boolean DEV_MODE = true;
+	private final boolean DEV_MODE = false;
 	private final int ANSWER_LIMIT = 5;
 	private final int NUM_BUTTONS = 5;
 	private Label levelLabel;
@@ -108,19 +103,48 @@ public class Controller {
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = false;
-			}if(event.getCode() == KeyCode.ESCAPE) {
+			}
+			if(event.getCode() == KeyCode.ESCAPE) {
 				//pause
-				if(!isPaused)
-				{
+				System.out.println("ESC!");
 				update.pause();
+				buttonTimeline.pause();
 				isPaused = true;
-				new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
-				update.play();
+
+				// create pause menu
+				try {
+
+					// set up OVs for continue and exit triggers
+					BooleanProperty continueValue = new SimpleBooleanProperty(false);
+					BooleanProperty quitValue = new SimpleBooleanProperty(false);
+
+					// create and show the menu
+					Stage pauseStage = new Stage();
+					PauseMenu pauseMenu = new PauseMenu();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+					loader.setController(pauseMenu);
+					Pane root = loader.load();
+					// do post init things here
+					pauseMenu.setThisStage(pauseStage);
+					pauseMenu.setContinueValueListener(continueValue);
+					pauseMenu.setQuitValueListener(quitValue);
+					// end post init things
+					pauseStage.setTitle("Game Over");
+					pauseStage.setScene(new Scene(root));
+					pauseStage.initStyle(StageStyle.UNDECORATED);
+					pauseStage.show();
+
+					// these OVs trigger whenever the user clicks conitnue or exit respectively
+					continueValue.addListener(observable -> {
+						update.play();
+						buttonTimeline.play();
+						isPaused = false;
+					});
+					quitValue.addListener(observable -> Platform.exit());
+
 				}
-				else
-				{
-					update.play();
-					isPaused = false;
+				catch (IOException e) {
+					System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
 				}
 			}
 			System.out.println("a key released");
@@ -137,11 +161,11 @@ public class Controller {
                     b.decY(BULLET_DELTA);
                     for (Button butt : buttList) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
-							if(butt == answerBox){
+							if(butt == answerBox) {
 								System.out.println("good work!");
 								newLevel(currentLevel+1);
 							}
-							else{
+							else {
 								System.out.println("Wrong button, pal");
 								minusLife();
 							}
@@ -160,9 +184,8 @@ public class Controller {
                 }
 
             } catch (ConcurrentModificationException e) {
+            	// do nothing
             }
-
-//why so many spaces??? 
 
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
@@ -172,7 +195,7 @@ public class Controller {
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), event -> {
-			for (Button butt: buttList){
+			for (Button butt: buttList) {
 				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
 
 				//Collision hasn't been dealt with yet
@@ -287,6 +310,33 @@ public class Controller {
 	public void checkDeath(){
 		if (player.getLives() == 0){
 			update.stop();
+
+			try {
+				Stage deathBoxStage = new Stage();
+				DeathBox2 deathBox2 = new DeathBox2();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("DeathBox2.fxml"));
+				loader.setController(deathBox2);
+				Pane root = loader.load();
+				// do post init things here
+				deathBox2.setGameStage(getStage());
+				deathBox2.setThisStage(deathBoxStage);
+				deathBox2.setScore(player.getScore());
+				deathBox2.postInit();
+				// end post init things
+				deathBoxStage.setTitle("Game Over");
+				deathBoxStage.setScene(new Scene(root));
+				deathBoxStage.show();
+
+				if (deathBox2.isNewGame()) {
+					initialize();
+					player.setLives(3);
+					update.play();
+				}
+			} catch (IOException e) {
+				System.out.println("Fatal Error: cannot load death box FXML. The game will crash.");
+			}
+
+			/*
 			DeathBox deathbox = new DeathBox(this.getStage());
 			deathbox.display("Game Over!", "Want to play again?", update);
 			if(deathbox.setNewGame()){
@@ -294,6 +344,8 @@ public class Controller {
 				player.setLives(3);
 				update.play();
             }
+            */
+
 		}
 	}
 
@@ -301,13 +353,13 @@ public class Controller {
 	public void resetGame(Stage primaryStage) throws IOException {
 
 		Menu mainMenu = new Menu();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
-		Scene scene = new Scene(root);
-		primaryStage.setTitle("Mathblaster");
-		primaryStage.setScene(scene);
+		mainMenu.postInit();
 		mainMenu.setMenuStage(primaryStage);
+		primaryStage.setTitle("Mathblaster");
+		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 
 	}
