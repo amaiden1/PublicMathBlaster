@@ -59,7 +59,9 @@ public class Controller {
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
 	
 	AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
-	//AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
+	AudioClip move = new AudioClip(this.getClass().getResource("/sounds/Movement.wav").toString());
+	AudioClip endGame = new AudioClip(this.getClass().getResource("/sounds/Starship_destroyed.wav").toString());
+	AudioClip bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 	
 
 	private final int SHOOTER_DELTA = 5;
@@ -85,11 +87,11 @@ public class Controller {
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
 			    leftPressed = true;
-				//move.play();
+				move.play();
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = true;
-				//move.play();
+				move.play();
 			}
 			if(event.getCode() == KeyCode.SPACE) {
 				// shoot
@@ -139,10 +141,13 @@ public class Controller {
                     for (Button butt : buttList) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 							if(butt == answerBox){
+								bulletHit.play();
 								System.out.println("good work!");
 								newLevel(currentLevel+1);
+								
 							}
 							else{
+								bulletHit.play();
 								System.out.println("Wrong button, pal");
 								minusLife();
 							}

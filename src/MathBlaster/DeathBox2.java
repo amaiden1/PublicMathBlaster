@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sun.jvm.hotspot.tools.jcore.NameFilter;
 
 import javax.management.StandardEmitterMBean;
 import javax.naming.Name;
