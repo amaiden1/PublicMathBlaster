@@ -57,7 +57,7 @@ public class Controller {
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
 	
-//	AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
+	AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
 	//AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
 	
 
@@ -92,7 +92,7 @@ public class Controller {
 			}
 			if(event.getCode() == KeyCode.SPACE) {
 				// shoot
-				//shoot.play();
+				shoot.play();
 				Bullet bullet = shooty.shoot();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
@@ -171,7 +171,7 @@ public class Controller {
 
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
-		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), event -> {
+		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
 			for (Button butt: buttList){
 				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
 
