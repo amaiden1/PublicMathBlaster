@@ -354,7 +354,7 @@ public class Controller {
 	public void resetGame(Stage primaryStage) throws IOException {
 
 		Menu mainMenu = new Menu();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
 		mainMenu.postInit();

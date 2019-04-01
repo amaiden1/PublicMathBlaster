@@ -7,8 +7,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.nio.charset.MalformedInputException;
-
 /**
  *
  * @author Nolan
@@ -23,7 +21,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		Menu mainMenu = new Menu();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
 		mainMenu.postInit();
