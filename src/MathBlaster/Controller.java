@@ -1,30 +1,24 @@
 package MathBlaster;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaView;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.AudioTrack;
-import javafx.geometry.Bounds;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -109,17 +103,47 @@ public class Controller {
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = false;
-			}if(event.getCode() == KeyCode.ESCAPE) {
+			}
+			if(event.getCode() == KeyCode.ESCAPE) {
 				//pause
-				if(!isPaused)
-				{
-				update.pause();
-				isPaused = true;
-				new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
-				update.play();
+				if(!isPaused) {
+					update.pause();
+					isPaused = true;
+
+					// create pause menu
+					try {
+
+						// set up OVs for continue and exit triggers
+						BooleanProperty continueValue = new SimpleBooleanProperty(false);
+						BooleanProperty quitValue = new SimpleBooleanProperty(false);
+
+						// create and show the menu
+						Stage pauseStage = new Stage();
+						PauseMenu pauseMenu = new PauseMenu();
+						FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+						loader.setController(pauseMenu);
+						Pane root = loader.load();
+						// do post init things here
+						pauseMenu.setThisStage(pauseStage);
+						pauseMenu.setContinueValueListener(continueValue);
+						pauseMenu.setQuitValueListener(quitValue);
+						// end post init things
+						pauseStage.setTitle("Game Over");
+						pauseStage.setScene(new Scene(root));
+						pauseStage.initStyle(StageStyle.UNDECORATED);
+						pauseStage.show();
+
+						// these OVs trigger whenever the user clicks conitnue or exit respectively
+						continueValue.addListener(observable -> update.play());
+						quitValue.addListener(observable -> Platform.exit());
+
+						//new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
+					}
+					catch (IOException e) {
+
+					}
 				}
-				else
-				{
+				else {
 					update.play();
 					isPaused = false;
 				}
@@ -161,9 +185,8 @@ public class Controller {
                 }
 
             } catch (ConcurrentModificationException e) {
+            	// do nothing, sweet sweet nothing
             }
-
-//why so many spaces??? 
 
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
