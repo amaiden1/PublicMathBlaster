@@ -1,34 +1,29 @@
 package MathBlaster;
 
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
-import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaView;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.AudioTrack;
-import javafx.geometry.Bounds;
 import java.util.ArrayList;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.media.AudioClip;
 
 public class Controller {
 
@@ -75,15 +70,12 @@ public class Controller {
 		stage.setScene(scene);
 		stage.show();
 		scene.getStylesheets().addAll("mathblaster.css");
-
-
 		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); -fx-background-repeat: stretch; -fx-background-size: 600 600; -fx-text-fill: white; -fx-background-position: center center;");
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
 		bulletsOnScreen = new ArrayList<>();
 		
 		resetButtons();
 		
-
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
 			    leftPressed = true;
@@ -111,19 +103,48 @@ public class Controller {
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = false;
-			}if(event.getCode() == KeyCode.ESCAPE) {
+			}
+			if(event.getCode() == KeyCode.ESCAPE) {
 				//pause
-				if(!isPaused)
-				{
+				System.out.println("ESC!");
 				update.pause();
+				buttonTimeline.pause();
 				isPaused = true;
-				new Alert(Alert.AlertType.NONE,"You are currently paused", new ButtonType("Continue playing")).showAndWait();
-				update.play();
+
+				// create pause menu
+				try {
+
+					// set up OVs for continue and exit triggers
+					BooleanProperty continueValue = new SimpleBooleanProperty(false);
+					BooleanProperty quitValue = new SimpleBooleanProperty(false);
+
+					// create and show the menu
+					Stage pauseStage = new Stage();
+					PauseMenu pauseMenu = new PauseMenu();
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+					loader.setController(pauseMenu);
+					Pane root = loader.load();
+					// do post init things here
+					pauseMenu.setThisStage(pauseStage);
+					pauseMenu.setContinueValueListener(continueValue);
+					pauseMenu.setQuitValueListener(quitValue);
+					// end post init things
+					pauseStage.setTitle("Game Over");
+					pauseStage.setScene(new Scene(root));
+					pauseStage.initStyle(StageStyle.UNDECORATED);
+					pauseStage.show();
+
+					// these OVs trigger whenever the user clicks conitnue or exit respectively
+					continueValue.addListener(observable -> {
+						update.play();
+						buttonTimeline.play();
+						isPaused = false;
+					});
+					quitValue.addListener(observable -> Platform.exit());
+
 				}
-				else
-				{
-					update.play();
-					isPaused = false;
+				catch (IOException e) {
+					System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
 				}
 			}
 			System.out.println("a key released");
@@ -142,14 +163,15 @@ public class Controller {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 							if(butt == answerBox){
 								bulletHit.play();
+							}
+							if(butt == answerBox) {
 								System.out.println("good work!");
 								newLevel(currentLevel+1);
-								
 							}
-							else{
-								bulletHit.play();
+							else {
 								System.out.println("Wrong button, pal");
 								minusLife();
+								bulletHit.play();
 							}
                             pane.getChildren().remove(butt);
                             bulletsOnScreen.remove(b);
@@ -164,12 +186,10 @@ public class Controller {
 						bulletsOnScreen.remove(b);
                     }
                 }
-
-            } catch (ConcurrentModificationException e) {
+			}
+            catch (ConcurrentModificationException e) {
+            	// do nothing
             }
-
-//why so many spaces??? 
-
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
@@ -177,8 +197,9 @@ public class Controller {
 
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
-		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(10), event -> {
-			for (Button butt: buttList){
+
+		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+			for (Button butt: buttList) {
 				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
 
 				//Collision hasn't been dealt with yet
@@ -188,8 +209,7 @@ public class Controller {
 
 		buttonTimeline.setCycleCount(Timeline.INDEFINITE);
 		buttonTimeline.play();
-
-	}
+		}
 	public Controller(boolean b)
 	{
 		// does nothing, but it's supposed to ;)
@@ -316,7 +336,7 @@ public class Controller {
 					update.play();
 				}
 			} catch (IOException e) {
-				System.out.println("Fatal Error, cannot find the death box files. The game will crash.");
+				System.out.println("Fatal Error: cannot load death box FXML. The game will crash.");
 			}
 
 			/*
@@ -336,13 +356,13 @@ public class Controller {
 	public void resetGame(Stage primaryStage) throws IOException {
 
 		Menu mainMenu = new Menu();
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("Main_Menu.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
 		mainMenu.postInit();
+		mainMenu.setMenuStage(primaryStage);
 		primaryStage.setTitle("Mathblaster");
 		primaryStage.setScene(new Scene(root));
-		mainMenu.setMenuStage(primaryStage);
 		primaryStage.show();
 
 	}

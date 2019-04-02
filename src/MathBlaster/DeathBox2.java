@@ -1,6 +1,5 @@
 package MathBlaster;
 
-import com.sun.jnlp.FileSaveServiceImpl;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -13,10 +12,6 @@ import javafx.stage.StageStyle;
 import javax.management.StandardEmitterMBean;
 import javax.naming.Name;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
 
 public class DeathBox2 {
 

@@ -4,14 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import sun.text.resources.iw.FormatData_iw_IL;
-import sun.util.resources.th.CalendarData_th;
-
-import javax.lang.model.element.NestingKind;
-import javax.swing.text.Highlighter;
-import javax.swing.text.html.Option;
 import java.io.*;
 import java.util.*;
 
@@ -48,6 +41,8 @@ public class Menu {
 				fastModeSlider.getStyleClass().add("off-slider");
 			}
 		});
+		// attempt to fix slider issues
+		// not fully working yet
 		/*
 		fastModeSlider.setOnMouseClicked(event -> {
 			if(fastModeSlider.getValue() == 1) {
@@ -98,6 +93,7 @@ public class Menu {
 			});
 
 		} catch (Exception e) {
+			// theoretically this should never happen
 			e.printStackTrace();
 			new Alert(Alert.AlertType.ERROR, "Error reading the high scores file. It might be corrupt. The exception was: " + e.getMessage()).showAndWait();
 		}
@@ -118,7 +114,7 @@ public class Menu {
 			clearHighScoresBtn.setStyle("-fx-border-color: #f74040;");
 			clearBtnArmed = true;
 		}
-		else if(clearBtnArmed) {
+		else {
 			clearHSConfirm.setVisible(false);
 			hsLeftBox.getChildren().clear();
 			hsRightBox.getChildren().clear();
