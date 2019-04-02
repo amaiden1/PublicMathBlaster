@@ -3,9 +3,13 @@ package MathBlaster;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
@@ -168,7 +172,12 @@ public class Menu {
 	@FXML
 	private void mouseHover() {
 		// ADD SOUND CODE HERE!!
-		System.out.println("hovered over a button!");
+		//System.out.println("hovered over a button!");
+
+		//Node object = (Node)event.getSource();
+		//object.setStyle("-fx-text-fill: white");
+
+		hoverSound.play();
 	}
 
 	@FXML
