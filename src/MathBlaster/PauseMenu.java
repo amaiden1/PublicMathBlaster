@@ -1,6 +1,5 @@
 package MathBlaster;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

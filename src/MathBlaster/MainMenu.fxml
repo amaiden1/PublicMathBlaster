@@ -45,23 +45,23 @@
             </Label>
             <VBox layoutX="22.0" layoutY="156.0" prefHeight="205.0" prefWidth="174.0" spacing="5.0">
                <children>
-                  <Button fx:id="playD1Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD1BtnClicked" prefHeight="37.0" prefWidth="213.0" style="-fx-border-color: #2db2ef;" text="Beginner" textFill="#2db2ef">
+                  <Button fx:id="playD1Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD1BtnClicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="213.0" style="-fx-border-color: #2db2ef;" text="Beginner" textFill="#2db2ef">
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font></Button>
-                  <Button fx:id="playD2Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD2BtnClicked" prefHeight="37.0" prefWidth="330.0" style="-fx-border-color: #4081f9;" text="Easy" textFill="#4081f9">
+                  <Button fx:id="playD2Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD2BtnClicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="330.0" style="-fx-border-color: #4081f9;" text="Easy" textFill="#4081f9">
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font></Button>
-                  <Button fx:id="playD3Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD3BtnClicked" prefHeight="37.0" prefWidth="285.0" style="-fx-border-color: #ad88f7;" text="Medium" textFill="#ad88f7">
+                  <Button fx:id="playD3Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD3BtnClicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="285.0" style="-fx-border-color: #ad88f7;" text="Medium" textFill="#ad88f7">
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font></Button>
-                  <Button fx:id="playD4Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD4BtnClicked" prefHeight="37.0" prefWidth="190.0" style="-fx-border-color: #9c41d8;" text="Hard" textFill="#9c41d8">
+                  <Button fx:id="playD4Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD4BtnClicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="190.0" style="-fx-border-color: #9c41d8;" text="Hard" textFill="#9c41d8">
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font></Button>
-                  <Button fx:id="playD5Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD5BtnClicked" prefHeight="37.0" prefWidth="381.0" style="-fx-border-color: #dc2def;" text="Difficult" textFill="#dc2def">
+                  <Button fx:id="playD5Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD5BtnClicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="381.0" style="-fx-border-color: #dc2def;" text="Difficult" textFill="#dc2def">
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font></Button>
@@ -72,8 +72,8 @@
                   <Font name="Roboto Light" size="17.0" />
                </font>
             </Label>
-            <Slider fx:id="fastModeSlider" layoutX="118.0" layoutY="376.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" prefHeight="16.0" prefWidth="42.0" snapToTicks="true" />
-            <Button fx:id="clearHighScoresBtn" alignment="CENTER" layoutX="302.0" layoutY="228.0" mnemonicParsing="false" onAction="#clearHighScoresBtnClicked" prefHeight="25.0" prefWidth="57.0" rotate="-90.0" style="-fx-border-color: #3a5ff0;" text="Clear" textFill="#3c63f0">
+            <Slider fx:id="fastModeSlider" layoutX="118.0" layoutY="376.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseEntered="#mouseHover" prefHeight="16.0" prefWidth="42.0" snapToTicks="true" />
+            <Button fx:id="clearHighScoresBtn" alignment="CENTER" layoutX="302.0" layoutY="228.0" mnemonicParsing="false" onAction="#clearHighScoresBtnClicked" onMouseEntered="#mouseHover" prefHeight="25.0" prefWidth="57.0" rotate="-90.0" style="-fx-border-color: #3a5ff0;" text="Clear" textFill="#3c63f0">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Font name="Roboto" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="quitBtn" alignment="CENTER" layoutX="21.0" layoutY="460.0" mnemonicParsing="false" onAction="#quitBtnClicked" prefHeight="29.0" prefWidth="174.0" style="-fx-border-color: #f74040;" text="Quit" textFill="#f74040">
+            <Button fx:id="quitBtn" alignment="CENTER" layoutX="21.0" layoutY="460.0" mnemonicParsing="false" onAction="#quitBtnClicked" onMouseEntered="#mouseHover" prefHeight="29.0" prefWidth="174.0" style="-fx-border-color: #f74040;" text="Quit" textFill="#f74040">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>

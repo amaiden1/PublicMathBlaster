@@ -162,7 +162,6 @@ public class Controller {
 							Platform.exit();
 						}
 					});
-					quitValue.addListener(observable -> Platform.exit());
 
 				}
 				catch (IOException e) {
