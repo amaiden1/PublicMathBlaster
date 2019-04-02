@@ -45,7 +45,7 @@ public class Controller {
 	private int currentLevel;
 	private int answer;
 	private int minusButtSpeed = 1;
-	private int difficulty = 3;
+	private int difficulty;
 	private Button answerBox;
 	private final boolean DEV_MODE = false;
 	private final int ANSWER_LIMIT = 5000;
@@ -65,7 +65,9 @@ public class Controller {
 	private final int SHOOTER_DELTA = 5;
 	private final int BULLET_DELTA = 3;
 
-	public Controller() {
+	public Controller(int _difficulty, boolean _fastMode) {
+		difficulty = _difficulty;
+		fastMode = _fastMode;
 		pane = new Pane();
 		pane.setPrefSize(600,600);
 		scene = new Scene(pane);
