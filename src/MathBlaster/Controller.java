@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -72,6 +75,9 @@ public class Controller {
 
 		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); -fx-background-repeat: stretch; -fx-background-size: 600 600; -fx-text-fill: white; -fx-background-position: center center;");
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
+
+		shoot.setVolume(shoot.getVolume() - .8);
+
 		bulletsOnScreen = new ArrayList<>();
 		
 		resetButtons();
