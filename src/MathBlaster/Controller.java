@@ -51,7 +51,7 @@ public class Controller {
 	private int minusButtSpeed = 1;
 	private int difficulty;
 	private Button answerBox;
-	private final boolean DEV_MODE = true;
+	private final boolean DEV_MODE = false;
 	private final int ANSWER_LIMIT = 5000;
 	private final int NUM_BUTTONS = 5;
 	private EquationGenerator equationGenerator;
@@ -232,8 +232,10 @@ public class Controller {
 			for (Button butt: buttList) {
 				butt.setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
 
+				if (butt.getLayoutY() == 500){
+				    player.setLives(0);
+                }
 				//Collision hasn't been dealt with yet
-
 			}
 		}));
 
@@ -321,7 +323,7 @@ public class Controller {
 	public void updateShooter() {
 
 		if(rightPressed) {
-		    // move left
+		    // move right
             shooty.incX(SHOOTER_DELTA);
 		}
 		if(leftPressed) {
