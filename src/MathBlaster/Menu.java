@@ -3,14 +3,10 @@ package MathBlaster;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.Node;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
 
@@ -82,23 +78,30 @@ public class Menu {
 			}
 
 			// Using barland best practices!
-			Map<String, Integer> scores = new HashMap<>();
+			List<Map.Entry<String, Integer>> scoreList = new ArrayList<>();
+
+			// add all the scores to the list
+			// normally this would be a HashMap but you can't sort those very easily!
 			while(fileScan.hasNextLine()) {
 				System.out.println("parsing line");
 				Scanner line = new Scanner(fileScan.nextLine()).useDelimiter(";");
 				String name = line.next();
 				int score = Integer.parseInt(line.next());
-				scores.put(name, score);
+				scoreList.add(new AbstractMap.SimpleEntry<>(name, score));
 			}
 
-			scores.forEach((key, value) -> {
-				Label name = new Label(key);
+			// sort the list using voodoo magic (actually, just lambdas)
+			scoreList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+			// add the scores to the screen
+			for(Map.Entry<String, Integer> entry : scoreList) {
+				Label name = new Label(entry.getKey());
 				name.setStyle("-fx-text-fill: white; -fx-font-size: 18;");
 				hsLeftBox.getChildren().add(name);
-				Label score = new Label("" + value);
+				Label score = new Label("" + entry.getValue());
 				score.setStyle("-fx-text-fill: white; -fx-font-size: 18;");
 				hsRightBox.getChildren().add(score);
-			});
+			}
 
 		} catch (Exception e) {
 			// theoretically this should never happen
