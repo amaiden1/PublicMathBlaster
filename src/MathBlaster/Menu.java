@@ -133,23 +133,6 @@ public class Menu {
 			clearBtnArmed = false;
 		}
 
-		/*
-		Alert clearAlert = new Alert(Alert.AlertType.CONFIRMATION, "Do you really want to clear the high scores?");
-		Optional<ButtonType> result = clearAlert.showAndWait();
-		result.ifPresent(buttonType -> {
-			if(buttonType == ButtonType.OK) {
-				hsLeftBox.getChildren().clear();
-				hsRightBox.getChildren().clear();
-				try {
-					BufferedWriter buff = new BufferedWriter(new FileWriter("highscores.txt"));
-					buff.flush();
-					buff.close();
-				} catch (IOException e) {
-					// do nothing, since the file doesn't exist anyway
-				}
-			}
-		});
-		*/
 	}
 
 	@FXML
@@ -183,13 +166,19 @@ public class Menu {
 	}
 
 	@FXML
+	private void mouseHover() {
+		// ADD SOUND CODE HERE!!
+		System.out.println("hovered over a button!");
+	}
+
+	@FXML
 	private void quitBtnClicked() {
 		Platform.exit();
 	}
 
 	private void newGame() {
-		ctrl = new Controller();
-		ctrl.setFastMode(fastModeSlider.getValue() == 1);
+		ctrl = new Controller(difficulty, fastModeSlider.getValue() == 1);
+		//ctrl.setFastMode(fastModeSlider.getValue() == 1);
 		//ctrl.setDifficulty(difficulty); <-- to be implemented
 		menuStage.hide();
 	}

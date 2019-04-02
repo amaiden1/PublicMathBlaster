@@ -1,11 +1,10 @@
 package MathBlaster;
 
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import static MathBlaster.Constants.*;
 
 public class PauseMenu {
 
@@ -14,35 +13,31 @@ public class PauseMenu {
 	@FXML private Button quitBtnClicked;
 
 	private Stage thisStage;
-	private BooleanProperty quitValue;
-	private BooleanProperty continueValue;
+	private IntegerProperty valueListener;
 
 	public void setThisStage(Stage thisStage) {
 		this.thisStage = thisStage;
 	}
 
-	public void setQuitValueListener(BooleanProperty quitValue) {
-		this.quitValue = quitValue;
-	}
-
-	public void setContinueValueListener(BooleanProperty continueValue) {
-		this.continueValue = continueValue;
+	public void setValueListener(IntegerProperty listener) {
+		this.valueListener = listener;
 	}
 
 	@FXML
 	private void continueBtnClicked() {
-		continueValue.setValue(true);
+		valueListener.setValue(PAUSE_RESPONSE_CONTINUE);
 		thisStage.close();
 	}
 
 	@FXML
 	private void mainMenuBtnClicked() {
-		// not yet implemented!
+		valueListener.setValue(PAUSE_RESPONSE_MAIN_MENU);
+		thisStage.close();
 	}
 
 	@FXML
 	private void quitBtnClicked() {
-		quitValue.setValue(true);
+		valueListener.setValue(PAUSE_RESPONSE_QUIT);
 		thisStage.close();
 	}
 
