@@ -48,7 +48,7 @@ public class Controller {
 	private int minusButtSpeed = 1;
 	private int difficulty;
 	private Button answerBox;
-	private final boolean DEV_MODE = false;
+	private final boolean DEV_MODE = true;
 	private final int ANSWER_LIMIT = 5000;
 	private final int NUM_BUTTONS = 5;
 	private EquationGenerator equationGenerator;
@@ -105,6 +105,10 @@ public class Controller {
 				Bullet bullet = shooty.shoot();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
+			}
+			if(event.getCode() == KeyCode.BACK_QUOTE && DEV_MODE)
+			{
+				newLevel(currentLevel+1);
 			}
 				System.out.println("SHOOTING");
 				
@@ -220,7 +224,7 @@ public class Controller {
 
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
-				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
+				butt.setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
 
 				//Collision hasn't been dealt with yet
 
