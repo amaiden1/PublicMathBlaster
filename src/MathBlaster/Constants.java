@@ -14,7 +14,7 @@ public final class Constants {
 	 */
 
 	// Dev Mode
-	public static final boolean DEV_MODE = false;
+	public static final boolean DEV_MODE = true;
 
 	/*
 	 * Menu Constants
@@ -28,9 +28,11 @@ public final class Constants {
 	 * Controller Constants
 	 */
 	public static final int
-		FATAL_BUTTON_DIST = 400
-
-		;
+		FATAL_BUTTON_DIST = 400,
+		ANSWER_LIMIT = 5000,
+		NUM_BUTTONS = 5,
+		SHOOTER_DELTA = 5,
+		BULLET_DELTA = 3;
 
 	// Prevent instantiation of the class
 	private Constants() {}

@@ -13,9 +13,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -51,8 +48,6 @@ public class Controller {
 	private int minusButtSpeed = 1;
 	private int difficulty;
 	private Button answerBox;
-	private final int ANSWER_LIMIT = 5000;
-	private final int NUM_BUTTONS = 5;
 	private EquationGenerator equationGenerator;
 	private Label levelLabel;
 	private Label livesLabel;
@@ -63,9 +58,6 @@ public class Controller {
 	private AudioClip move;
 	private AudioClip endGame;
 	private AudioClip bulletHit;
-
-	private final int SHOOTER_DELTA = 5;
-	private final int BULLET_DELTA = 3;
 
 	public Controller(int _difficulty, boolean _fastMode) {
 		difficulty = _difficulty;
