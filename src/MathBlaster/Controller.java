@@ -3,12 +3,13 @@ package MathBlaster;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -23,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
+import static MathBlaster.Constants.*;
 
 public class Controller {
 
@@ -51,10 +54,11 @@ public class Controller {
 	private Label livesLabel;
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
-	
-//	AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
-	//AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
-	
+
+	private AudioClip shoot;
+	private AudioClip move;
+	private AudioClip endGame;
+	private AudioClip bulletHit;
 
 	private final int SHOOTER_DELTA = 5;
 	private final int BULLET_DELTA = 3;
@@ -68,26 +72,31 @@ public class Controller {
 		stage.show();
 		scene.getStylesheets().addAll("mathblaster.css");
 
+		shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
+		move = new AudioClip(this.getClass().getResource("/sounds/Movement.wav").toString());
+		endGame = new AudioClip(this.getClass().getResource("/sounds/Starship_destroyed.wav").toString());
+		bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 
-		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); -fx-background-repeat: stretch; -fx-background-size: 600 600; -fx-text-fill: white; -fx-background-position: center center;");
+		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); " +
+			"-fx-background-repeat: stretch; -fx-background-size: 600 600; " +
+			"-fx-text-fill: white; -fx-background-position: center center;");
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
 		bulletsOnScreen = new ArrayList<>();
 		
 		resetButtons();
-		
 
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
 			    leftPressed = true;
-				//move.play();
+				move.play();
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = true;
-				//move.play();
+				move.play();
 			}
 			if(event.getCode() == KeyCode.SPACE) {
 				// shoot
-				//shoot.play();
+				shoot.play();
 				Bullet bullet = shooty.shoot();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
@@ -114,9 +123,9 @@ public class Controller {
 				// create pause menu
 				try {
 
-					// set up OVs for continue and exit triggers
-					BooleanProperty continueValue = new SimpleBooleanProperty(false);
-					BooleanProperty quitValue = new SimpleBooleanProperty(false);
+					// set up OV for continue, main menu, and exit triggers
+					// this is updated whenever the player clicks a button in the menu
+					IntegerProperty actionValue = new SimpleIntegerProperty(-1);
 
 					// create and show the menu
 					Stage pauseStage = new Stage();
@@ -126,8 +135,7 @@ public class Controller {
 					Pane root = loader.load();
 					// do post init things here
 					pauseMenu.setThisStage(pauseStage);
-					pauseMenu.setContinueValueListener(continueValue);
-					pauseMenu.setQuitValueListener(quitValue);
+					pauseMenu.setValueListener(actionValue);
 					// end post init things
 					pauseStage.setTitle("Game Over");
 					pauseStage.setScene(new Scene(root));
@@ -135,12 +143,20 @@ public class Controller {
 					pauseStage.show();
 
 					// these OVs trigger whenever the user clicks conitnue or exit respectively
-					continueValue.addListener(observable -> {
-						update.play();
-						buttonTimeline.play();
-						isPaused = false;
+					actionValue.addListener((observable, oldValue, newValue) -> {
+						if(newValue.intValue() == PAUSE_RESPONSE_CONTINUE /* 0 */) {
+							update.play();
+							buttonTimeline.play();
+							isPaused = false;
+						}
+						else if(newValue.intValue() == PAUSE_RESPONSE_MAIN_MENU /* 1 */) {
+							// yet to be implemented
+							System.out.println("This feature isn't implemented yet");
+						}
+						else if(newValue.intValue() == PAUSE_RESPONSE_QUIT /* 2 */) {
+							Platform.exit();
+						}
 					});
-					quitValue.addListener(observable -> Platform.exit());
 
 				}
 				catch (IOException e) {
@@ -162,12 +178,14 @@ public class Controller {
                     for (Button butt : buttList) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 							if(butt == answerBox) {
+								bulletHit.play();
 								System.out.println("good work!");
 								newLevel(currentLevel+1);
 							}
 							else {
 								System.out.println("Wrong button, pal");
 								minusLife();
+								bulletHit.play();
 							}
                             pane.getChildren().remove(butt);
                             bulletsOnScreen.remove(b);
@@ -258,7 +276,7 @@ public class Controller {
 	 * initializes new level
 	 * @param level the numerical value of the new level
 	 */
-	public void newLevel(int level){
+	public void newLevel(int level) {
 		currentLevel = level;
 		Random rand = new Random();
 		answer = rand.nextInt(ANSWER_LIMIT);
@@ -266,17 +284,17 @@ public class Controller {
 		int answerIndex = rand.nextInt(buttList.size()-1);
 		answerBox = buttList.get(answerIndex);
 		ArrayList<Integer> answers = new ArrayList<>();
-		for(int i = 0; i < buttList.size(); i++){
+		for (int i = 0; i < buttList.size(); i++) {
 			answers.add(answer);
-			if(i == answerIndex){
+			if(i == answerIndex) {
 				buttList.get(i).setText("" + answer);
 			}
-			else{
+			else {
 				int wrongAnswer;
-				do{
+				do {
 					wrongAnswer = rand.nextInt(ANSWER_LIMIT);
 					System.out.println("generating: " + wrongAnswer);
-				}while(wrongAnswer == answer || answers.contains((Integer)wrongAnswer));
+				} while(wrongAnswer == answer || answers.contains((Integer)wrongAnswer));
 				answers.set(i, wrongAnswer);
 				buttList.get(i).setText("" + wrongAnswer);
 			}
