@@ -2,6 +2,7 @@ package MathBlaster;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.media.AudioClip;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -89,6 +90,7 @@ public class Controller {
 				// shoot
 				shoot.play();
 				Bullet bullet = shooty.shoot();
+				shoot.play();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
 			}
