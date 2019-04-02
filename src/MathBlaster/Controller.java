@@ -2,6 +2,7 @@ package MathBlaster;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.media.AudioClip;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -52,8 +53,8 @@ public class Controller {
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
 
-	//  AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
-	//AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
+	private AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
+//	private AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
 	
 
 	private final int SHOOTER_DELTA = 5;
@@ -89,6 +90,7 @@ public class Controller {
 				// shoot
 				//shoot.play();
 				Bullet bullet = shooty.shoot();
+				shoot.play();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
 			}
