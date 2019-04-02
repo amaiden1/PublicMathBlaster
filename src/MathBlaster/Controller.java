@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.media.AudioClip;
 
 public class Controller {
 
@@ -47,17 +48,21 @@ public class Controller {
 	private int currentLevel;
 	private int answer;
 	private int minusButtSpeed = 1;
+	private int difficulty = 3;
 	private Button answerBox;
 	private final boolean DEV_MODE = false;
-	private final int ANSWER_LIMIT = 5;
+	private final int ANSWER_LIMIT = 5000;
 	private final int NUM_BUTTONS = 5;
+	private EquationGenerator equationGenerator;
 	private Label levelLabel;
 	private Label livesLabel;
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
-
-	private AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
-//	private AudioClip move = new AudioClip(this.getClass().getResource("/sounds/move.wav").toString());
+	
+	AudioClip shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
+	AudioClip move = new AudioClip(this.getClass().getResource("/sounds/Movement.wav").toString());
+	AudioClip endGame = new AudioClip(this.getClass().getResource("/sounds/Starship_destroyed.wav").toString());
+	AudioClip bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 	
 
 	private final int SHOOTER_DELTA = 5;
@@ -71,8 +76,6 @@ public class Controller {
 		stage.setScene(scene);
 		stage.show();
 		scene.getStylesheets().addAll("mathblaster.css");
-
-
 		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); -fx-background-repeat: stretch; -fx-background-size: 600 600; -fx-text-fill: white; -fx-background-position: center center;");
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
 
@@ -82,19 +85,18 @@ public class Controller {
 		
 		resetButtons();
 		
-
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
 			    leftPressed = true;
-				//move.play();
+				move.play();
 			}
 			if(event.getCode() == KeyCode.RIGHT) {
 			    rightPressed = true;
-				//move.play();
+				move.play();
 			}
 			if(event.getCode() == KeyCode.SPACE) {
 				// shoot
-				//shoot.play();
+				shoot.play();
 				Bullet bullet = shooty.shoot();
 				shoot.play();
 				bulletsOnScreen.add(bullet);
@@ -157,6 +159,7 @@ public class Controller {
 			}
 			System.out.println("a key released");
 		});
+		equationGenerator = new EquationGenerator(difficulty);
 		newLevel(1);
 		// main update thread, fires at 10 ms
 		update = new Timeline(new KeyFrame(Duration.millis(10), event -> {
@@ -169,6 +172,9 @@ public class Controller {
                     b.decY(BULLET_DELTA);
                     for (Button butt : buttList) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
+							if(butt == answerBox){
+								bulletHit.play();
+							}
 							if(butt == answerBox) {
 								System.out.println("good work!");
 								newLevel(currentLevel+1);
@@ -176,6 +182,7 @@ public class Controller {
 							else {
 								System.out.println("Wrong button, pal");
 								minusLife();
+								bulletHit.play();
 							}
                             pane.getChildren().remove(butt);
                             bulletsOnScreen.remove(b);
@@ -190,11 +197,10 @@ public class Controller {
 						bulletsOnScreen.remove(b);
                     }
                 }
-
-            } catch (ConcurrentModificationException e) {
+			}
+            catch (ConcurrentModificationException e) {
             	// do nothing
             }
-
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
@@ -202,7 +208,8 @@ public class Controller {
 
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
-		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), event -> {
+
+		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
 				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
 
@@ -213,8 +220,7 @@ public class Controller {
 
 		buttonTimeline.setCycleCount(Timeline.INDEFINITE);
 		buttonTimeline.play();
-
-	}
+		}
 	public Controller(boolean b)
 	{
 		// does nothing, but it's supposed to ;)
@@ -240,7 +246,7 @@ public class Controller {
 		levelLabel.relocate(0,0);
 		levelLabel.setTextFill(Color.WHITE);
 		levelLabel.setFont(new Font(25));
-		equationLabel = new Label("Answer: " + answer);
+		equationLabel = new Label(equationGenerator.getEquation());
 		equationLabel.relocate(200, 0);
 		equationLabel.setTextFill(Color.WHITE);
 		equationLabel.setFont(new Font(25));
@@ -267,9 +273,10 @@ public class Controller {
 	 * @param level the numerical value of the new level
 	 */
 	public void newLevel(int level){
+		equationGenerator.newEquation();
 		currentLevel = level;
 		Random rand = new Random();
-		answer = rand.nextInt(ANSWER_LIMIT);
+		answer = equationGenerator.getAnswer();
 		initialize();
 		int answerIndex = rand.nextInt(buttList.size()-1);
 		answerBox = buttList.get(answerIndex);
