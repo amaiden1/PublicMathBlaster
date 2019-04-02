@@ -185,8 +185,8 @@ public class Menu {
 	}
 
 	private void newGame() {
-		ctrl = new Controller();
-		ctrl.setFastMode(fastModeSlider.getValue() == 1);
+		ctrl = new Controller(difficulty, fastModeSlider.getValue() == 1);
+		//ctrl.setFastMode(fastModeSlider.getValue() == 1);
 		//ctrl.setDifficulty(difficulty); <-- to be implemented
 		menuStage.hide();
 	}

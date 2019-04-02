@@ -9,7 +9,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -24,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.media.AudioClip;
 
 import static MathBlaster.Constants.*;
 
@@ -46,10 +46,12 @@ public class Controller {
 	private int currentLevel;
 	private int answer;
 	private int minusButtSpeed = 1;
+	private int difficulty;
 	private Button answerBox;
 	private final boolean DEV_MODE = false;
-	private final int ANSWER_LIMIT = 5;
+	private final int ANSWER_LIMIT = 5000;
 	private final int NUM_BUTTONS = 5;
+	private EquationGenerator equationGenerator;
 	private Label levelLabel;
 	private Label livesLabel;
 	private Label equationLabel;
@@ -63,7 +65,9 @@ public class Controller {
 	private final int SHOOTER_DELTA = 5;
 	private final int BULLET_DELTA = 3;
 
-	public Controller() {
+	public Controller(int _difficulty, boolean _fastMode) {
+		difficulty = _difficulty;
+		fastMode = _fastMode;
 		pane = new Pane();
 		pane.setPrefSize(600,600);
 		scene = new Scene(pane);
@@ -84,6 +88,7 @@ public class Controller {
 		bulletsOnScreen = new ArrayList<>();
 		
 		resetButtons();
+
 
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
@@ -157,6 +162,7 @@ public class Controller {
 							Platform.exit();
 						}
 					});
+					quitValue.addListener(observable -> Platform.exit());
 
 				}
 				catch (IOException e) {
@@ -165,6 +171,7 @@ public class Controller {
 			}
 			System.out.println("a key released");
 		});
+		equationGenerator = new EquationGenerator(difficulty);
 		newLevel(1);
 		// main update thread, fires at 10 ms
 		update = new Timeline(new KeyFrame(Duration.millis(10), event -> {
@@ -200,11 +207,10 @@ public class Controller {
 						bulletsOnScreen.remove(b);
                     }
                 }
-
-            } catch (ConcurrentModificationException e) {
+			}
+            catch (ConcurrentModificationException e) {
             	// do nothing
             }
-
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
@@ -212,7 +218,8 @@ public class Controller {
 
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
-		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), event -> {
+
+		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
 				butt.setLayoutY(butt.getLayoutY() + 0.3 * (this.fastMode ? this.currentLevel : 1));
 
@@ -223,8 +230,7 @@ public class Controller {
 
 		buttonTimeline.setCycleCount(Timeline.INDEFINITE);
 		buttonTimeline.play();
-
-	}
+		}
 	public Controller(boolean b)
 	{
 		// does nothing, but it's supposed to ;)
@@ -250,7 +256,7 @@ public class Controller {
 		levelLabel.relocate(0,0);
 		levelLabel.setTextFill(Color.WHITE);
 		levelLabel.setFont(new Font(25));
-		equationLabel = new Label("Answer: " + answer);
+		equationLabel = new Label(equationGenerator.getEquation());
 		equationLabel.relocate(200, 0);
 		equationLabel.setTextFill(Color.WHITE);
 		equationLabel.setFont(new Font(25));
@@ -276,25 +282,26 @@ public class Controller {
 	 * initializes new level
 	 * @param level the numerical value of the new level
 	 */
-	public void newLevel(int level) {
+	public void newLevel(int level){
+		equationGenerator.newEquation();
 		currentLevel = level;
 		Random rand = new Random();
-		answer = rand.nextInt(ANSWER_LIMIT);
+		answer = equationGenerator.getAnswer();
 		initialize();
 		int answerIndex = rand.nextInt(buttList.size()-1);
 		answerBox = buttList.get(answerIndex);
 		ArrayList<Integer> answers = new ArrayList<>();
-		for (int i = 0; i < buttList.size(); i++) {
+		for(int i = 0; i < buttList.size(); i++){
 			answers.add(answer);
-			if(i == answerIndex) {
+			if(i == answerIndex){
 				buttList.get(i).setText("" + answer);
 			}
-			else {
+			else{
 				int wrongAnswer;
-				do {
+				do{
 					wrongAnswer = rand.nextInt(ANSWER_LIMIT);
 					System.out.println("generating: " + wrongAnswer);
-				} while(wrongAnswer == answer || answers.contains((Integer)wrongAnswer));
+				}while(wrongAnswer == answer || answers.contains((Integer)wrongAnswer));
 				answers.set(i, wrongAnswer);
 				buttList.get(i).setText("" + wrongAnswer);
 			}
