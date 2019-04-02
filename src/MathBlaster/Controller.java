@@ -234,7 +234,7 @@ public class Controller {
 				if (butt.getLayoutY() == 500){
 				    player.setLives(0);
                 }
-				//Collision hasn't been dealt with yet
+				checkDeath();
 			}
 		}));
 
@@ -342,45 +342,45 @@ public class Controller {
 		checkDeath();
 	}
 
-	public void checkDeath(){
-		if (player.getLives() == 0){
-			update.stop();
+	public void checkDeath() {
+		// one way to die: you run out of lives
+		if (player.getLives() == 0) {
+			die();
+		}
+		// another way to die: the blocks hit you
+		if(buttList.get(0).getLayoutY() >= FATAL_BUTTON_DIST) {
+			endGame.play();
+			die();
+		}
+	}
 
-			try {
-				Stage deathBoxStage = new Stage();
-				DeathBox2 deathBox2 = new DeathBox2();
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("DeathBox2.fxml"));
-				loader.setController(deathBox2);
-				Pane root = loader.load();
-				// do post init things here
-				deathBox2.setGameStage(getStage());
-				deathBox2.setThisStage(deathBoxStage);
-				deathBox2.setScore(currentLevel);
-				deathBox2.postInit();
-				// end post init things
-				deathBoxStage.setTitle("Game Over");
-				deathBoxStage.setScene(new Scene(root));
-				deathBoxStage.show();
+	private void die() {
+		update.stop();
+		buttonTimeline.stop();
+		try {
+			Stage deathBoxStage = new Stage();
+			DeathBox2 deathBox2 = new DeathBox2();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("DeathBox2.fxml"));
+			loader.setController(deathBox2);
+			Pane root = loader.load();
+			// do post init things here
+			deathBox2.setGameStage(getStage());
+			deathBox2.setThisStage(deathBoxStage);
+			deathBox2.setScore(currentLevel);
+			deathBox2.postInit();
+			// end post init things
+			deathBoxStage.setTitle("Game Over");
+			deathBoxStage.setScene(new Scene(root));
+			deathBoxStage.show();
 
-				if (deathBox2.isNewGame()) {
-					initialize();
-					player.setLives(3);
-					update.play();
-				}
-			} catch (IOException e) {
-				System.out.println("Fatal Error: cannot load death box FXML. The game will crash.");
-			}
-
-			/*
-			DeathBox deathbox = new DeathBox(this.getStage());
-			deathbox.display("Game Over!", "Want to play again?", update);
-			if(deathbox.setNewGame()){
+			if (deathBox2.isNewGame()) {
 				initialize();
 				player.setLives(3);
 				update.play();
-            }
-            */
-
+			}
+		}
+		catch (IOException e) {
+			System.out.println("Fatal Error: cannot load death box FXML. The game will crash.");
 		}
 	}
 
