@@ -14,7 +14,7 @@ public final class Constants {
 	 */
 
 	// Dev Mode
-	public static final boolean DEV_MODE = true;
+	public static final boolean DEV_MODE = false;
 
 	/*
 	 * Menu Constants
@@ -23,6 +23,14 @@ public final class Constants {
 		PAUSE_RESPONSE_CONTINUE = 0,
 		PAUSE_RESPONSE_MAIN_MENU = 1,
 		PAUSE_RESPONSE_QUIT = 2;
+
+	/*
+	 * Controller Constants
+	 */
+	public static final int
+		FATAL_BUTTON_DIST = 400
+
+		;
 
 	// Prevent instantiation of the class
 	private Constants() {}
