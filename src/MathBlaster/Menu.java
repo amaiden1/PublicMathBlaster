@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.media.AudioClip;
 import java.io.*;
 import java.util.*;
 
@@ -22,6 +23,8 @@ public class Menu {
 	@FXML private VBox hsRightBox;
 	@FXML private Label clearHSConfirm;
 
+
+	private AudioClip hoverSound = new AudioClip(this.getClass().getResource("/sounds/buttonhover.wav").toString());
 	private Controller ctrl;
 	private Stage menuStage;
 	private int difficulty;
