@@ -45,10 +45,12 @@ public class Controller {
 	private int currentLevel;
 	private int answer;
 	private int minusButtSpeed = 1;
+	private int difficulty = 3;
 	private Button answerBox;
 	private final boolean DEV_MODE = false;
-	private final int ANSWER_LIMIT = 5;
+	private final int ANSWER_LIMIT = 5000;
 	private final int NUM_BUTTONS = 5;
+	private EquationGenerator equationGenerator;
 	private Label levelLabel;
 	private Label livesLabel;
 	private Label equationLabel;
@@ -151,6 +153,7 @@ public class Controller {
 			}
 			System.out.println("a key released");
 		});
+		equationGenerator = new EquationGenerator(difficulty);
 		newLevel(1);
 		// main update thread, fires at 10 ms
 		update = new Timeline(new KeyFrame(Duration.millis(10), event -> {
@@ -237,7 +240,7 @@ public class Controller {
 		levelLabel.relocate(0,0);
 		levelLabel.setTextFill(Color.WHITE);
 		levelLabel.setFont(new Font(25));
-		equationLabel = new Label("Answer: " + answer);
+		equationLabel = new Label(equationGenerator.getEquation());
 		equationLabel.relocate(200, 0);
 		equationLabel.setTextFill(Color.WHITE);
 		equationLabel.setFont(new Font(25));
@@ -264,9 +267,10 @@ public class Controller {
 	 * @param level the numerical value of the new level
 	 */
 	public void newLevel(int level){
+		equationGenerator.newEquation();
 		currentLevel = level;
 		Random rand = new Random();
-		answer = rand.nextInt(ANSWER_LIMIT);
+		answer = equationGenerator.getAnswer();
 		initialize();
 		int answerIndex = rand.nextInt(buttList.size()-1);
 		answerBox = buttList.get(answerIndex);
