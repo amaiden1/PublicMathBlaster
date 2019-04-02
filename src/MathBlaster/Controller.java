@@ -51,7 +51,6 @@ public class Controller {
 	private int minusButtSpeed = 1;
 	private int difficulty;
 	private Button answerBox;
-	private final boolean DEV_MODE = false;
 	private final int ANSWER_LIMIT = 5000;
 	private final int NUM_BUTTONS = 5;
 	private EquationGenerator equationGenerator;
@@ -92,7 +91,7 @@ public class Controller {
 		shoot.setVolume(shoot.getVolume() - .8);
 
 		bulletsOnScreen = new ArrayList<>();
-		
+
 		resetButtons();
 
 
@@ -356,7 +355,7 @@ public class Controller {
 				// do post init things here
 				deathBox2.setGameStage(getStage());
 				deathBox2.setThisStage(deathBoxStage);
-				deathBox2.setScore(player.getScore());
+				deathBox2.setScore(currentLevel);
 				deathBox2.postInit();
 				// end post init things
 				deathBoxStage.setTitle("Game Over");

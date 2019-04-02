@@ -13,6 +13,9 @@ public final class Constants {
 	 * your imports.
 	 */
 
+	// Dev Mode
+	public static final boolean DEV_MODE = true;
+
 	/*
 	 * Menu Constants
 	 */
