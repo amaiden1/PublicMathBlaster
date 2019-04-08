@@ -47,9 +47,11 @@ public class Controller {
 	private int answer;
 	private int minusButtSpeed = 1;
 	private int difficulty;
+	private int streak;
+	private double score;
 	private Button answerBox;
 	private EquationGenerator equationGenerator;
-	private Label levelLabel;
+	private Label scoreLabel;
 	private Label livesLabel;
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
@@ -60,6 +62,8 @@ public class Controller {
 	private AudioClip bulletHit;
 
 	public Controller(int _difficulty, boolean _fastMode) {
+		score = 0;
+		streak = 0;
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 		pane = new Pane();
@@ -238,6 +242,20 @@ public class Controller {
 		// does nothing, but it's supposed to ;)
 	}
 	
+	private void updateScore(double distance){
+		//difficulty = baseScore
+		//distance multiplier = distance/370(full length between player and the answer boxes) + 1
+		//fastmode multiplier: 1.99 + level/100
+		//streak multiplier: streak/20 + 1
+		//fastMode equation: difficulty * distanceMultiplier * fastModeMultiplier * streakMultiplier
+		int baseScore = 100 * difficulty;
+		double distanceMultiplier = 1 + (distance / 370.0);
+		double fastModeMultiplier = 1.99 + (currentLevel/100.0);
+		double streakMultiplier = 1 + (streak/20.0);
+		score += baseScore * distanceMultiplier * fastModeMultiplier * streakMultiplier;
+		
+	}
+	
 	private void resetButtons()
 	{
 		buttList = new ArrayList<>();
@@ -254,10 +272,10 @@ public class Controller {
 	}
 	//test?
 	private void updateLabels(){
-		levelLabel = new Label("Level: " + currentLevel);
-		levelLabel.relocate(0,0);
-		levelLabel.setTextFill(Color.WHITE);
-		levelLabel.setFont(new Font(25));
+		scoreLabel = new Label("Score: " + (int)score);
+		scoreLabel.relocate(0,0);
+		scoreLabel.setTextFill(Color.WHITE);
+		scoreLabel.setFont(new Font(25));
 		equationLabel = new Label(equationGenerator.getEquation());
 		equationLabel.relocate(200, 0);
 		equationLabel.setTextFill(Color.WHITE);
@@ -266,7 +284,7 @@ public class Controller {
 		livesLabel.relocate(500, 0);
 		livesLabel.setTextFill(Color.WHITE);
 		livesLabel.setFont(new Font(25));
-		pane.getChildren().addAll(levelLabel, equationLabel, livesLabel);
+		pane.getChildren().addAll(scoreLabel, equationLabel, livesLabel);
 	}
 	
 	public void initialize(){
