@@ -113,7 +113,6 @@ public class EquationGenerator {
 		
 		while(elementScanner.hasNext())
 			elements.add(elementScanner.next());
-		System.out.println("Elements: " + elements.toString());
 		while(elements.size() > 1){
 			if(elements.contains("^")){
 				int index = elements.indexOf("^");
@@ -151,7 +150,6 @@ public class EquationGenerator {
 				elements.remove(index);
 				elements.remove(index);
 			}
-			System.out.println("New Elements: " + elements.toString());
 		}
 		result = Integer.parseInt(elements.get(0));
 		return result;
@@ -181,7 +179,6 @@ public class EquationGenerator {
 		scanEquation.useDelimiter(",");
 		while(scanEquation.hasNext())
 			result += scanEquation.next() + " ";
-		System.out.println("Formatted String: " + result);
 		formattedEquation = result;
 	}
 	
