@@ -110,10 +110,7 @@ public class Controller {
 			if(event.getCode() == KeyCode.BACK_QUOTE && DEV_MODE)
 			{
 				newLevel(currentLevel+1);
-			}
-				System.out.println("SHOOTING");
-				
-			System.out.println("a key pressed");
+			}				
 		});
 
 		scene.setOnKeyReleased(event -> {
@@ -125,7 +122,6 @@ public class Controller {
 			}
 			if(event.getCode() == KeyCode.ESCAPE) {
 				//pause
-				System.out.println("ESC!");
 				update.pause();
 				buttonTimeline.pause();
 				isPaused = true;
@@ -173,7 +169,6 @@ public class Controller {
 					System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
 				}
 			}
-			System.out.println("a key released");
 		});
 		equationGenerator = new EquationGenerator(difficulty);
 		newLevel(1);
@@ -189,12 +184,14 @@ public class Controller {
                     for (Button butt : buttList) {
                         if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 							if(butt == answerBox) {
+								double distance = shooty.getY() - b.getY();
+								System.out.println("DISTANCE: " + distance);
+								updateScore(distance);
 								bulletHit.play();
-								System.out.println("good work!");
 								newLevel(currentLevel+1);
 							}
 							else {
-								System.out.println("Wrong button, pal");
+								streak = 0;
 								minusLife();
 								bulletHit.play();
 							}
@@ -202,7 +199,6 @@ public class Controller {
                             bulletsOnScreen.remove(b);
                             
                             pane.getChildren().remove(b.getIV());
-                            System.out.println("Boom!");
                         }
                     }
                     if (b.willDespawn()) {
@@ -250,9 +246,11 @@ public class Controller {
 		//fastMode equation: difficulty * distanceMultiplier * fastModeMultiplier * streakMultiplier
 		int baseScore = 100 * difficulty;
 		double distanceMultiplier = 1 + (distance / 370.0);
-		double fastModeMultiplier = 1.99 + (currentLevel/100.0);
+		double fastModeMultiplier = (fastMode)?1.99 + (currentLevel/100.0):1;
 		double streakMultiplier = 1 + (streak/20.0);
+		System.out.println("Total multiplier: " + (distanceMultiplier * fastModeMultiplier * streakMultiplier));
 		score += baseScore * distanceMultiplier * fastModeMultiplier * streakMultiplier;
+		streak++;
 		
 	}
 	
@@ -320,13 +318,11 @@ public class Controller {
 				int wrongAnswer;
 				do{
 					wrongAnswer = rand.nextInt(ANSWER_LIMIT);
-					System.out.println("generating: " + wrongAnswer);
 				}while(wrongAnswer == answer || answers.contains((Integer)wrongAnswer));
 				answers.set(i, wrongAnswer);
 				buttList.get(i).setText("" + wrongAnswer);
 			}
 		}
-		System.out.println("current level: " + currentLevel + "\nAnswer: " + answer + "\nBox with answer: " + buttList.indexOf(answerBox));
 	}
 
 	public void updateShooter() {
@@ -376,7 +372,7 @@ public class Controller {
 			// do post init things here
 			deathBox2.setGameStage(getStage());
 			deathBox2.setThisStage(deathBoxStage);
-			deathBox2.setScore(currentLevel);
+			deathBox2.setScore((int)score);
 			deathBox2.postInit();
 			// end post init things
 			deathBoxStage.setTitle("Game Over");
