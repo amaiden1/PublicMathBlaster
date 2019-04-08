@@ -63,7 +63,10 @@ public class EquationGenerator {
 	}
 	
 	private void checkEquation(char[] symbols, int[] numbers){
+		limitNumberExponents(symbols);
+		limitExponentValues(symbols, numbers);
 		limitNumberDivisions(symbols);
+		preventDivisionExponentError(symbols);
 		preventZeroDivision(symbols, numbers);
 		forceGreaterNumerator(symbols, numbers);
 	}
@@ -72,7 +75,7 @@ public class EquationGenerator {
 		Random rand = new Random();
 		boolean foundDivision = false;
 		for(int i = 0; i < symbols.length; i++){
-			while(foundDivision && symbols[i] == '/')
+			while(foundDivision && (symbols[i] == '/' || symbols[i] == '^'))
 				symbols[i] = operations.charAt(rand.nextInt(operations.length()));
 			if(symbols[i] == '/')
 				foundDivision = true;
@@ -100,6 +103,56 @@ public class EquationGenerator {
 			if(symbols[i] == '/'){
 				while(numbers[i + 1] == 0)
 					numbers[i+1] = rand.nextInt(numLimit) + 1;
+			}
+		}
+	}
+	
+	private void preventDivisionExponentError(char[] symbols){
+		//removes the possibility of division and exponents interfering with result
+		Random rand = new Random();
+		for(int i = 0; i < symbols.length-1; i++){
+			if(symbols[i] == '^' || symbols[i] == '/'){
+				while(symbols[i+1] == '/' || symbols[i+1] == '^')
+					symbols[i+1] = operations.charAt(rand.nextInt(operations.length()));
+			}
+		}
+	}
+	
+	private void limitNumberExponents(char[] symbols){
+		Random rand = new Random();
+		boolean foundExponent = false;
+		for(int i = 0; i < symbols.length; i++){
+			while(foundExponent && symbols[i] == '^')
+				symbols[i] = operations.charAt(rand.nextInt(operations.length()));
+			if(symbols[i] == '^')
+				foundExponent = true;
+		}
+	}
+	
+	private void limitExponentValues(char[] symbols, int[] numbers){
+		//limits the maximum value of an exponential number
+		Random rand = new Random();
+		for(int i = 0; i < symbols.length; i++){
+			if(symbols[i] == '^'){
+				// >5 = ^2 limit
+				// 4-5 = ^3 limit
+				// 3 = ^4 limit
+				// <3 = ^5 limit
+				int exponentLimit =-1;
+				if(numbers[i] > 5){ //5 and up
+					exponentLimit = 2;
+				}
+				else if(numbers[i] > 3){ //4 and 5
+					exponentLimit = 3;
+				}
+				else if(numbers[i] == 3){ //3, obviously
+					exponentLimit = 4;
+				}
+				else{ //less than 3
+					exponentLimit = 5;
+				}
+				numbers[i+1] = rand.nextInt(exponentLimit + 1);
+				System.out.println("exponent limited to: " + exponentLimit);
 			}
 		}
 	}
