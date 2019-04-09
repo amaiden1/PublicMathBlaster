@@ -5,6 +5,7 @@
  */
 package MathBlaster;
 
+import static java.lang.Math.pow;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -69,6 +70,17 @@ public class EquationGenerator {
 		preventDivisionExponentError(symbols);
 		preventZeroDivision(symbols, numbers);
 		forceGreaterNumerator(symbols, numbers);
+		changeLogValues(symbols, numbers);
+	}
+	
+	private void changeLogValues(char[] symbols, int[] numbers){
+		Random rand = new Random();
+		for(int i = 0; i < symbols.length; i++){
+			if(symbols[i] == '%'){
+				numbers[i] = 2;
+				numbers[i+1] = (int)pow(2, (rand.nextInt(6)+1));
+			}
+		}
 	}
 	
 	private void limitNumberDivisions(char[] symbols){
@@ -111,8 +123,8 @@ public class EquationGenerator {
 		//removes the possibility of division and exponents interfering with result
 		Random rand = new Random();
 		for(int i = 0; i < symbols.length-1; i++){
-			if(symbols[i] == '^' || symbols[i] == '/'){
-				while(symbols[i+1] == '/' || symbols[i+1] == '^')
+			if(symbols[i] == '^' || symbols[i] == '/' || symbols[i] == '%'){
+				while(symbols[i+1] == '/' || symbols[i+1] == '^' || symbols[i+1] == '%')
 					symbols[i+1] = operations.charAt(rand.nextInt(operations.length()));
 			}
 		}
@@ -122,9 +134,9 @@ public class EquationGenerator {
 		Random rand = new Random();
 		boolean foundExponent = false;
 		for(int i = 0; i < symbols.length; i++){
-			while(foundExponent && symbols[i] == '^')
+			while(foundExponent && (symbols[i] == '^' || symbols[i] == '%'))
 				symbols[i] = operations.charAt(rand.nextInt(operations.length()));
-			if(symbols[i] == '^')
+			if(symbols[i] == '^' || symbols[i] == '%')
 				foundExponent = true;
 		}
 	}
@@ -167,8 +179,11 @@ public class EquationGenerator {
 		while(elementScanner.hasNext())
 			elements.add(elementScanner.next());
 		while(elements.size() > 1){
-			if(elements.contains("^")){
-				int index = elements.indexOf("^");
+			if(elements.contains("^") || elements.contains("%")){
+				int index = -1; // must find a way to determine which operand comes first
+				do{
+					index += 2;
+				}while(!elements.get(index).equals("^") && !elements.get(index).equals("%"));
 				int num1 = Integer.parseInt(elements.get(index-1));
 				int num2 = Integer.parseInt(elements.get(index+1));
 				String op = elements.get(index);
@@ -203,15 +218,25 @@ public class EquationGenerator {
 				elements.remove(index);
 				elements.remove(index);
 			}
+			System.out.println("Stuck here");
 		}
 		result = Integer.parseInt(elements.get(0));
 		return result;
 	}
 	
 	private int answerHelp(int num1, String op, int num2){
-		int result;
+		int result = Integer.MIN_VALUE;
 		if(op.equals("^"))
 			result = (int) Math.pow(num1, num2);
+		else if(op.equals("%")){
+			boolean found = false;
+			for(int i = 0; i < 7 && !found; i++){
+				if(pow(num1, i) == num2){
+					result = i;
+					found = true;
+				}
+			}
+		}
 		else if(op.equals("*"))
 			result = num1 * num2;
 		else if(op.equals("/"))
@@ -248,3 +273,4 @@ public class EquationGenerator {
 			operations += "%";
 	}
 }
+//heyyyyyyy
