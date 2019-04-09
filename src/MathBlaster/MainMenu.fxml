@@ -62,10 +62,24 @@
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font></Button>
-                  <Button fx:id="playD5Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD5BtnClicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="381.0" style="-fx-border-color: #dc2def;" text="Difficult" textFill="#dc2def">
+                  <Button fx:id="playD5Btn" alignment="CENTER" mnemonicParsing="false" onAction="#playD5BtnClicked" onMouseEntered="#mouseHover" prefHeight="27.0" prefWidth="174.0" style="-fx-border-color: #dc2def;" text="Difficult" textFill="#dc2def">
                      <font>
                         <Font name="Roboto" size="18.0" />
                      </font></Button>
+                  <HBox prefHeight="20.0" prefWidth="174.0" spacing="17.0">
+                     <children>
+                        <Label alignment="CENTER" style="&#10;" text="Fast Mode" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Light" size="17.0" />
+                           </font>
+                        </Label>
+                        <Slider fx:id="fastModeSlider" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseEntered="#mouseHover" prefHeight="16.0" prefWidth="42.0" snapToTicks="true">
+                           <padding>
+                              <Insets top="4.0" />
+                           </padding>
+                        </Slider>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <Button fx:id="clearHighScoresBtn" alignment="CENTER" layoutX="302.0" layoutY="228.0" mnemonicParsing="false" onAction="#clearHighScoresBtnClicked" onMouseEntered="#mouseHover" prefHeight="25.0" prefWidth="57.0" rotate="-90.0" style="-fx-border-color: #3a5ff0;" text="Clear" textFill="#3c63f0">
@@ -83,20 +97,6 @@
                   <Font name="Roboto" size="14.0" />
                </font>
             </Button>
-            <HBox layoutX="21.0" layoutY="377.0" prefHeight="20.0" prefWidth="174.0" spacing="17.0">
-               <children>
-                  <Label alignment="CENTER" style="&#10;" text="Fast Mode" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
-                     <font>
-                        <Font name="Roboto Light" size="17.0" />
-                     </font>
-                  </Label>
-                  <Slider fx:id="fastModeSlider" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseEntered="#mouseHover" prefHeight="16.0" prefWidth="42.0" snapToTicks="true">
-                     <padding>
-                        <Insets top="4.0" />
-                     </padding>
-                  </Slider>
-               </children>
-            </HBox>
       </children>
     </AnchorPane>
   </children>
