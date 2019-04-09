@@ -72,7 +72,7 @@
                   <Font name="Roboto Light" size="17.0" />
                </font>
             </Label>
-            <Slider fx:id="fastModeSlider" layoutX="118.0" layoutY="376.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseEntered="#mouseHover" prefHeight="16.0" prefWidth="42.0" snapToTicks="true" />
+            <Slider fx:id="fastModeSlider" layoutX="118.0" layoutY="395.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseEntered="#mouseHover" prefHeight="16.0" prefWidth="42.0" snapToTicks="true" />
             <Button fx:id="clearHighScoresBtn" alignment="CENTER" layoutX="302.0" layoutY="228.0" mnemonicParsing="false" onAction="#clearHighScoresBtnClicked" onMouseEntered="#mouseHover" prefHeight="25.0" prefWidth="57.0" rotate="-90.0" style="-fx-border-color: #3a5ff0;" text="Clear" textFill="#3c63f0">
                <font>
                   <Font name="Roboto" size="12.0" />
