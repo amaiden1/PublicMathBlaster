@@ -35,6 +35,9 @@ public final class Constants {
 		BULLET_DELTA = 3;
 
 	// Prevent instantiation of the class
+	public static final String
+			baby2 = "\u2082",
+			baby10 = "\u2081" + "\u2080";
 	private Constants() {}
 
 }
