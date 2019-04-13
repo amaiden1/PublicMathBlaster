@@ -9,7 +9,7 @@
 
 <VBox prefHeight="320.0" prefWidth="484.0" style="-fx-background-color: BLACK;" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="366.0" prefWidth="738.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="thisPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="366.0" prefWidth="738.0" VBox.vgrow="ALWAYS">
       <children>
         <Label alignment="CENTER" layoutX="19.0" layoutY="23.0" style="&#10;" text="YOU DIED!" textAlignment="CENTER" textFill="#ff361b" wrapText="false">
           <font>
@@ -36,7 +36,7 @@
                   <Font name="Roboto" size="31.0" />
                </font>
             </Label>
-            <TextField fx:id="hsNameField" layoutX="19.0" layoutY="173.0" prefHeight="38.0" prefWidth="444.0">
+            <TextField fx:id="hsNameField" layoutX="19.0" layoutY="173.0" prefHeight="38.0" prefWidth="444.0" promptText="hi">
                <font>
                   <Font size="19.0" />
                </font>
