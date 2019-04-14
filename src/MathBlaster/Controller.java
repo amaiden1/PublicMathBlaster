@@ -373,10 +373,10 @@ public class Controller {
 			deathBox2.setGameStage(getStage());
 			deathBox2.setThisStage(deathBoxStage);
 			deathBox2.setScore((int)score);
-			deathBox2.postInit();
 			// end post init things
 			deathBoxStage.setTitle("Game Over");
 			deathBoxStage.setScene(new Scene(root));
+			deathBox2.postInit();
 			deathBoxStage.show();
 
 			if (deathBox2.isNewGame()) {

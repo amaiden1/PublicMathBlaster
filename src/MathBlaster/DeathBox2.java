@@ -69,6 +69,8 @@ public class DeathBox2 {
 		} else {
 			hsNameField.setPromptText(randName);
 		}
+
+		thisStage.getScene().setOnKeyPressed(event -> System.out.println(randomName()));
 	}
 
 	@FXML
@@ -162,8 +164,10 @@ public class DeathBox2 {
 	}
 
 	private String randomName() {
-		String[] adjs = {"Frisky", "Tangy", "Bushy", "Floaty", "Hairy", "Twisty"};
-		String[] animals = {"Flamingo", "Gecko", "Kleptosaurus", "Giraffe", "Aardvark", "Piranha"};
+		String[] adjs = {"Frisky", "Tangy", "Bushy", "Floaty", "Hairy", "Twisty", "Rocky", "Dirty", "Stinky", "Boney", "Lazy", "Fancy", "Chunky", "Lucky",
+		};
+		String[] animals = {"Flamingo", "Gecko", "Kleptosaurus", "Giraffe", "Aardvark", "Piranha", "Monkey", "Panda", "Raccoon", "Whale", "Buffalo", "Badger",
+			"Camel", "Bullfrog"};
 		Random rand = new Random();
 		return adjs[rand.nextInt(adjs.length)] + " " + animals[rand.nextInt(animals.length)];
 	}
