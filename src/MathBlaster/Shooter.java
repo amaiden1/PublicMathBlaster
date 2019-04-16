@@ -2,6 +2,8 @@ package MathBlaster;
 
 import javafx.scene.image.ImageView;
 
+import static MathBlaster.Constants.*;
+
 public class Shooter {
 
 	private ImageView iv;
@@ -37,11 +39,13 @@ public class Shooter {
 	public void incX(double x) {
 		this.x += x;
 		relocate();
+		wrap();
 	}
 
 	public void decX(double x) {
 		this.x -= x;
 		relocate();
+		wrap();
 	}
 
 	private void relocate() {
@@ -56,6 +60,17 @@ public class Shooter {
 		return new Bullet(x, y);
 	}
 
-
+	private void wrap() {
+		if(x > SCREEN_WIDTH) {
+			// wrap right to left
+			setX(0 - iv.getFitWidth());
+			relocate();
+		}
+		if(x + iv.getFitWidth() < 0) {
+			// wrap left to right;
+			setX(SCREEN_WIDTH);
+			relocate();
+		}
+	}
 
 }

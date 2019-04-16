@@ -16,23 +16,26 @@ public final class Constants {
 	// Dev Mode
 	public static final boolean DEV_MODE = true;
 
-	/*
-	 * Menu Constants
-	 */
+	// Menu Constants
 	public static final int
 		PAUSE_RESPONSE_CONTINUE = 0,
 		PAUSE_RESPONSE_MAIN_MENU = 1,
 		PAUSE_RESPONSE_QUIT = 2;
 
-	/*
-	 * Controller Constants
-	 */
+	// Controller Constants
 	public static final int
 		FATAL_BUTTON_DIST = 400,
 		ANSWER_LIMIT = 5000,
 		NUM_BUTTONS = 5,
 		SHOOTER_DELTA = 5,
 		BULLET_DELTA = 3;
+
+	// Game/Player Constants
+	public static final int
+		SCREEN_WIDTH = 600,
+		SCREEN_HEIGHT = 600;
+
+
 
 	// Prevent instantiation of the class
 	private Constants() {}

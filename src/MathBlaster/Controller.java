@@ -67,7 +67,7 @@ public class Controller {
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 		pane = new Pane();
-		pane.setPrefSize(600,600);
+		pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		scene = new Scene(pane);
 		stage = new Stage();
 		stage.setScene(scene);
@@ -82,14 +82,11 @@ public class Controller {
 		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); " +
 			"-fx-background-repeat: stretch; -fx-background-size: 600 600; " +
 			"-fx-text-fill: white; -fx-background-position: center center;");
+
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
-
 		shoot.setVolume(shoot.getVolume() - .8);
-
 		bulletsOnScreen = new ArrayList<>();
-
 		resetButtons();
-
 
 		scene.setOnKeyPressed(event -> {
 			if(event.getCode() == KeyCode.LEFT) {
@@ -121,100 +118,20 @@ public class Controller {
 			    rightPressed = false;
 			}
 			if(event.getCode() == KeyCode.ESCAPE) {
-				//pause
-				update.pause();
-				buttonTimeline.pause();
-				isPaused = true;
-
-				// create pause menu
-				try {
-
-					// set up OV for continue, main menu, and exit triggers
-					// this is updated whenever the player clicks a button in the menu
-					IntegerProperty actionValue = new SimpleIntegerProperty(-1);
-
-					// create and show the menu
-					Stage pauseStage = new Stage();
-					PauseMenu pauseMenu = new PauseMenu();
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
-					loader.setController(pauseMenu);
-					Pane root = loader.load();
-					// do post init things here
-					pauseMenu.setThisStage(pauseStage);
-					pauseMenu.setValueListener(actionValue);
-					// end post init things
-					pauseStage.setTitle("Game Over");
-					pauseStage.setScene(new Scene(root));
-					pauseStage.initStyle(StageStyle.UNDECORATED);
-					pauseStage.show();
-
-					// these OVs trigger whenever the user clicks conitnue or exit respectively
-					actionValue.addListener((observable, oldValue, newValue) -> {
-						if(newValue.intValue() == PAUSE_RESPONSE_CONTINUE /* 0 */) {
-							update.play();
-							buttonTimeline.play();
-							isPaused = false;
-						}
-						else if(newValue.intValue() == PAUSE_RESPONSE_MAIN_MENU /* 1 */) {
-							// yet to be implemented
-							System.out.println("This feature isn't implemented yet");
-						}
-						else if(newValue.intValue() == PAUSE_RESPONSE_QUIT /* 2 */) {
-							Platform.exit();
-						}
-					});
-
-				}
-				catch (IOException e) {
-					System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
-				}
+				pause();
 			}
 		});
+
 		equationGenerator = new EquationGenerator(difficulty);
 		newLevel(1);
 		// main update thread, fires at 10 ms
 		update = new Timeline(new KeyFrame(Duration.millis(10), event -> {
 			// update shooter
 		    updateShooter();
-			
-		    // update bullets
-            try {
-                for (Bullet b : bulletsOnScreen) {
-                    b.decY(BULLET_DELTA);
-                    for (Button butt : buttList) {
-                        if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
-							if(butt == answerBox) {
-								double distance = shooty.getY() - b.getY();
-								System.out.println("DISTANCE: " + distance);
-								updateScore(distance);
-								bulletHit.play();
-								newLevel(currentLevel+1);
-							}
-							else {
-								streak = 0;
-								minusLife();
-								bulletHit.play();
-							}
-                            pane.getChildren().remove(butt);
-                            bulletsOnScreen.remove(b);
-                            
-                            pane.getChildren().remove(b.getIV());
-                        }
-                    }
-                    if (b.willDespawn()) {
-                        // despawn bullet
-                        pane.getChildren().remove(b.getIV());
-						bulletsOnScreen.remove(b);
-                    }
-                }
-			}
-            catch (ConcurrentModificationException e) {
-            	// do nothing
-            }
+		    updateBullets();
 		}));
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
-
 
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
@@ -232,10 +149,96 @@ public class Controller {
 
 		buttonTimeline.setCycleCount(Timeline.INDEFINITE);
 		buttonTimeline.play();
-		}
+	}
+
 	public Controller(boolean b)
 	{
 		// does nothing, but it's supposed to ;)
+	}
+
+	private void updateBullets() {
+		try {
+			for (Bullet b : bulletsOnScreen) {
+				b.decY(BULLET_DELTA);
+				for (Button butt : buttList) {
+					if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
+						if(butt == answerBox) {
+							double distance = shooty.getY() - b.getY();
+							System.out.println("DISTANCE: " + distance);
+							updateScore(distance);
+							bulletHit.play();
+							newLevel(currentLevel+1);
+						}
+						else {
+							streak = 0;
+							minusLife();
+							bulletHit.play();
+						}
+						pane.getChildren().remove(butt);
+						bulletsOnScreen.remove(b);
+
+						pane.getChildren().remove(b.getIV());
+					}
+				}
+				if (b.willDespawn()) {
+					// despawn bullet
+					pane.getChildren().remove(b.getIV());
+					bulletsOnScreen.remove(b);
+				}
+			}
+		}
+		catch (ConcurrentModificationException e) {
+			// do nothing
+		}
+	}
+
+	private void pause() {
+		update.pause();
+		buttonTimeline.pause();
+		isPaused = true;
+
+		// create pause menu
+		try {
+
+			// set up OV for continue, main menu, and exit triggers
+			// this is updated whenever the player clicks a button in the menu
+			IntegerProperty actionValue = new SimpleIntegerProperty(-1);
+
+			// create and show the menu
+			Stage pauseStage = new Stage();
+			PauseMenu pauseMenu = new PauseMenu();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PauseMenu.fxml"));
+			loader.setController(pauseMenu);
+			Pane root = loader.load();
+			// do post init things here
+			pauseMenu.setThisStage(pauseStage);
+			pauseMenu.setValueListener(actionValue);
+			// end post init things
+			pauseStage.setTitle("Game Over");
+			pauseStage.setScene(new Scene(root));
+			pauseStage.initStyle(StageStyle.UNDECORATED);
+			pauseStage.show();
+
+			// these OVs trigger whenever the user clicks conitnue or exit respectively
+			actionValue.addListener((observable, oldValue, newValue) -> {
+				if(newValue.intValue() == PAUSE_RESPONSE_CONTINUE /* 0 */) {
+					update.play();
+					buttonTimeline.play();
+					isPaused = false;
+				}
+				else if(newValue.intValue() == PAUSE_RESPONSE_MAIN_MENU /* 1 */) {
+					// yet to be implemented
+					System.out.println("This feature isn't implemented yet");
+				}
+				else if(newValue.intValue() == PAUSE_RESPONSE_QUIT /* 2 */) {
+					Platform.exit();
+				}
+			});
+
+		}
+		catch (IOException e) {
+			System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
+		}
 	}
 	
 	private void updateScore(double distance){
