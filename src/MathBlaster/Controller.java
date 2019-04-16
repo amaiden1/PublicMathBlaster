@@ -161,7 +161,7 @@ public class Controller {
 			for (Bullet b : bulletsOnScreen) {
 				b.decY(BULLET_DELTA);
 				for (Button butt : buttList) {
-					if (b.getIV().getBoundsInParent().intersects(butt.getBoundsInParent())) {
+					if (b.getPixel().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 						if(butt == answerBox) {
 							double distance = shooty.getY() - b.getY();
 							System.out.println("DISTANCE: " + distance);

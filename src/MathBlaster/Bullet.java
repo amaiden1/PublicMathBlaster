@@ -5,6 +5,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 import javafx.scene.image.Image;
@@ -14,6 +15,7 @@ public class Bullet {
 
     private Image image = new Image("/img/bblast.png");
     private ImageView iv;
+    private Rectangle pixel;
 
     private double x;
 	private double y;
@@ -23,6 +25,9 @@ public class Bullet {
         iv = new ImageView(image);
         iv.setFitHeight(50);
         iv.setFitWidth(15);
+		pixel = new Rectangle(1,1);
+		pixel.setFill(Paint.valueOf("LIME"));
+		pixel.relocate(x + (iv.getFitWidth()/2), y);
 
 		this.x = x + 50;
 		this.y = y;
@@ -34,7 +39,7 @@ public class Bullet {
 	}
 
 	public double getX() {
-		return x;
+		return pixel.getX();
 	}
 
 	public void setX(double x) {
@@ -42,7 +47,7 @@ public class Bullet {
 	}
 
 	public double getY() {
-		return y;
+		return pixel.getY();
 	}
 
 	public void setY(double y) {
@@ -51,6 +56,7 @@ public class Bullet {
 
 	private void relocate() {
 		iv.relocate(x, y);
+		pixel.relocate(x + (iv.getFitWidth()/2), y);
 	}
 
 	public boolean willDespawn() {
@@ -59,6 +65,10 @@ public class Bullet {
 
 	public Node getIV() {
 		return iv;
+	}
+
+	public Node getPixel() {
+		return pixel;
 	}
 
 }
