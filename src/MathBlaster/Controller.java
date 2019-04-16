@@ -5,14 +5,21 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import javafx.animation.Interpolator;
+import javafx.animation.Transition;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -20,6 +27,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -74,12 +82,34 @@ public class Controller {
 		stage.show();
 		scene.getStylesheets().addAll("mathblaster.css");
 
+
+
+
+
+
+
+
+		HBox newBox = new HBox();
+/*
+		Animation ani = new AnimatedGif(getClass().getResource("hmm.gif").toExternalForm(), 1000);
+		ani.setCycleCount(30);
+		ani.play();
+		newBox.getChildren().add(ani.getView());
+		pane.getChildren().add(newBox);
+		newBox.setLayoutX(100);
+
+
+
+*/
 		shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
 		move = new AudioClip(this.getClass().getResource("/sounds/Movement.wav").toString());
 		endGame = new AudioClip(this.getClass().getResource("/sounds/Starship_destroyed.wav").toString());
 		bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 
-		pane.setStyle("-fx-background-image: url(\"/img/galaxy.jpg\"); " +
+        HBox rootBox = new HBox();
+
+
+		pane.setStyle("-fx-background-image: url(\"/img/bg1.jpg\"); " +
 			"-fx-background-repeat: stretch; -fx-background-size: 600 600; " +
 			"-fx-text-fill: white; -fx-background-position: center center;");
 
@@ -354,6 +384,7 @@ public class Controller {
 	public void checkDeath() {
 		// one way to die: you run out of lives
 		if (player.getLives() == 0) {
+            shooty.setIv(new Image("/img/shipdeath.png"));
 			die();
 		}
 		// another way to die: the blocks hit you
@@ -367,6 +398,7 @@ public class Controller {
 		update.stop();
 		buttonTimeline.stop();
 		try {
+            shooty.setIv(new Image("/img/shipdeath.png"));
 			Stage deathBoxStage = new Stage();
 			DeathBox2 deathBox2 = new DeathBox2();
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("DeathBox2.fxml"));
@@ -419,4 +451,92 @@ public class Controller {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
+
+
+
+
+
+
+
+	public class AnimatedGif extends Animation {
+
+		public AnimatedGif( String filename, double durationMs) {
+
+			GifGenerator d = new GifGenerator();
+			d.read( filename);
+
+			Image[] sequence = new Image[ d.getFrameCount()];
+			for( int i=0; i < d.getFrameCount(); i++) {
+
+				WritableImage wimg = null;
+				BufferedImage bimg = d.getFrame(i);
+				sequence[i] = SwingFXUtils.toFXImage( bimg, wimg);
+
+			}
+
+			super.init( sequence, durationMs);
+		}
+
+	}
+
+	public class Animation extends Transition {
+
+		private ImageView imageView;
+		private int count;
+
+		private int lastIndex;
+
+		private Image[] sequence;
+
+		private Animation() {
+		}
+
+		public Animation( Image[] sequence, double durationMs) {
+			init( sequence, durationMs);
+		}
+
+		private void init( Image[] sequence, double durationMs) {
+			this.imageView = new ImageView(sequence[0]);
+			this.sequence = sequence;
+			this.count = sequence.length;
+
+			setCycleCount(1);
+			setCycleDuration(Duration.millis(durationMs));
+			setInterpolator(Interpolator.LINEAR);
+
+		}
+
+		protected void interpolate(double k) {
+
+			final int index = Math.min((int) Math.floor(k * count), count - 1);
+			if (index != lastIndex) {
+				imageView.setImage(sequence[index]);
+				lastIndex = index;
+			}
+
+		}
+
+		public ImageView getView() {
+			return imageView;
+		}
+
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

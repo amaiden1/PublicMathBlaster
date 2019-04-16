@@ -1,5 +1,6 @@
 package MathBlaster;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
@@ -56,6 +57,10 @@ public class Shooter {
 
 	public ImageView getIV() {
 		return iv;
+	}
+
+	public void setIv(Image img){
+		this.iv.setImage(img);
 	}
 
 	public Bullet shoot() {
