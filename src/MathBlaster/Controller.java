@@ -85,14 +85,26 @@ public class Controller {
         Media m = new Media(Paths.get("/Users/mac/Documents/Google Sync Mac/School/ITEC 370/mathblaster/src/img/background2.mp4").toUri().toString());
         final MediaPlayer bgVid = new MediaPlayer(m);
         MediaView bgView = new MediaView(bgVid);
+
+        bgView.setFitWidth(SCREEN_WIDTH);
+        bgView.setFitHeight(SCREEN_HEIGHT);
+
         bgView.setMediaPlayer(bgVid);
         bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
 
+
         pane = new Pane();
         pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-		scene = new Scene(pane);
+
+        Group group = new Group(bgView);
+        group.prefWidth(SCREEN_WIDTH);
+        group.prefHeight(SCREEN_HEIGHT);
+
+        group.getChildren().add(pane);
+
+		scene = new Scene(group);
 		stage = new Stage();
 		stage.setScene(scene);
 		stage.setResizable(false);
