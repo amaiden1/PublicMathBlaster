@@ -11,6 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -21,6 +25,7 @@ import javafx.scene.image.Image;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
@@ -49,6 +54,7 @@ public class Controller {
 	private boolean isPaused;
 	private boolean fastMode;
 	private Shooter shooty;
+	//private Meteor meteor;
 	private ArrayList<Bullet> bulletsOnScreen;
 	private ArrayList<Button> buttList;
 	private int currentLevel;
@@ -74,7 +80,12 @@ public class Controller {
 		streak = 0;
 		difficulty = _difficulty;
 		fastMode = _fastMode;
-		pane = new Pane();
+
+        Media m = new Media(Paths.get());
+        final MediaPlayer bgVid = new MediaPlayer(m);
+
+
+        pane = new Pane(new MediaView(bgVid));
 		pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		scene = new Scene(pane);
 		stage = new Stage();
@@ -82,38 +93,16 @@ public class Controller {
 		stage.show();
 		scene.getStylesheets().addAll("mathblaster.css");
 
-
-
-
-
-
-
-
-		HBox newBox = new HBox();
-/*
-		Animation ani = new AnimatedGif(getClass().getResource("hmm.gif").toExternalForm(), 1000);
-		ani.setCycleCount(30);
-		ani.play();
-		newBox.getChildren().add(ani.getView());
-		pane.getChildren().add(newBox);
-		newBox.setLayoutX(100);
-
-
-
-*/
 		shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
 		move = new AudioClip(this.getClass().getResource("/sounds/Movement.wav").toString());
 		endGame = new AudioClip(this.getClass().getResource("/sounds/Starship_destroyed.wav").toString());
 		bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 
-        HBox rootBox = new HBox();
 
 
-		pane.setStyle("-fx-background-image: url(\"/img/bg1.jpg\"); " +
-			"-fx-background-repeat: stretch; -fx-background-size: 600 600; " +
-			"-fx-text-fill: white; -fx-background-position: center center;");
 
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
+
 		shoot.setVolume(shoot.getVolume() - .8);
 		bulletsOnScreen = new ArrayList<>();
 		resetButtons();
@@ -133,6 +122,7 @@ public class Controller {
 				Bullet bullet = shooty.shoot();
 				bulletsOnScreen.add(bullet);
 				pane.getChildren().add(bullet.getIV());
+
 			}
 			if(event.getCode() == KeyCode.BACK_QUOTE && DEV_MODE)
 			{
@@ -168,6 +158,7 @@ public class Controller {
 
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
+
 				butt.setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
 
 				if (butt.getLayoutY() == 500){
@@ -191,6 +182,7 @@ public class Controller {
 			for (Bullet b : bulletsOnScreen) {
 				b.decY(BULLET_DELTA);
 				for (Button butt : buttList) {
+
 					if (b.getPixel().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 						if(butt == answerBox) {
 							double distance = shooty.getY() - b.getY();
@@ -450,76 +442,6 @@ public class Controller {
 
 	public void setStage(Stage stage) {
 		this.stage = stage;
-	}
-
-
-
-
-
-
-
-	public class AnimatedGif extends Animation {
-
-		public AnimatedGif( String filename, double durationMs) {
-
-			GifGenerator d = new GifGenerator();
-			d.read( filename);
-
-			Image[] sequence = new Image[ d.getFrameCount()];
-			for( int i=0; i < d.getFrameCount(); i++) {
-
-				WritableImage wimg = null;
-				BufferedImage bimg = d.getFrame(i);
-				sequence[i] = SwingFXUtils.toFXImage( bimg, wimg);
-
-			}
-
-			super.init( sequence, durationMs);
-		}
-
-	}
-
-	public class Animation extends Transition {
-
-		private ImageView imageView;
-		private int count;
-
-		private int lastIndex;
-
-		private Image[] sequence;
-
-		private Animation() {
-		}
-
-		public Animation( Image[] sequence, double durationMs) {
-			init( sequence, durationMs);
-		}
-
-		private void init( Image[] sequence, double durationMs) {
-			this.imageView = new ImageView(sequence[0]);
-			this.sequence = sequence;
-			this.count = sequence.length;
-
-			setCycleCount(1);
-			setCycleDuration(Duration.millis(durationMs));
-			setInterpolator(Interpolator.LINEAR);
-
-		}
-
-		protected void interpolate(double k) {
-
-			final int index = Math.min((int) Math.floor(k * count), count - 1);
-			if (index != lastIndex) {
-				imageView.setImage(sequence[index]);
-				lastIndex = index;
-			}
-
-		}
-
-		public ImageView getView() {
-			return imageView;
-		}
-
 	}
 
 }
