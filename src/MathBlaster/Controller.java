@@ -7,6 +7,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
@@ -81,15 +82,20 @@ public class Controller {
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 
-        Media m = new Media(Paths.get());
+        Media m = new Media(Paths.get("/Users/mac/Documents/Google Sync Mac/School/ITEC 370/mathblaster/src/img/background2.mp4").toUri().toString());
         final MediaPlayer bgVid = new MediaPlayer(m);
+        MediaView bgView = new MediaView(bgVid);
+        bgView.setMediaPlayer(bgVid);
+        bgVid.setRate(20);
+        bgVid.setCycleCount(MediaPlayer.INDEFINITE);
+        bgVid.play();
 
-
-        pane = new Pane(new MediaView(bgVid));
-		pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        pane = new Pane();
+        pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		scene = new Scene(pane);
 		stage = new Stage();
 		stage.setScene(scene);
+		stage.setResizable(false);
 		stage.show();
 		scene.getStylesheets().addAll("mathblaster.css");
 
