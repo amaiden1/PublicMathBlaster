@@ -1,7 +1,6 @@
 package MathBlaster;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -22,8 +21,6 @@ import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import javafx.animation.Interpolator;
-import javafx.animation.Transition;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.beans.binding.Bindings;
@@ -95,8 +92,6 @@ public class Controller {
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
 
-        meteor = new Meteor();
-
 
         pane = new Pane();
         pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -119,9 +114,7 @@ public class Controller {
 
         Group group = new Group(bgView);
         group.getChildren().add(pane);
-        group.getChildren().add(meteor.getIV());
 
-        meteor.getIV().setLayoutY(300);
 		scene = new Scene(group, SCREEN_HEIGHT, SCREEN_WIDTH);
 		stage = new Stage();
 		stage.setScene(scene);
@@ -190,6 +183,25 @@ public class Controller {
 
 		//moves the buttons down
 		// original values: 3 seconds, 10 pixels
+
+
+
+		//Meteor meteor[] = new Meteor[5];
+
+		//meteor[0] = new Meteor();
+
+		//group.getChildren().add(meteor.getIV());
+		//meteor.getIV().setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
+
+
+
+		Timeline meteorTimeline = new Timeline(new KeyFrame(Duration.millis(20), e ->{
+
+
+
+		}));
+		meteorTimeline.setCycleCount(Animation.INDEFINITE);
+		meteorTimeline.play();
 
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
