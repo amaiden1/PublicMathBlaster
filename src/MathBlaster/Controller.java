@@ -11,10 +11,13 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
@@ -23,7 +26,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-
+import javafx.beans.binding.Bindings;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -55,7 +58,7 @@ public class Controller {
 	private boolean isPaused;
 	private boolean fastMode;
 	private Shooter shooty;
-	//private Meteor meteor;
+	private Meteor meteor;
 	private ArrayList<Bullet> bulletsOnScreen;
 	private ArrayList<Button> buttList;
 	private int currentLevel;
@@ -82,34 +85,48 @@ public class Controller {
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 
-        Media m = new Media(Paths.get("/Users/mac/Documents/Google Sync Mac/School/ITEC 370/mathblaster/src/img/background2.mp4").toUri().toString());
-        final MediaPlayer bgVid = new MediaPlayer(m);
-        MediaView bgView = new MediaView(bgVid);
+        Media m = new Media(getClass().getResource("/media/background2.mp4").toExternalForm());
 
-        bgView.setFitWidth(SCREEN_WIDTH);
-        bgView.setFitHeight(SCREEN_HEIGHT);
+		final MediaPlayer bgVid = new MediaPlayer(m);
+        MediaView bgView = new MediaView(bgVid);
 
         bgView.setMediaPlayer(bgVid);
         bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
 
+        meteor = new Meteor();
+
 
         pane = new Pane();
         pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+        bgView.setPreserveRatio(true);
+        bgView.setFitHeight(pane.getHeight());
+        bgView.setFitWidth(pane.getWidth());
+
+        DoubleProperty mvw = bgView.fitWidthProperty();
+        DoubleProperty mvh = bgView.fitHeightProperty();
+        mvw.bind(Bindings.selectDouble(bgView.sceneProperty(), "width"));
+        mvh.bind(Bindings.selectDouble(bgView.sceneProperty(), "height"));
+        bgView.setPreserveRatio(true);
+
+        //MediaView copy = bgView;
+
+        //copy.setPreserveRatio(true);
+        //copy.setFitHeight(pane.getHeight());
+        //copy.setFitWidth(pane.getWidth());
+
         Group group = new Group(bgView);
-        group.prefWidth(SCREEN_WIDTH);
-        group.prefHeight(SCREEN_HEIGHT);
-
         group.getChildren().add(pane);
+        group.getChildren().add(meteor.getIV());
 
-		scene = new Scene(group);
+        meteor.getIV().setLayoutY(300);
+		scene = new Scene(group, SCREEN_HEIGHT, SCREEN_WIDTH);
 		stage = new Stage();
 		stage.setScene(scene);
-		stage.setResizable(false);
 		stage.show();
-		scene.getStylesheets().addAll("mathblaster.css");
+		//scene.getStylesheets().addAll("mathblaster.css");
 
 		shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
 		move = new AudioClip(this.getClass().getResource("/sounds/Movement.wav").toString());
@@ -145,7 +162,7 @@ public class Controller {
 			if(event.getCode() == KeyCode.BACK_QUOTE && DEV_MODE)
 			{
 				newLevel(currentLevel+1);
-			}				
+			}
 		});
 
 		scene.setOnKeyReleased(event -> {
@@ -280,7 +297,7 @@ public class Controller {
 			System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
 		}
 	}
-	
+
 	private void updateScore(double distance){
 		//difficulty = baseScore
 		//distance multiplier = distance/370(full length between player and the answer boxes) + 1
@@ -294,9 +311,9 @@ public class Controller {
 		System.out.println("Total multiplier: " + (distanceMultiplier * fastModeMultiplier * streakMultiplier));
 		score += baseScore * distanceMultiplier * fastModeMultiplier * streakMultiplier;
 		streak++;
-		
+
 	}
-	
+
 	private void resetButtons()
 	{
 		buttList = new ArrayList<>();
@@ -327,7 +344,7 @@ public class Controller {
 		livesLabel.setFont(new Font(25));
 		pane.getChildren().addAll(scoreLabel, equationLabel, livesLabel);
 	}
-	
+
 	public void initialize(){
 		bulletsOnScreen.clear();
 		pane.getChildren().clear();
@@ -338,7 +355,7 @@ public class Controller {
 		//must update labels
 		updateLabels();
 	}
-	
+
 	/**
 	 * initializes new level
 	 * @param level the numerical value of the new level
