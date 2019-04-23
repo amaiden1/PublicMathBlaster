@@ -5,14 +5,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="505.0" prefWidth="738.0" style="-fx-background-color: BLACK;" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="527.0" prefWidth="738.0" style="-fx-background-color: BLACK;" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="246.0" prefWidth="482.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="545.0" prefWidth="738.0" VBox.vgrow="ALWAYS">
       <children>
         <Label alignment="CENTER" layoutX="19.0" layoutY="14.0" style="&#10;" text="MATH" textAlignment="CENTER" textFill="#8571cd" wrapText="false">
           <font>
@@ -29,7 +31,7 @@
                   <Font name="Roboto Light" size="17.0" />
                </font>
             </Label>
-            <ScrollPane layoutX="353.0" layoutY="14.0" prefHeight="477.0" prefWidth="371.0" style="-fx-background-color: black;">
+            <ScrollPane layoutX="353.0" layoutY="35.0" prefHeight="477.0" prefWidth="371.0" style="-fx-background-color: black;">
                <content>
                   <HBox prefHeight="475.0" prefWidth="369.0" style="-fx-background-color: black;">
                      <children>
@@ -39,7 +41,7 @@
                   </HBox>
                </content>
             </ScrollPane>
-            <Label alignment="CENTER" layoutX="237.0" layoutY="89.0" rotate="-90.0" style="&#10;" text="HIGH SCORES" textAlignment="CENTER" textFill="#3a5ff0" wrapText="false">
+            <Label alignment="CENTER" layoutX="237.0" layoutY="109.0" rotate="-90.0" style="&#10;" text="HIGH SCORES" textAlignment="CENTER" textFill="#3a5ff0" wrapText="false">
                <font>
                   <Font name="Roboto Medium" size="29.0" />
                </font>
@@ -79,24 +81,42 @@
                            </padding>
                         </Slider>
                      </children>
+                     <padding>
+                        <Insets top="8.0" />
+                     </padding>
                   </HBox>
                </children>
             </VBox>
-            <Button fx:id="clearHighScoresBtn" alignment="CENTER" layoutX="302.0" layoutY="228.0" mnemonicParsing="false" onAction="#clearHighScoresBtnClicked" onMouseEntered="#mouseHover" prefHeight="25.0" prefWidth="57.0" rotate="-90.0" style="-fx-border-color: #3a5ff0;" text="Clear" textFill="#3c63f0">
+            <Button fx:id="clearHighScoresBtn" alignment="CENTER" layoutX="302.0" layoutY="248.0" mnemonicParsing="false" onAction="#clearHighScoresBtnClicked" onMouseEntered="#mouseHover" prefHeight="25.0" prefWidth="57.0" rotate="-90.0" style="-fx-border-color: #3a5ff0;" text="Clear" textFill="#3c63f0">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
             </Button>
-            <Label fx:id="clearHSConfirm" alignment="CENTER" layoutX="279.0" layoutY="232.0" rotate="-90.0" style="&#10;" text="confirm?" textAlignment="CENTER" textFill="#f74040" wrapText="false">
+            <Label fx:id="clearHSConfirm" alignment="CENTER" layoutX="279.0" layoutY="252.0" rotate="-90.0" style="&#10;" text="confirm?" textAlignment="CENTER" textFill="#f74040" wrapText="false">
                <font>
                   <Font name="Roboto" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="quitBtn" alignment="CENTER" layoutX="21.0" layoutY="460.0" mnemonicParsing="false" onAction="#quitBtnClicked" onMouseEntered="#mouseHover" prefHeight="29.0" prefWidth="174.0" style="-fx-border-color: #f74040;" text="Quit" textFill="#f74040">
+            <Button fx:id="quitBtn" alignment="CENTER" layoutX="21.0" layoutY="480.0" mnemonicParsing="false" onAction="#quitBtnClicked" onMouseEntered="#mouseHover" prefHeight="29.0" prefWidth="174.0" style="-fx-border-color: #f74040;" text="Quit" textFill="#f74040">
                <font>
                   <Font name="Roboto" size="14.0" />
                </font>
             </Button>
+            <ImageView fx:id="minBtn" fitHeight="20.0" fitWidth="15.0" layoutX="683.0" layoutY="9.0" onMouseClicked="#minBtnClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+               <image>
+                  <Image url="@../img/ui_min_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="closeBtn" fitHeight="15.0" fitWidth="13.0" layoutX="708.0" layoutY="10.0" onMouseClicked="#closeBtnClicked" pickOnBounds="true" preserveRatio="true" style="-fx-cursor: hand;">
+               <image>
+                  <Image url="@../img/ui_close_ion.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="moveStageBtn" fitHeight="20.0" fitWidth="15.0" layoutX="659.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/ui_move.png" />
+               </image>
+            </ImageView>
       </children>
     </AnchorPane>
   </children>
