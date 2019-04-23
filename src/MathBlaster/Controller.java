@@ -110,7 +110,7 @@ public class Controller {
         bgView.setFitWidth(pane.getWidth());
 
         DoubleProperty mvw = bgView.fitWidthProperty();
-        DoubleProperty mvh = bgView.fitHeightPropery();
+        DoubleProperty mvh = bgView.fitHeightProperty();
         mvw.bind(Bindings.selectDouble(bgView.sceneProperty(), "width"));
         mvh.bind(Bindings.selectDouble(bgView.sceneProperty(), "height"));
 
