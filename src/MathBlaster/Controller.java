@@ -4,11 +4,8 @@ import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
@@ -19,12 +16,9 @@ import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.beans.binding.Bindings;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
@@ -90,7 +84,7 @@ public class Controller {
         bgView.setMediaPlayer(bgVid);
         bgView2.setMediaPlayer(bgVid2);
 
-        bgVid.setRate(20);
+        //bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
 
@@ -499,20 +493,3 @@ public class Controller {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
