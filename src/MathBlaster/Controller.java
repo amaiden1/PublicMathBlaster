@@ -79,7 +79,7 @@ public class Controller {
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 
-        Media m = new Media(getClass().getResource("/media/spaceBg (1).mp4").toExternalForm());
+        Media m = new Media(getClass().getResource("/media/mblastBg (2).mp4").toExternalForm());
         Media m2 = new Media(getClass().getResource("/media/final_5cbe6ab076e9430014769b98_434486.mp4").toExternalForm());
 
 		final MediaPlayer bgVid = new MediaPlayer(m);
