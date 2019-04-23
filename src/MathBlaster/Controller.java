@@ -61,6 +61,7 @@ public class Controller {
 	private Label livesLabel;
 	private Label equationLabel;
 	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
+	private boolean dead;
 
 	private AudioClip shoot;
 	private AudioClip move;
@@ -72,6 +73,7 @@ public class Controller {
 		streak = 0;
 		difficulty = _difficulty;
 		fastMode = _fastMode;
+		dead = false;
 
         Media m = new Media(getClass().getResource("/media/mblastBg (2).mp4").toExternalForm());
         Media m2 = new Media(getClass().getResource("/media/final_5cbe6ab076e9430014769b98_434486.mp4").toExternalForm());
@@ -84,7 +86,7 @@ public class Controller {
         bgView.setMediaPlayer(bgVid);
         bgView2.setMediaPlayer(bgVid2);
 
-        bgVid.setRate(20);
+        //bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
 
@@ -339,7 +341,7 @@ public class Controller {
 			buttList.get(i).setPrefSize(120, 120);
 			buttList.get(i).relocate(i * 120,30);
 			buttList.get(i).setDisable(true);
-			buttList.get(i).setFont(new Font(30));
+			buttList.get(i).setFont(new Font(27));
 			buttList.get(i).setTextFill(Paint.valueOf("0xbf3de2"));
 			pane.getChildren().add(buttList.get(i));
 		}
@@ -438,33 +440,35 @@ public class Controller {
 	}
 
 	private void die() {
-		update.stop();
-		buttonTimeline.stop();
-		try {
-            shooty.setIv(new Image("/img/shipdeath.png"));
-			Stage deathBoxStage = new Stage();
-			DeathBox2 deathBox2 = new DeathBox2();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("DeathBox2.fxml"));
-			loader.setController(deathBox2);
-			Pane root = loader.load();
-			// do post init things here
-			deathBox2.setGameStage(getStage());
-			deathBox2.setThisStage(deathBoxStage);
-			deathBox2.setScore((int)score);
-			// end post init things
-			deathBoxStage.setTitle("Game Over");
-			deathBoxStage.setScene(new Scene(root));
-			deathBox2.postInit();
-			deathBoxStage.show();
+		if(!dead) {
+			update.stop();
+			buttonTimeline.stop();
+			try {
+				shooty.setIv(new Image("/img/shipdeath.png"));
+				Stage deathBoxStage = new Stage();
+				DeathBox2 deathBox2 = new DeathBox2();
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("DeathBox2.fxml"));
+				loader.setController(deathBox2);
+				Pane root = loader.load();
+				// do post init things here
+				deathBox2.setGameStage(getStage());
+				deathBox2.setThisStage(deathBoxStage);
+				deathBox2.setScore((int) score);
+				// end post init things
+				deathBoxStage.setTitle("Game Over");
+				deathBoxStage.setScene(new Scene(root));
+				deathBox2.postInit();
+				deathBoxStage.show();
+				dead = true;
 
-			if (deathBox2.isNewGame()) {
-				initialize();
-				player.setLives(3);
-				update.play();
+				if (deathBox2.isNewGame()) {
+					initialize();
+					player.setLives(3);
+					update.play();
+				}
+			} catch (IOException e) {
+				System.out.println("Fatal Error: cannot load death box FXML. The game will crash.");
 			}
-		}
-		catch (IOException e) {
-			System.out.println("Fatal Error: cannot load death box FXML. The game will crash.");
 		}
 	}
 
