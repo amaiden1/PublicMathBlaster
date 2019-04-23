@@ -4,11 +4,8 @@ import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
@@ -19,12 +16,9 @@ import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.beans.binding.Bindings;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
@@ -382,7 +376,7 @@ public class Controller {
 	 * initializes new level
 	 * @param level the numerical value of the new level
 	 */
-	public void newLevel(int level){
+	private void newLevel(int level){
 		equationGenerator.newEquation();
 		currentLevel = level;
 		Random rand = new Random();
@@ -400,7 +394,7 @@ public class Controller {
 				int wrongAnswer;
 				do{
 					wrongAnswer = rand.nextInt(ANSWER_LIMIT);
-				}while(wrongAnswer == answer || answers.contains((Integer)wrongAnswer));
+				}while(wrongAnswer == answer || answers.contains(wrongAnswer));
 				answers.set(i, wrongAnswer);
 				buttList.get(i).setText("" + wrongAnswer);
 			}
@@ -423,14 +417,14 @@ public class Controller {
 	    return scene;
 	}
 
-	public void minusLife(){
+	private void minusLife(){
 		player.setLives(player.getLives() - 1);
 		System.out.print(player.getLives());
 		livesLabel.setText("Lives: " + player.getLives());
 		checkDeath();
 	}
 
-	public void checkDeath() {
+	private void checkDeath() {
 		// one way to die: you run out of lives
 		if (player.getLives() == 0) {
             shooty.setIv(new Image("/img/shipdeath.png"));
@@ -493,7 +487,7 @@ public class Controller {
 		this.fastMode = fastMode;
 	}
 
-	public Stage getStage() {
+	private Stage getStage() {
 		return stage;
 	}
 

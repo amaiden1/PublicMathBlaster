@@ -150,7 +150,7 @@ public class EquationGenerator {
 				// 4-5 = ^3 limit
 				// 3 = ^4 limit
 				// <3 = ^5 limit
-				int exponentLimit =-1;
+				int exponentLimit = -1;
 				if(numbers[i] > 5){ //5 and up
 					exponentLimit = 2;
 				}

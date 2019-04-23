@@ -1,7 +1,5 @@
 package MathBlaster;
 
-import com.sun.javafx.sg.prism.web.NGWebView;
-import com.sun.jnlp.FileSaveServiceImpl;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -12,12 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.management.StandardEmitterMBean;
-import javax.naming.Name;
-import javax.print.event.PrintJobAttributeEvent;
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 

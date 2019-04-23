@@ -1,6 +1,5 @@
 package MathBlaster;
 
-import com.sun.corba.se.impl.ior.NewObjectKeyTemplateBase;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;

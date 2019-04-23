@@ -1,9 +1,5 @@
 package MathBlaster;
 
-/**
- * @author Emmanuel Edamwen
- */
-
 import javafx.stage.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
@@ -62,7 +58,7 @@ public class DeathBox{
 
     public boolean setNewGame(){
         boolean check = false;
-        if (newGame == true){
+        if (newGame){
             check = true;
         }
         return check;
