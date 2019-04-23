@@ -79,8 +79,8 @@ public class Controller {
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 
-        Media m = new Media(getClass().getResource("/media/background2.mp4").toExternalForm());
-        Media m2 = new Media(getClass().getResource("/media/background2.mp4").toExternalForm());
+        Media m = new Media(getClass().getResource("/media/spaceBg (1).mp4").toExternalForm());
+        Media m2 = new Media(getClass().getResource("/media/final_5cbe6ab076e9430014769b98_434486.mp4").toExternalForm());
 
 		final MediaPlayer bgVid = new MediaPlayer(m);
 		final MediaPlayer bgVid2 = new MediaPlayer(m2);
@@ -110,7 +110,7 @@ public class Controller {
         bgView.setFitWidth(pane.getWidth());
 
         DoubleProperty mvw = bgView.fitWidthProperty();
-        DoubleProperty mvh = bgView.fitHeightPropery();
+        DoubleProperty mvh = bgView.fitHeightProperty();
         mvw.bind(Bindings.selectDouble(bgView.sceneProperty(), "width"));
         mvh.bind(Bindings.selectDouble(bgView.sceneProperty(), "height"));
 
