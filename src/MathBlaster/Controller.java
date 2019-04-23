@@ -124,6 +124,7 @@ public class Controller {
 		scene = new Scene(group);
 		stage = new Stage();
 		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.show();
 		stage.setResizable(false);
 		scene.getStylesheets().addAll("mathblaster.css");
@@ -289,6 +290,8 @@ public class Controller {
 			// do post init things here
 			pauseMenu.setThisStage(pauseStage);
 			pauseMenu.setValueListener(actionValue);
+			pauseMenu.setGameStage(stage);
+			pauseMenu.setupWindowProperties();
 			// end post init things
 			pauseStage.setTitle("Game Over");
 			pauseStage.setScene(new Scene(root));
