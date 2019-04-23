@@ -4,27 +4,19 @@ import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import javafx.beans.binding.Bindings;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
@@ -79,47 +71,24 @@ public class Controller {
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 
-        Media m = new Media(getClass().getResource("/media/background2.mp4").toExternalForm());
-        Media m2 = new Media(getClass().getResource("/media/background2.mp4").toExternalForm());
+        Media m = new Media(getClass().getResource("/media/spaceBg (1).mp4").toExternalForm());
 
 		final MediaPlayer bgVid = new MediaPlayer(m);
-		final MediaPlayer bgVid2 = new MediaPlayer(m2);
         MediaView bgView = new MediaView(bgVid);
-        MediaView bgView2 = new MediaView(bgVid2);
 
         bgView.setMediaPlayer(bgVid);
-        bgView2.setMediaPlayer(bgVid2);
 
-        bgVid.setRate(20);
+        //bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
-
-        bgVid2.setRate(20);
-        bgVid2.setCycleCount(MediaPlayer.INDEFINITE);
-        bgVid2.play();
-
 
         pane = new Pane();
         pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         pane.setMaxSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         pane.setMinSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-
-        bgView.setPreserveRatio(true);
-        bgView.setFitHeight(pane.getHeight());
-        bgView.setFitWidth(pane.getWidth());
-
-        DoubleProperty mvw = bgView.fitWidthProperty();
-        DoubleProperty mvh = bgView.fitHeightProperty();
-        mvw.bind(Bindings.selectDouble(bgView.sceneProperty(), "width"));
-        mvh.bind(Bindings.selectDouble(bgView.sceneProperty(), "height"));
-
         StackPane group = new StackPane(bgView);
         group.getChildren().add(pane);
-
-        //Group group2 = new Group(bgView2);
-
-        //bgView2.setLayoutY(300);
 
 		scene = new Scene(group);
 		stage = new Stage();
@@ -499,20 +468,3 @@ public class Controller {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
