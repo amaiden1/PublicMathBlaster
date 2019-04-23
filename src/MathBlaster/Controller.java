@@ -11,13 +11,11 @@ import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.media.Media;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import javafx.scene.image.Image;
-import javafx.beans.binding.Bindings;
 import java.io.IOException;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
@@ -74,46 +72,23 @@ public class Controller {
 		fastMode = _fastMode;
 
         Media m = new Media(getClass().getResource("/media/spaceBg (1).mp4").toExternalForm());
-        Media m2 = new Media(getClass().getResource("/media/final_5cbe6ab076e9430014769b98_434486.mp4").toExternalForm());
 
 		final MediaPlayer bgVid = new MediaPlayer(m);
-		final MediaPlayer bgVid2 = new MediaPlayer(m2);
         MediaView bgView = new MediaView(bgVid);
-        MediaView bgView2 = new MediaView(bgVid2);
 
         bgView.setMediaPlayer(bgVid);
-        bgView2.setMediaPlayer(bgVid2);
 
         //bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
-
-        bgVid2.setRate(20);
-        bgVid2.setCycleCount(MediaPlayer.INDEFINITE);
-        bgVid2.play();
-
 
         pane = new Pane();
         pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         pane.setMaxSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         pane.setMinSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-
-        bgView.setPreserveRatio(true);
-        bgView.setFitHeight(pane.getHeight());
-        bgView.setFitWidth(pane.getWidth());
-
-        DoubleProperty mvw = bgView.fitWidthProperty();
-        DoubleProperty mvh = bgView.fitHeightProperty();
-        mvw.bind(Bindings.selectDouble(bgView.sceneProperty(), "width"));
-        mvh.bind(Bindings.selectDouble(bgView.sceneProperty(), "height"));
-
         StackPane group = new StackPane(bgView);
         group.getChildren().add(pane);
-
-        //Group group2 = new Group(bgView2);
-
-        //bgView2.setLayoutY(300);
 
 		scene = new Scene(group);
 		stage = new Stage();
