@@ -10,9 +10,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 
@@ -33,7 +31,6 @@ import java.util.Random;
 import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -83,43 +80,53 @@ public class Controller {
 		fastMode = _fastMode;
 
         Media m = new Media(getClass().getResource("/media/background2.mp4").toExternalForm());
+        Media m2 = new Media(getClass().getResource("/media/background2.mp4").toExternalForm());
 
 		final MediaPlayer bgVid = new MediaPlayer(m);
+		final MediaPlayer bgVid2 = new MediaPlayer(m2);
         MediaView bgView = new MediaView(bgVid);
+        MediaView bgView2 = new MediaView(bgVid2);
 
         bgView.setMediaPlayer(bgVid);
+        bgView2.setMediaPlayer(bgVid2);
+
         bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
 
+        bgVid2.setRate(20);
+        bgVid2.setCycleCount(MediaPlayer.INDEFINITE);
+        bgVid2.play();
+
 
         pane = new Pane();
         pane.setPrefSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        pane.setMaxSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+        pane.setMinSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 
         bgView.setPreserveRatio(true);
         bgView.setFitHeight(pane.getHeight());
         bgView.setFitWidth(pane.getWidth());
 
         DoubleProperty mvw = bgView.fitWidthProperty();
-        DoubleProperty mvh = bgView.fitHeightProperty();
+        DoubleProperty mvh = bgView.fitHeightPropery();
         mvw.bind(Bindings.selectDouble(bgView.sceneProperty(), "width"));
         mvh.bind(Bindings.selectDouble(bgView.sceneProperty(), "height"));
-        bgView.setPreserveRatio(true);
 
-        //MediaView copy = bgView;
-
-        //copy.setPreserveRatio(true);
-        //copy.setFitHeight(pane.getHeight());
-        //copy.setFitWidth(pane.getWidth());
-
-        Group group = new Group(bgView);
+        StackPane group = new StackPane(bgView);
         group.getChildren().add(pane);
 
-		scene = new Scene(group, SCREEN_HEIGHT, SCREEN_WIDTH);
+        //Group group2 = new Group(bgView2);
+
+        //bgView2.setLayoutY(300);
+
+		scene = new Scene(group);
 		stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
-		//scene.getStylesheets().addAll("mathblaster.css");
+		stage.setResizable(false);
+		scene.getStylesheets().addAll("mathblaster.css");
 
 		shoot = new AudioClip(this.getClass().getResource("/sounds/Blaster.wav").toString());
 		move = new AudioClip(this.getClass().getResource("/sounds/Movement.wav").toString());
