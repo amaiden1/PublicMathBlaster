@@ -255,8 +255,19 @@ public class EquationGenerator {
 		String result = "X = ";
 		Scanner scanEquation = new Scanner(given);
 		scanEquation.useDelimiter(",");
-		while(scanEquation.hasNext())
-			result += scanEquation.next() + " ";
+		while(scanEquation.hasNext()){
+			String temp = scanEquation.next();
+			if(temp.equals("%")){
+				String withLog = "";
+				for(int i = 0; i < result.length()-2; i++){
+					withLog += result.charAt(i);
+				}
+				result = withLog;
+				result += "log" + Constants.baby2 + "(" + scanEquation.next() + ") ";
+			}
+			else
+				result += temp + " ";
+		}
 		formattedEquation = result;
 	}
 	
