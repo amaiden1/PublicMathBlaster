@@ -1,12 +1,8 @@
 package MathBlaster;
 
 import javafx.scene.Node;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

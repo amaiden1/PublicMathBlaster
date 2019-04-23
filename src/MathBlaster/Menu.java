@@ -2,10 +2,16 @@ package MathBlaster;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.util.*;
@@ -23,6 +29,10 @@ public class Menu {
 	@FXML private VBox hsLeftBox;
 	@FXML private VBox hsRightBox;
 	@FXML private Label clearHSConfirm;
+	@FXML private ImageView minBtn;
+	@FXML private ImageView closeBtn;
+	@FXML private ImageView showTitleBtn;
+	@FXML private ImageView moveStageBtn;
 
 
 	private AudioClip hoverSound = new AudioClip(this.getClass().getResource("/sounds/buttonhover.wav").toString());
@@ -30,6 +40,8 @@ public class Menu {
 	private Stage menuStage;
 	private int difficulty;
 	private boolean clearBtnArmed;
+	private boolean titleHidden;
+	private double dragX, dragY;
 
 	public void postInit() {
 		// do initialization things
@@ -57,8 +69,26 @@ public class Menu {
 		});
 		*/
 		clearBtnArmed = false;
+		titleHidden = true;
 		clearHSConfirm.setVisible(false);
 		readHighScores();
+		dragX = 0;
+		dragY = 0;
+
+		moveStageBtn.setCursor(Cursor.OPEN_HAND);
+		moveStageBtn.setOnMousePressed(event -> {
+			if(event.getButton() != MouseButton.MIDDLE) {
+				dragX = event.getSceneX();
+				dragY = event.getSceneY();
+			}
+		});
+		moveStageBtn.setOnMouseDragged(event -> {
+			if(event.getButton() != MouseButton.MIDDLE) {
+				menuStage.getScene().getWindow().setX(event.getScreenX() - dragX);
+				menuStage.getScene().getWindow().setY(event.getScreenY() - dragY);
+			}
+		});
+
 	}
 
 	private void readHighScores() {
@@ -198,6 +228,16 @@ public class Menu {
 
 	public void setMenuStage(Stage stage) {
 		menuStage = stage;
+	}
+
+	@FXML
+	void closeBtnClicked(MouseEvent event) {
+		Platform.exit();
+	}
+
+	@FXML
+	void minBtnClicked(MouseEvent event) {
+		menuStage.setIconified(true);
 	}
 
 }
