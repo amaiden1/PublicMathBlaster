@@ -14,7 +14,7 @@ public final class Constants {
 	 */
 
 	// Dev Mode
-	public static final boolean DEV_MODE = true;
+	public static final boolean DEV_MODE = false;
 
 	// Menu Constants
 	public static final int
