@@ -88,23 +88,23 @@ public class Controller {
 		devMode = false;
 
         Media m = new Media(getClass().getResource("/media/mblastBg (2).mp4").toExternalForm());
-        Media m2 = new Media(getClass().getResource("/media/final_5cbe6ab076e9430014769b98_434486.mp4").toExternalForm());
+        //Media m2 = new Media(getClass().getResource("/media/final_5cbe6ab076e9430014769b98_434486.mp4").toExternalForm());
 
 		final MediaPlayer bgVid = new MediaPlayer(m);
-		final MediaPlayer bgVid2 = new MediaPlayer(m2);
+		//final MediaPlayer bgVid2 = new MediaPlayer(m2);
         MediaView bgView = new MediaView(bgVid);
-        MediaView bgView2 = new MediaView(bgVid2);
+        //MediaView bgView2 = new MediaView(bgVid2);
 
         bgView.setMediaPlayer(bgVid);
-        bgView2.setMediaPlayer(bgVid2);
+        //bgView2.setMediaPlayer(bgVid2);
 
         //bgVid.setRate(20);
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
         bgVid.play();
 
-        bgVid2.setRate(20);
-        bgVid2.setCycleCount(MediaPlayer.INDEFINITE);
-        bgVid2.play();
+        //bgVid2.setRate(20);
+        //bgVid2.setCycleCount(MediaPlayer.INDEFINITE);
+        //bgVid2.play();
 
 
         pane = new Pane();
