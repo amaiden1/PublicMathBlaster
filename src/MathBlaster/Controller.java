@@ -207,6 +207,10 @@ public class Controller {
 				b.decY(BULLET_DELTA);
 				for (Button butt : buttList) {
 
+					Meteor meteor = new Meteor();
+
+					butt.setGraphic(meteor.getIV());
+
 					if (b.getPixel().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 						if(butt == answerBox) {
 							double distance = shooty.getY() - b.getY();
@@ -286,7 +290,7 @@ public class Controller {
 			System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
 		}
 	}
-
+//test
 	private void updateScore(double distance){
 		//difficulty = baseScore
 		//distance multiplier = distance/370(full length between player and the answer boxes) + 1
