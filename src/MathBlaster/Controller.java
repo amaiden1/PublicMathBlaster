@@ -94,6 +94,7 @@ public class Controller {
 		scene = new Scene(group);
 		stage = new Stage();
 		stage.setScene(scene);
+		stage.initStyle(StageStyle.UNDECORATED);
 		stage.show();
 		stage.setResizable(false);
 		scene.getStylesheets().addAll("mathblaster.css");
@@ -104,7 +105,7 @@ public class Controller {
 		bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 
 
-
+//This is a comment
 
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
 
@@ -263,6 +264,8 @@ public class Controller {
 			// do post init things here
 			pauseMenu.setThisStage(pauseStage);
 			pauseMenu.setValueListener(actionValue);
+			pauseMenu.setGameStage(stage);
+			pauseMenu.setupWindowProperties();
 			// end post init things
 			pauseStage.setTitle("Game Over");
 			pauseStage.setScene(new Scene(root));

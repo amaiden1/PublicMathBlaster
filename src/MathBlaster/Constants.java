@@ -35,12 +35,12 @@ public final class Constants {
 		SCREEN_WIDTH = 600,
 		SCREEN_HEIGHT = 600;
 
-
-
-	// Prevent instantiation of the class
+	// Log bases
 	public static final String
 			baby2 = "\u2082",
 			baby10 = "\u2081" + "\u2080";
+
+	// Prevent instantiation of the class
 	private Constants() {}
 
 }
