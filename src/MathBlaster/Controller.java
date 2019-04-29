@@ -184,6 +184,11 @@ public class Controller {
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
 
+				//Meteor meteor = new Meteor();
+
+				//butt.setGraphic(meteor.getIV());
+				butt.setBackground(Background.EMPTY);
+
 				butt.setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
 
 				if (butt.getLayoutY() == 500){
@@ -207,10 +212,8 @@ public class Controller {
 			for (Bullet b : bulletsOnScreen) {
 				b.decY(BULLET_DELTA);
 				for (Button butt : buttList) {
-
-					Meteor meteor = new Meteor();
-
-					butt.setGraphic(meteor.getIV());
+					
+					butt.setBackground(Background.EMPTY);
 
 					if (b.getPixel().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 						if(butt == answerBox) {
@@ -315,6 +318,7 @@ public class Controller {
 		buttList = new ArrayList<>();
 		for(int i = 0; i < NUM_BUTTONS; i++)
 		{
+
 			buttList.add(new Button());
 			buttList.get(i).setPrefSize(120, 120);
 			buttList.get(i).relocate(i * 120,30);
