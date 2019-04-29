@@ -1,12 +1,16 @@
 package MathBlaster;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.TopLevelAttribute;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -19,6 +23,7 @@ import javafx.util.Duration;
 import javafx.scene.image.Image;
 import javafx.beans.binding.Bindings;
 import java.io.IOException;
+import java.security.Key;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
@@ -60,8 +65,9 @@ public class Controller {
 	private Label scoreLabel;
 	private Label livesLabel;
 	private Label equationLabel;
-	private Player player = new Player((DEV_MODE)?Integer.MAX_VALUE:3, 0);
+	private Player player = new Player(3, 0);
 	private boolean dead;
+	private boolean devMode;
 
 	private AudioClip shoot;
 	private AudioClip move;
@@ -74,6 +80,10 @@ public class Controller {
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 		dead = false;
+
+		// Override this to set it to true
+		// Otherwise, press F9 in game to activate it
+		devMode = false;
 
         Media m = new Media(getClass().getResource("/media/mblastBg (2).mp4").toExternalForm());
         Media m2 = new Media(getClass().getResource("/media/final_5cbe6ab076e9430014769b98_434486.mp4").toExternalForm());
@@ -130,52 +140,20 @@ public class Controller {
 		endGame = new AudioClip(this.getClass().getResource("/sounds/Starship_destroyed.wav").toString());
 		bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 
-
-//This is a comment
-
 		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
 
 		shoot.setVolume(shoot.getVolume() - .8);
 		bulletsOnScreen = new ArrayList<>();
 		resetButtons();
 
-		scene.setOnKeyPressed(event -> {
-			if(event.getCode() == KeyCode.LEFT) {
-			    leftPressed = true;
-				move.play();
-			}
-			if(event.getCode() == KeyCode.RIGHT) {
-			    rightPressed = true;
-				move.play();
-			}
-			if(event.getCode() == KeyCode.SPACE) {
-				// shoot
-				shoot.play();
-				Bullet bullet = shooty.shoot();
-				bulletsOnScreen.add(bullet);
-				pane.getChildren().add(bullet.getIV());
-
-			}
-			if(event.getCode() == KeyCode.BACK_QUOTE && DEV_MODE)
-			{
-				newLevel(currentLevel+1);
-			}
-		});
-
-		scene.setOnKeyReleased(event -> {
-			if(event.getCode() == KeyCode.LEFT) {
-			    leftPressed = false;
-			}
-			if(event.getCode() == KeyCode.RIGHT) {
-			    rightPressed = false;
-			}
-			if(event.getCode() == KeyCode.ESCAPE) {
-				pause();
-			}
-		});
+		// these two were refactored into methods down below, in an effort to make the constructor more concise
+		// this makes use of an alternate lambda syntax, that automatically calls the method with the 'event' param
+		scene.setOnKeyPressed(this::handleKeyPressEvents);
+		scene.setOnKeyReleased(this::handleKeyReleaseEvents);
 
 		equationGenerator = new EquationGenerator(difficulty);
 		newLevel(1);
+
 		// main update thread, fires at 10 ms
 		update = new Timeline(new KeyFrame(Duration.millis(10), event -> {
 			// update shooter
@@ -199,7 +177,7 @@ public class Controller {
 
 
 
-		Timeline meteorTimeline = new Timeline(new KeyFrame(Duration.millis(20), e ->{
+		Timeline meteorTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 
 
 
@@ -209,9 +187,7 @@ public class Controller {
 
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
-
 				butt.setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
-
 				if (butt.getLayoutY() == 500){
 				    player.setLives(0);
                 }
@@ -262,6 +238,7 @@ public class Controller {
 		}
 		catch (ConcurrentModificationException e) {
 			// do nothing
+			// this is intentional
 		}
 	}
 
@@ -302,8 +279,14 @@ public class Controller {
 					isPaused = false;
 				}
 				else if(newValue.intValue() == PAUSE_RESPONSE_MAIN_MENU /* 1 */) {
-					// yet to be implemented
-					System.out.println("This feature isn't implemented yet");
+					try {
+						exitToMainMenu();
+					} catch (IOException e) {
+						new Alert(Alert.AlertType.ERROR, "Fatal error: Could not load main menu. The game will now exit." +
+							"Please submit a bug report to our developers. (Details: An IOException occurred when trying to instantiate the" +
+							" MainMenu stage from Controller.pause().)").showAndWait();
+						Platform.exit();
+					}
 				}
 				else if(newValue.intValue() == PAUSE_RESPONSE_QUIT /* 2 */) {
 					Platform.exit();
@@ -312,7 +295,55 @@ public class Controller {
 
 		}
 		catch (IOException e) {
-			System.out.println("Fatal Error: cannot load pause menu FXML. The game will crash.");
+			new Alert(Alert.AlertType.ERROR, "Fatal error: Could not load pause menu. The game will now exit." +
+				"Please submit a bug report to our developers. (Details: An IOException occurred when trying to instantiate the" +
+				" PauseMenu stage.)").showAndWait();
+		}
+	}
+
+	private void handleKeyPressEvents(KeyEvent event) {
+		if(event.getCode() == KeyCode.LEFT) {
+			leftPressed = true;
+			move.play();
+		}
+		if(event.getCode() == KeyCode.RIGHT) {
+			rightPressed = true;
+			move.play();
+		}
+		if(event.getCode() == KeyCode.SPACE) {
+			// shoot
+			shoot.play();
+			Bullet bullet = shooty.shoot();
+			bulletsOnScreen.add(bullet);
+			pane.getChildren().add(bullet.getIV());
+
+		}
+		if(event.getCode() == KeyCode.CLOSE_BRACKET) {
+			// turns on dev mode
+			showToast("Dev Mode Enabled");
+			devMode = true;
+			player.setLives(Integer.MAX_VALUE);
+		}
+		if(event.getCode() == KeyCode.F && devMode) {
+			// turns on fast mode if in dev mode
+			showToast("Fast Mode On");
+			fastMode = true;
+		}
+		if(event.getCode() == KeyCode.BACK_QUOTE && devMode) {
+			newLevel(currentLevel+1);
+			showToast("Skipped Level");
+		}
+	}
+
+	private void handleKeyReleaseEvents(KeyEvent event) {
+		if(event.getCode() == KeyCode.LEFT) {
+			leftPressed = false;
+		}
+		if(event.getCode() == KeyCode.RIGHT) {
+			rightPressed = false;
+		}
+		if(event.getCode() == KeyCode.ESCAPE) {
+			pause();
 		}
 	}
 
@@ -485,6 +516,36 @@ public class Controller {
 		primaryStage.setScene(new Scene(root));
 		primaryStage.show();
 
+	}
+
+	public void exitToMainMenu() throws IOException {
+
+		Menu mainMenu = new Menu();
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+		loader.setController(mainMenu);
+		Pane root = loader.load();
+		mainMenu.postInit();
+		Stage primaryStage = new Stage();
+		mainMenu.setMenuStage(primaryStage);
+		primaryStage.setTitle("Mathblaster");
+		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.setScene(new Scene(root));
+		stage.hide();
+		primaryStage.show();
+
+	}
+
+	private void showToast(String text) {
+		Label toastLbl = new Label(text);
+		toastLbl.setTextFill(Paint.valueOf("white"));
+		toastLbl.setStyle("-fx-font-size: 16");
+		toastLbl.relocate(10, 570);
+		Timeline toastTimeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
+			pane.getChildren().remove(toastLbl);
+		}));
+		pane.getChildren().add(toastLbl);
+		toastTimeline.setCycleCount(1);
+		toastTimeline.play();
 	}
 
 	public void setFastMode(boolean fastMode) {
