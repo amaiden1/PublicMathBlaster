@@ -92,3 +92,7 @@
 	-fx-text-fill: white;
 	-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 5, 0.0, 0, 2);
 }
+
+.shop-btn {
+	-fx-border-fill: linear-gradient(from 0% 0% to 100% 100%, #2db0eb, #bd36d8);
+}

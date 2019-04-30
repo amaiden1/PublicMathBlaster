@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="673.0" prefWidth="955.0" style="-fx-background-color: BLACK;" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="673.0" prefWidth="778.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="19.0" layoutY="14.0" style="&#10;" text="MATH BLASTER" textAlignment="CENTER" textFill="#8571cd" wrapText="false">
+          <font>
+            <Font name="Roboto Bold" size="21.0" />
+          </font>
+        </Label>
+            <Label alignment="CENTER" layoutX="19.0" layoutY="39.0" style="&#10;" text="COSMETICS" textAlignment="CENTER" textFill="#961eff" wrapText="false">
+               <font>
+                  <Font name="Roboto Bold" size="37.0" />
+               </font>
+            </Label>
+            <Button fx:id="backBtn" alignment="CENTER" layoutX="24.0" layoutY="617.0" mnemonicParsing="false" onAction="#backBtnClicked" onMouseEntered="#mouseHover" prefHeight="29.0" prefWidth="174.0" style="-fx-border-color: #f74040;" text="Back to Main Menu" textFill="#f74040">
+               <font>
+                  <Font name="Roboto" size="14.0" />
+               </font>
+            </Button>
+            <HBox layoutX="24.0" layoutY="96.0" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+               <children>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" translateX="43.0">
+                           <image>
+                              <Image url="@../img/ship1.png" />
+                           </image></ImageView>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="Standard Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c1Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Default Ship" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c1" alignment="CENTER" mnemonicParsing="false" onAction="#c1Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #45c9f2;" text="ACTIVE" textFill="#45c9f2">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" translateX="42.0">
+                           <image>
+                              <Image url="@../img/ship2.png" />
+                           </image></ImageView>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="Wow Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c2Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs 10,000 Points" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c2" alignment="CENTER" mnemonicParsing="false" onAction="#c2Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c3Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs " textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c3" alignment="CENTER" mnemonicParsing="false" onAction="#c3Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c4Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs 100,000,000 Points" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c4" alignment="CENTER" mnemonicParsing="false" onAction="#c4Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c5Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs 100,000,000 Points" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c5" alignment="CENTER" mnemonicParsing="false" onAction="#c5Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox layoutX="24.0" layoutY="351.0" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+               <children>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="Standard Bullet" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c6Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Default Bullet" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c6" alignment="CENTER" mnemonicParsing="false" onAction="#c6Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #45c9f2;" text="ACTIVE" textFill="#45c9f2">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Bullet" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c7Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs 100,000,000 Points" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c7" alignment="CENTER" mnemonicParsing="false" onAction="#c7Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Bullet" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c8Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs 100,000,000 Points" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c8" alignment="CENTER" mnemonicParsing="false" onAction="#c8Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Bullet" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c9Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs 100,000,000 Points" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c9" alignment="CENTER" mnemonicParsing="false" onAction="#c9Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Bullet" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto Bold" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="c10Lbl" alignment="CENTER" prefHeight="27.0" prefWidth="171.0" style="&#10;" text="Needs 100,000,000 Points" textAlignment="CENTER" textFill="#df61ff" wrapText="false">
+                           <font>
+                              <Font name="Roboto" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="c10" alignment="CENTER" mnemonicParsing="false" onAction="#c10Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                           <font>
+                              <Font name="Roboto" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label alignment="CENTER" layoutX="221.0" layoutY="611.0" style="&#10;" text="Cosmetics unlock automagically when your high score reaches the" textAlignment="CENTER" textFill="#45c9f2" wrapText="false">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="221.0" layoutY="633.0" style="&#10;" text="amount that the item needs to unlock. Click one to equip it." textAlignment="CENTER" textFill="#45c9f2" wrapText="false">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="hsLabel" alignment="CENTER_RIGHT" layoutX="815.0" layoutY="35.0" prefHeight="25.0" prefWidth="127.0" style="&#10;" text="9999999999" textAlignment="RIGHT" textFill="#8571cd" wrapText="false">
+               <font>
+                  <Font name="Roboto Bold" size="21.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="855.0" layoutY="13.0" style="&#10;" text="High Score:" textAlignment="CENTER" textFill="#45c9f2" wrapText="false">
+               <font>
+                  <Font name="Roboto Light" size="17.0" />
+               </font>
+            </Label>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>

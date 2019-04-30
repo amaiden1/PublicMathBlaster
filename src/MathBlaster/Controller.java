@@ -65,7 +65,7 @@ public class Controller {
 	private Label scoreLabel;
 	private Label livesLabel;
 	private Label equationLabel;
-	private Player player = new Player(3, 0);
+	private Player player;
 	private boolean dead;
 	private boolean devMode;
 
@@ -74,12 +74,14 @@ public class Controller {
 	private AudioClip endGame;
 	private AudioClip bulletHit;
 
-	public Controller(int _difficulty, boolean _fastMode) {
+	public Controller(int _difficulty, boolean _fastMode, int shipNum) {
 		score = 0;
 		streak = 0;
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 		dead = false;
+
+		player = new Player(3, 0);
 
 		// Override this to set it to true
 		// Otherwise, press F9 in game to activate it
@@ -140,7 +142,7 @@ public class Controller {
 		endGame = new AudioClip(this.getClass().getResource("/sounds/Starship_destroyed.wav").toString());
 		bulletHit = new AudioClip(this.getClass().getResource("/sounds/Explosion.wav").toString());
 
-		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0);
+		shooty = new Shooter(pane.getPrefWidth()/2.0, pane.getPrefHeight()-80.0, shipNum);
 
 		shoot.setVolume(shoot.getVolume() - .8);
 		bulletsOnScreen = new ArrayList<>();

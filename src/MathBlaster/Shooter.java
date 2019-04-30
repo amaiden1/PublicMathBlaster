@@ -11,11 +11,11 @@ public class Shooter {
 	private double x;
 	private double y;
 
-	public Shooter(double x, double y)
+	public Shooter(double x, double y, int shipNum)
 	{
 		this.x = x;
 		this.y = y;
-		iv = new ImageView("/img/spaceship.png");
+		iv = new ImageView("/img/ship" + shipNum + ".png");
 		iv.setFitWidth(80);
 		iv.setFitHeight(80);
 		iv.relocate(x, y);

@@ -1,15 +1,23 @@
 package MathBlaster;
 
+import com.sun.prism.j2d.paint.MultipleGradientPaint;
+import com.sun.prism.paint.LinearGradient;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.media.AudioClip;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.util.*;
@@ -24,6 +32,7 @@ public class Menu {
 	@FXML private Button playD4Btn;
 	@FXML private Button playD5Btn;
 	@FXML private Button quitBtn;
+	@FXML private Button shopBtn;
 	@FXML private VBox hsLeftBox;
 	@FXML private VBox hsRightBox;
 	@FXML private Label clearHSConfirm;
@@ -37,9 +46,12 @@ public class Menu {
 	private Controller ctrl;
 	private Stage menuStage;
 	private int difficulty;
+	private int highScore;
 	private boolean clearBtnArmed;
 	private boolean titleHidden;
 	private double dragX, dragY;
+	private IntegerProperty chosenShipCostume;
+	private IntegerProperty chosenBulletCostume;
 
 	public void postInit() {
 		// do initialization things
@@ -73,6 +85,7 @@ public class Menu {
 		dragX = 0;
 		dragY = 0;
 
+
 		moveStageBtn.setCursor(Cursor.OPEN_HAND);
 		moveStageBtn.setOnMousePressed(event -> {
 			if(event.getButton() != MouseButton.MIDDLE) {
@@ -86,6 +99,12 @@ public class Menu {
 				menuStage.getScene().getWindow().setY(event.getScreenY() - dragY);
 			}
 		});
+
+		shopBtn.getStyleClass().add("shop-btn");
+		shopBtn.setStyle("-fx-border-color: linear-gradient(from 0% 0% to 100% 100%, #3589eb, #bd36d8);\n");
+
+		chosenBulletCostume = new SimpleIntegerProperty(1);
+		chosenShipCostume = new SimpleIntegerProperty(1);
 
 	}
 
@@ -120,6 +139,13 @@ public class Menu {
 
 			// sort the list using voodoo magic (actually, just lambdas)
 			scoreList.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+
+			// set highest score for shop
+			if(!scoreList.isEmpty()) {
+				highScore = scoreList.get(0).getValue();
+			} else {
+				highScore = 0;
+			}
 
 			// add the scores to the screen
 			for(Map.Entry<String, Integer> entry : scoreList) {
@@ -217,8 +243,33 @@ public class Menu {
 		Platform.exit();
 	}
 
+	@FXML
+	private void shopBtnClicked() {
+
+		try {
+			ShopController shop = new ShopController();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Shop.fxml"));
+			loader.setController(shop);
+			Pane root = loader.load();
+			Stage primaryStage = new Stage();
+			Scene scene = new Scene(root);
+			shop.postInit(primaryStage, menuStage, highScore);
+			shop.setShipValueListener(chosenShipCostume);
+			shop.setBulletValueListener(chosenBulletCostume);
+			primaryStage.setTitle("Mathblaster");
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			menuStage.hide();
+			primaryStage.show();
+		} catch (IOException e) {
+
+		}
+
+	}
+
 	private void newGame() {
-		ctrl = new Controller(difficulty, fastModeSlider.getValue() == 1);
+		ctrl = new Controller(difficulty, fastModeSlider.getValue() == 1, chosenShipCostume.get());
 		//ctrl.setFastMode(fastModeSlider.getValue() == 1);
 		//ctrl.setDifficulty(difficulty); <-- to be implemented
 		menuStage.hide();
