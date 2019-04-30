@@ -19,7 +19,7 @@ public final class Constants {
 	// Menu Constants
 	public static final int
 		PAUSE_RESPONSE_CONTINUE = 0,
-		PAUSE_RESPONSE_MAIN_MENU = 1,
+		PAUSE_RESPONSE_MAIN_MENU = 1,/*S.M.L.E*/
 		PAUSE_RESPONSE_QUIT = 2;
 
 	// Controller Constants
