@@ -16,7 +16,7 @@
          </image>
       </ImageView>
       <Label layoutX="274.0" layoutY="26.0" prefHeight="17.0" prefWidth="42.0" text="Credits" textFill="WHITE" wrapText="true" />
-      <Label layoutX="79.0" layoutY="79.0" prefHeight="17.0" prefWidth="432.0" text="Joe Semendinger - Project Manager, Co-Mathematic Specialist, Quality Control" textFill="WHITE" />
+      <Label layoutX="79.0" layoutY="79.0" prefHeight="17.0" prefWidth="520.0" text="Joe Semendinger - Project Manager, Co-Mathematic Specialist, Quality Control, Git Engineer" textFill="WHITE" />
       <Label layoutX="79.0" layoutY="113.0" prefHeight="17.0" prefWidth="386.0" text="Nolan Ierardi - Stylesheet Stylist, Lead Gameplay Developer" textFill="WHITE" />
       <Label layoutX="79.0" layoutY="130.0" prefHeight="17.0" prefWidth="386.0" text="John Laws - Co-Designer, Sound, Developer" textFill="WHITE" />
       <Label layoutX="79.0" layoutY="147.0" prefHeight="17.0" prefWidth="386.0" text="Emmanuel Edamwen - Lead Designer, Sound, Art" textFill="WHITE" />
