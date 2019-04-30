@@ -78,7 +78,7 @@
                   </VBox>
                   <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" translateX="60.0">
                            <image>
                               <Image url="@../img/ship3.png" />
                            </image></ImageView>

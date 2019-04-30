@@ -374,8 +374,10 @@ public class Controller {
 			buttList.get(i).setPrefSize(120, 120);
 			buttList.get(i).relocate(i * 120,30);
 			buttList.get(i).setDisable(true);
-			buttList.get(i).setFont(new Font(27));
-			buttList.get(i).setTextFill(Paint.valueOf("0xbf3de2"));
+			buttList.get(i).setOpacity(.8);
+			buttList.get(i).setStyle("-fx-background-color: #323232");
+			buttList.get(i).setFont(new Font(23));
+			buttList.get(i).setTextFill(Paint.valueOf("0xde6bff"));
 			pane.getChildren().add(buttList.get(i));
 		}
 	}
