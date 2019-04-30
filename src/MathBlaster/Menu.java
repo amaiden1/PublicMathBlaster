@@ -265,7 +265,10 @@ public class Menu {
 			menuStage.hide();
 			primaryStage.show();
 		} catch (IOException e) {
-
+			new Alert(Alert.AlertType.ERROR, "Fatal error: Could not shop. The game will now exit." +
+				"Please submit a bug report to our developers. (Details: An IOException occurred when trying to instantiate the" +
+				" Shop stage from @FXML Menu.shopBtnClicked().)").showAndWait();
+			Platform.exit();
 		}
 
 	}
@@ -293,7 +296,26 @@ public class Menu {
 
 	@FXML
 	private void creditsBtnClicked(ActionEvent event) {
-		System.out.println("do stuff");
+		try {
+			Credits credits = new Credits();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("Credits.fxml"));
+			loader.setController(credits);
+			Pane root = loader.load();
+			Stage primaryStage = new Stage();
+			Scene scene = new Scene(root);
+			credits.postInit(primaryStage, menuStage);
+			primaryStage.setTitle("Mathblaster");
+			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
+			primaryStage.initStyle(StageStyle.UNDECORATED);
+			menuStage.hide();
+			primaryStage.show();
+		} catch (IOException e) {
+			new Alert(Alert.AlertType.ERROR, "Fatal error: Could not shop. The game will now exit." +
+				"Please submit a bug report to our developers. (Details: An IOException occurred when trying to instantiate the" +
+				" Shop stage from @FXML Menu.shopBtnClicked().)").showAndWait();
+			Platform.exit();
+		}
 	}
 
 }

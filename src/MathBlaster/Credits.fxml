@@ -6,24 +6,27 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="693.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="465.0" fitWidth="693.0" layoutY="-20.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: .6;">
          <image>
             <Image url="@../img/Credits_Background.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="274.0" layoutY="26.0" prefHeight="17.0" prefWidth="42.0" text="Credits" textFill="WHITE" wrapText="true" />
-      <Label layoutX="79.0" layoutY="79.0" prefHeight="17.0" prefWidth="520.0" text="Joe Semendinger - Project Manager, Co-Mathematic Specialist, Quality Control, Git Engineer" textFill="WHITE" />
-      <Label layoutX="79.0" layoutY="113.0" prefHeight="17.0" prefWidth="386.0" text="Nolan Ierardi - Stylesheet Stylist, Lead Gameplay Developer" textFill="WHITE" />
+      <Label layoutX="74.0" layoutY="22.0" prefHeight="26.0" prefWidth="139.0" text="CREDITS" textFill="#ff7d13" wrapText="true">
+         <font>
+            <Font name="Roboto Bold" size="22.0" />
+         </font></Label>
+      <Label layoutX="79.0" layoutY="79.0" prefHeight="17.0" prefWidth="628.0" text="Joe Semendinger - Project Manager, Co-Mathematic Specialist, Quality Control, Git Engineer" textFill="WHITE" />
+      <Label layoutX="79.0" layoutY="113.0" prefHeight="17.0" prefWidth="435.0" text="Nolan Ierardi - Stylesheet Stylist, Lead Gameplay Developer" textFill="WHITE" />
       <Label layoutX="79.0" layoutY="130.0" prefHeight="17.0" prefWidth="386.0" text="John Laws - Co-Designer, Sound, Developer" textFill="WHITE" />
       <Label layoutX="79.0" layoutY="147.0" prefHeight="17.0" prefWidth="386.0" text="Emmanuel Edamwen - Lead Designer, Sound, Art" textFill="WHITE" />
-      <Label layoutX="79.0" layoutY="96.0" prefHeight="17.0" prefWidth="386.0" text="Austin Maiden - Mathematic Design Specialist, Lead Developer" textFill="WHITE" />
+      <Label layoutX="79.0" layoutY="96.0" prefHeight="17.0" prefWidth="419.0" text="Austin Maiden - Mathematic Design Specialist, Lead Developer" textFill="WHITE" />
       <Label layoutX="26.0" layoutY="62.0" prefHeight="17.0" prefWidth="386.0" text="Development Team (S.M.I.L.E.):" textFill="WHITE" />
       <Label layoutX="26.0" layoutY="176.0" prefHeight="17.0" prefWidth="350.0" text="Contact Us: SMILEGameDev@gmail.com" textFill="WHITE" />
-      <Button layoutX="26.0" layoutY="22.0" mnemonicParsing="false" opacity="0.5" style="-fx-font-weight: bold;" text="&lt;--" textFill="#ff7d13" textOverrun="CLIP">
+      <Button fx:id="creditsBackBtn" layoutX="26.0" layoutY="22.0" mnemonicParsing="false" onAction="#creditsBackBtnClicked" prefHeight="29.0" prefWidth="34.0" style="-fx-font-weight: bold; -fx-border-color: #ff7d13;" stylesheets="@../css/menu.css" text="&lt;" textFill="#ff7d13" textOverrun="CLIP">
          <effect>
             <Glow />
          </effect>
