@@ -182,7 +182,7 @@ public class ShopController {
 	private void setUnlocks() {
 		ArrayList<Button> unlockBtns = new ArrayList<>(Arrays.asList(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10));
 		ArrayList<Label> labels = new ArrayList<>(Arrays.asList(c1Lbl, c2Lbl, c3Lbl, c4Lbl, c5Lbl, c6Lbl, c7Lbl, c8Lbl, c9Lbl, c10Lbl));
-		int[] shopItemPrices = {0, 10000, 20000, 50000, 100000, 0, 20000, 80000, 150000, 500000};
+		int[] shopItemPrices = {0, 10000, 20000, 50000, 100000, 0, 10000, 20000, 50000, 100000};
 		for (int i = 0 ; i < 10 ; i++) {
 			if(highScore >= shopItemPrices[i]) {
 				// this is unlockable

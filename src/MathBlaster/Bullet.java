@@ -9,15 +9,16 @@ import javafx.scene.image.ImageView;
 
 public class Bullet {
 
-    private Image image = new Image("/img/bblast.png");
+    private Image image;
     private ImageView iv;
     private Rectangle pixel;
 
     private double x;
 	private double y;
 
-	public Bullet(double x, double y) {
+	public Bullet(double x, double y, int bulletNum) {
 
+		image = new Image("/img/bullet" + bulletNum + ".png");
         iv = new ImageView(image);
         iv.setFitHeight(50);
         iv.setFitWidth(15);

@@ -68,23 +68,25 @@ public class Controller {
 	private Player player;
 	private boolean dead;
 	private boolean devMode;
+	private int bulletNum;
 
 	private AudioClip shoot;
 	private AudioClip move;
 	private AudioClip endGame;
 	private AudioClip bulletHit;
 
-	public Controller(int _difficulty, boolean _fastMode, int shipNum) {
+	public Controller(int _difficulty, boolean _fastMode, int shipNum, int bulletNum) {
 		score = 0;
 		streak = 0;
 		difficulty = _difficulty;
 		fastMode = _fastMode;
 		dead = false;
+		this.bulletNum = bulletNum;
 
 		player = new Player(3, 0);
 
 		// Override this to set it to true
-		// Otherwise, press F9 in game to activate it
+		// Otherwise, press ']' in game to activate it
 		devMode = false;
 
         Media m = new Media(getClass().getResource("/media/mblastBg (2).mp4").toExternalForm());
@@ -315,7 +317,7 @@ public class Controller {
 		if(event.getCode() == KeyCode.SPACE) {
 			// shoot
 			shoot.play();
-			Bullet bullet = shooty.shoot();
+			Bullet bullet = shooty.shoot(bulletNum);
 			bulletsOnScreen.add(bullet);
 			pane.getChildren().add(bullet.getIV());
 

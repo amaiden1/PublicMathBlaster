@@ -271,7 +271,7 @@ public class Menu {
 	}
 
 	private void newGame() {
-		ctrl = new Controller(difficulty, fastModeSlider.getValue() == 1, chosenShipCostume.get());
+		ctrl = new Controller(difficulty, fastModeSlider.getValue() == 1, chosenShipCostume.get(), chosenBulletCostume.get());
 		//ctrl.setFastMode(fastModeSlider.getValue() == 1);
 		//ctrl.setDifficulty(difficulty); <-- to be implemented
 		menuStage.hide();

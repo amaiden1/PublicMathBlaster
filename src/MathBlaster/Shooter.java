@@ -61,8 +61,8 @@ public class Shooter {
 		this.iv.setImage(img);
 	}
 
-	public Bullet shoot() {
-		return new Bullet(x, y);
+	public Bullet shoot(int bulletNum) {
+		return new Bullet(x, y, bulletNum);
 	}
 
 	private void wrap() {
