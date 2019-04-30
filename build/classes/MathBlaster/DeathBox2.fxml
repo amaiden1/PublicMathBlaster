@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="320.0" prefWidth="484.0" style="-fx-background-color: BLACK;" stylesheets="@../css/menu.css" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <AnchorPane fx:id="thisPane" maxHeight="-1.0" maxWidth="-1.0" prefHeight="366.0" prefWidth="738.0" VBox.vgrow="ALWAYS">
+      <children>
+        <Label alignment="CENTER" layoutX="19.0" layoutY="23.0" style="&#10;" text="YOU DIED!" textAlignment="CENTER" textFill="#ff361b" wrapText="false">
+          <font>
+            <Font name="Roboto Bold" size="37.0" />
+          </font>
+        </Label>
+            <Label fx:id="hsHighScoreLabel" alignment="CENTER" layoutX="19.0" layoutY="136.0" style="&#10;" text="You got a high score! Enter your name:" textAlignment="CENTER" textFill="#40acf7" wrapText="false">
+               <font>
+                  <Font name="Roboto Light" size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="quitBtn" alignment="CENTER" layoutX="248.0" layoutY="255.0" mnemonicParsing="false" onAction="#quitBtnClicked" prefHeight="37.0" prefWidth="213.0" style="-fx-border-color: #ad88f7;" text="Quit" textFill="#ad88f7">
+               <font>
+                  <Font name="Roboto" size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="mainMenuBtn" alignment="CENTER" layoutX="19.0" layoutY="255.0" mnemonicParsing="false" onAction="#mainMenuBtnClicked" prefHeight="37.0" prefWidth="213.0" style="-fx-border-color: #2db2ef;" text="Main Menu" textFill="#2db2ef">
+               <font>
+                  <Font name="Roboto" size="18.0" />
+               </font>
+            </Button>
+            <Label fx:id="scoreLabel" alignment="CENTER" layoutX="19.0" layoutY="71.0" style="&#10;" text="Score: X" textAlignment="CENTER" textFill="#ff741c" wrapText="false">
+               <font>
+                  <Font name="Roboto" size="31.0" />
+               </font>
+            </Label>
+            <TextField fx:id="hsNameField" layoutX="19.0" layoutY="173.0" prefHeight="38.0" prefWidth="444.0" promptText="hi">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </TextField>
+            <Label fx:id="hsErrorLabel" alignment="CENTER" layoutX="19.0" layoutY="223.0" style="&#10;" text="Error text goes here" textAlignment="CENTER" textFill="#f54040" wrapText="false">
+               <font>
+                  <Font name="Roboto" size="13.0" />
+               </font>
+            </Label>
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
