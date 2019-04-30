@@ -214,8 +214,11 @@
                   </VBox>
                   <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Bullet" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" translateX="54.0">
+                           <image>
+                              <Image url="@../img/bullet4.png" />
+                           </image></ImageView>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="Fast Lightning" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
                            <font>
                               <Font name="Roboto Bold" size="17.0" />
                            </font>
@@ -234,8 +237,11 @@
                   </VBox>
                   <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Bullet" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" translateX="54.0">
+                           <image>
+                              <Image url="@../img/bullet5.png" />
+                           </image></ImageView>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="Emoji" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
                            <font>
                               <Font name="Roboto Bold" size="17.0" />
                            </font>
