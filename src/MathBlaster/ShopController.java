@@ -56,15 +56,15 @@ public class ShopController {
 		shipValueListener = listener;
 		// select the correct value
 		ArrayList<Button> shipBtns = new ArrayList<>(Arrays.asList(c1, c2, c3, c4, c5));
-		//shipBtns.get(shipValueListener.getValue()).setStyle("-fx-border-color: #45c9f2");
-		//shipBtns.get(shipValueListener.getValue()).setTextFill(Paint.valueOf("0x45c9f2"));
-		ArrayList<Button> bulletBtns = new ArrayList<>(Arrays.asList(c6, c7, c8, c9, c10));
-		//shipBtns.get(bulletValueListener.getValue()).setStyle("-fx-border-color: #45c9f2");
-		//shipBtns.get(bulletValueListener.getValue()).setTextFill(Paint.valueOf("0x45c9f2"));
+		shipBtns.get(shipValueListener.getValue() - 1).setStyle("-fx-border-color: #45c9f2");
+		shipBtns.get(shipValueListener.getValue() - 1).setTextFill(Paint.valueOf("0x45c9f2"));
 	}
 
 	public void setBulletValueListener(IntegerProperty listener) {
 		bulletValueListener = listener;
+		ArrayList<Button> bulletBtns = new ArrayList<>(Arrays.asList(c6, c7, c8, c9, c10));
+		bulletBtns.get(bulletValueListener.getValue() - 1).setStyle("-fx-border-color: #45c9f2");
+		bulletBtns.get(bulletValueListener.getValue() - 1).setTextFill(Paint.valueOf("0x45c9f2"));
 	}
 
 	@FXML

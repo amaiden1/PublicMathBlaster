@@ -46,7 +46,7 @@
                               <Font name="Roboto" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="c1" alignment="CENTER" mnemonicParsing="false" onAction="#c1Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #45c9f2;" text="ACTIVE" textFill="#45c9f2">
+                        <Button fx:id="c1" alignment="CENTER" mnemonicParsing="false" onAction="#c1Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="ACTIVE" textFill="#f74040">
                            <font>
                               <Font name="Roboto" size="18.0" />
                            </font>
@@ -78,7 +78,10 @@
                   </VBox>
                   <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/ship3.png" />
+                           </image></ImageView>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
                            <font>
                               <Font name="Roboto Bold" size="17.0" />
@@ -153,7 +156,7 @@
                               <Font name="Roboto" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="c6" alignment="CENTER" mnemonicParsing="false" onAction="#c6Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #45c9f2;" text="ACTIVE" textFill="#45c9f2">
+                        <Button fx:id="c6" alignment="CENTER" mnemonicParsing="false" onAction="#c6Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="ACTIVE" textFill="#f74040">
                            <font>
                               <Font name="Roboto" size="18.0" />
                            </font>

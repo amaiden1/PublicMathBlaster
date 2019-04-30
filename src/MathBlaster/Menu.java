@@ -5,6 +5,7 @@ import com.sun.prism.paint.LinearGradient;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -33,6 +34,7 @@ public class Menu {
 	@FXML private Button playD5Btn;
 	@FXML private Button quitBtn;
 	@FXML private Button shopBtn;
+	@FXML private Button creditsBtn;
 	@FXML private VBox hsLeftBox;
 	@FXML private VBox hsRightBox;
 	@FXML private Label clearHSConfirm;
@@ -280,13 +282,18 @@ public class Menu {
 	}
 
 	@FXML
-	void closeBtnClicked(MouseEvent event) {
+	private void closeBtnClicked(MouseEvent event) {
 		Platform.exit();
 	}
 
 	@FXML
-	void minBtnClicked(MouseEvent event) {
+	private void minBtnClicked(MouseEvent event) {
 		menuStage.setIconified(true);
+	}
+
+	@FXML
+	private void creditsBtnClicked(ActionEvent event) {
+		System.out.println("do stuff");
 	}
 
 }
