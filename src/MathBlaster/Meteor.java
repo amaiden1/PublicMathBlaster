@@ -8,7 +8,7 @@ public class Meteor {
 
     public Meteor()
     {
-        iv = new ImageView("/img/hmm.gif");
+        iv = new ImageView("/img/meteor.gif");
         iv.setFitWidth(120);
         iv.setFitHeight(120);
     }
