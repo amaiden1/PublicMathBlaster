@@ -40,6 +40,7 @@ public class Controller {
     // this is another comment
 	private Scene scene;
 	private Stage stage;
+	private StackPane group;
 	private Pane pane;
 	private Timeline update;
 	private Timeline buttonTimeline;
@@ -48,7 +49,6 @@ public class Controller {
 	private boolean isPaused;
 	private boolean fastMode;
 	private Shooter shooty;
-	private Meteor meteor;
 	private ArrayList<Bullet> bulletsOnScreen;
 	private ArrayList<Button> buttList;
 	private int currentLevel;
@@ -66,6 +66,10 @@ public class Controller {
 	private boolean dead;
 	private boolean devMode;
 	private int bulletNum;
+
+	private MediaView bgView;
+	private Media media;
+	private final Meteor meteor = new Meteor();
 
 	private AudioClip shoot;
 	private AudioClip move;
@@ -86,11 +90,11 @@ public class Controller {
 		// Otherwise, press ']' in game to activate it
 		devMode = false;
 
-        Media m = new Media(getClass().getResource("/media/mblastBg (2).mp4").toExternalForm());
+        media = new Media(getClass().getResource("/media/mblastBg (2).mp4").toExternalForm());
 
-		final MediaPlayer bgVid = new MediaPlayer(m);
-		//final MediaPlayer bgVid2 = new MediaPlayer(m2);
-        MediaView bgView = new MediaView(bgVid);
+		final MediaPlayer bgVid = new MediaPlayer(media);
+
+		bgView = new MediaView(bgVid);
         bgView.setMediaPlayer(bgVid);
 
         bgVid.setCycleCount(MediaPlayer.INDEFINITE);
@@ -101,7 +105,6 @@ public class Controller {
         pane.setMaxSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         pane.setMinSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-
         bgView.setPreserveRatio(true);
         bgView.setFitHeight(pane.getHeight());
         bgView.setFitWidth(pane.getWidth());
@@ -111,9 +114,8 @@ public class Controller {
         mvw.bind(Bindings.selectDouble(bgView.sceneProperty(), "width"));
         mvh.bind(Bindings.selectDouble(bgView.sceneProperty(), "height"));
 
-        StackPane group = new StackPane(bgView);
+       	group = new StackPane(bgView);
         group.getChildren().add(pane);
-
 
 		scene = new Scene(group);
 		stage = new Stage();
@@ -151,13 +153,16 @@ public class Controller {
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
 
-		Timeline meteorTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
-		}));
-		meteorTimeline.setCycleCount(Animation.INDEFINITE);
-		meteorTimeline.play();
+		//buttList.get(0).setGraphic(meteor.getIV());
+		//buttList.get(1).setGraphic(meteor.getIV());
+		//buttList.get(2).setGraphic(meteor.getIV());
+		//buttList.get(3).setGraphic(meteor.getIV());
+		//buttList.get(4).setGraphic(meteor.getIV());
+
 
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			for (Button butt: buttList) {
+
 				butt.setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
 				if (butt.getLayoutY() == 500){
 				    player.setLives(0);
