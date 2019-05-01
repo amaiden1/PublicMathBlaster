@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MathBlaster/MathBlaster.iml" filepath="$PROJECT_DIR$/MathBlaster/MathBlaster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mathblaster.iml" filepath="$PROJECT_DIR$/mathblaster.iml" />
+    </modules>
+  </component>
+</project>

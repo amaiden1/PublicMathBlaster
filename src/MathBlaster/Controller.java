@@ -1,7 +1,5 @@
 package MathBlaster;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.BooleanDV;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.TopLevelAttribute;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
@@ -23,7 +21,6 @@ import javafx.util.Duration;
 import javafx.scene.image.Image;
 import javafx.beans.binding.Bindings;
 import java.io.IOException;
-import java.security.Key;
 import java.util.ConcurrentModificationException;
 import java.util.Random;
 
@@ -512,7 +509,7 @@ public class Controller {
 	//public void scoreIncrease()
 	public void resetGame(Stage primaryStage) throws IOException {
 
-		Menu mainMenu = new Menu();
+		PauseMenu.Menu mainMenu = new PauseMenu.Menu();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
@@ -526,7 +523,7 @@ public class Controller {
 
 	public void exitToMainMenu() throws IOException {
 
-		Menu mainMenu = new Menu();
+		PauseMenu.Menu mainMenu = new PauseMenu.Menu();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
