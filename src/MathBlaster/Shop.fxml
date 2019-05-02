@@ -112,7 +112,7 @@
                               <Font name="Roboto" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="c4" alignment="CENTER" mnemonicParsing="false" onAction="#c4Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                        <Button fx:id="c4" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#c4Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
                            <font>
                               <Font name="Roboto" size="18.0" />
                            </font>
@@ -132,7 +132,7 @@
                               <Font name="Roboto" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="c5" alignment="CENTER" mnemonicParsing="false" onAction="#c5Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
+                        <Button fx:id="c5" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#c5Clicked" onMouseEntered="#mouseHover" prefHeight="37.0" prefWidth="175.0" style="-fx-border-color: #f74040;" text="LOCKED!" textFill="#f74040">
                            <font>
                               <Font name="Roboto" size="18.0" />
                            </font>
