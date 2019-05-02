@@ -29,7 +29,6 @@ public class DeathBox{
         label.setText(message);
 
         Button yes = new Button("Yes");
-        //Button no = new Button("No");
 
         VBox layout = new VBox(10);
         layout.getStyleClass().addAll("mathblaster");

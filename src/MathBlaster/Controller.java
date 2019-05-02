@@ -36,8 +36,6 @@ import static MathBlaster.Constants.*;
 
 public class Controller {
 
-	//plz work
-    // this is another comment
 	private Scene scene;
 	private Stage stage;
 	private StackPane group;
@@ -50,7 +48,7 @@ public class Controller {
 	private boolean fastMode;
 	private Shooter shooty;
 	private ArrayList<Bullet> bulletsOnScreen;
-	private ArrayList<Button> buttList;
+	private ArrayList<Button> btnList;
 	private int currentLevel;
 	private int answer;
 	private int minusButtSpeed = 1;
@@ -153,15 +151,8 @@ public class Controller {
 		update.setCycleCount(Timeline.INDEFINITE);
 		update.play();
 
-		//buttList.get(0).setGraphic(meteor.getIV());
-		//buttList.get(1).setGraphic(meteor.getIV());
-		//buttList.get(2).setGraphic(meteor.getIV());
-		//buttList.get(3).setGraphic(meteor.getIV());
-		//buttList.get(4).setGraphic(meteor.getIV());
-
-
 		buttonTimeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
-			for (Button butt: buttList) {
+			for (Button butt: btnList) {
 
 				butt.setLayoutY(butt.getLayoutY() + 0.03 * (this.fastMode ? this.currentLevel : 1)+.25);
 				if (butt.getLayoutY() == 500){
@@ -184,7 +175,7 @@ public class Controller {
 		try {
 			for (Bullet b : bulletsOnScreen) {
 				b.decY(BULLET_DELTA);
-				for (Button butt : buttList) {
+				for (Button butt : btnList) {
 
 					if (b.getPixel().getBoundsInParent().intersects(butt.getBoundsInParent())) {
 						if(butt == answerBox) {
@@ -324,11 +315,6 @@ public class Controller {
 	}
 
 	private void updateScore(double distance){
-		//difficulty = baseScore
-		//distance multiplier = distance/370(full length between player and the answer boxes) + 1
-		//fastmode multiplier: 1.99 + level/100
-		//streak multiplier: streak/20 + 1
-		//fastMode equation: difficulty * distanceMultiplier * fastModeMultiplier * streakMultiplier
 		int baseScore = 100 * difficulty;
 		double distanceMultiplier = 1 + (distance / 370.0);
 		double fastModeMultiplier = (fastMode)?1.99 + (currentLevel/100.0):1;
@@ -341,18 +327,18 @@ public class Controller {
 
 	private void resetButtons()
 	{
-		buttList = new ArrayList<>();
+		btnList = new ArrayList<>();
 		for(int i = 0; i < NUM_BUTTONS; i++)
 		{
-			buttList.add(new Button());
-			buttList.get(i).setPrefSize(120, 120);
-			buttList.get(i).relocate(i * 120,30);
-			buttList.get(i).setDisable(true);
-			buttList.get(i).setOpacity(.8);
-			buttList.get(i).setStyle("-fx-background-color: #323232");
-			buttList.get(i).setFont(new Font(23));
-			buttList.get(i).setTextFill(Paint.valueOf("0xde6bff"));
-			pane.getChildren().add(buttList.get(i));
+			btnList.add(new Button());
+			btnList.get(i).setPrefSize(120, 120);
+			btnList.get(i).relocate(i * 120,30);
+			btnList.get(i).setDisable(true);
+			btnList.get(i).setOpacity(.8);
+			btnList.get(i).setStyle("-fx-background-color: #323232");
+			btnList.get(i).setFont(new Font(23));
+			btnList.get(i).setTextFill(Paint.valueOf("0xde6bff"));
+			pane.getChildren().add(btnList.get(i));
 		}
 	}
 	//test?
@@ -393,13 +379,13 @@ public class Controller {
 		Random rand = new Random();
 		answer = equationGenerator.getAnswer();
 		initialize();
-		int answerIndex = rand.nextInt(buttList.size()-1);
-		answerBox = buttList.get(answerIndex);
+		int answerIndex = rand.nextInt(btnList.size()-1);
+		answerBox = btnList.get(answerIndex);
 		ArrayList<Integer> answers = new ArrayList<>();
-		for(int i = 0; i < buttList.size(); i++){
+		for(int i = 0; i < btnList.size(); i++){
 			answers.add(answer);
 			if(i == answerIndex){
-				buttList.get(i).setText("" + answer);
+				btnList.get(i).setText("" + answer);
 			}
 			else{
 				int wrongAnswer;
@@ -407,7 +393,7 @@ public class Controller {
 					wrongAnswer = (answer == 0)?rand.nextInt(ANSWER_LIMIT)-(ANSWER_LIMIT/2):rand.nextInt(Math.abs(answer * 4)+1)-(Math.abs(answer * 2));
 				}while(wrongAnswer == answer || answers.contains(wrongAnswer));
 				answers.set(i, wrongAnswer);
-				buttList.get(i).setText("" + wrongAnswer);
+				btnList.get(i).setText("" + wrongAnswer);
 			}
 		}
 	}
@@ -442,7 +428,7 @@ public class Controller {
 			die();
 		}
 		// another way to die: the blocks hit you
-		if(buttList.get(0).getLayoutY() >= FATAL_BUTTON_DIST) {
+		if(btnList.get(0).getLayoutY() >= FATAL_BUTTON_DIST) {
 			endGame.play();
 			die();
 		}

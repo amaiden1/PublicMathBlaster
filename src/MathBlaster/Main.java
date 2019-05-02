@@ -9,7 +9,7 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author Nolan
+ * @author S.M.I.L.E
  */
 public class Main extends Application {
 
