@@ -404,7 +404,7 @@ public class Controller {
 			else{
 				int wrongAnswer;
 				do{
-					wrongAnswer = (answer == 0)?rand.nextInt(ANSWER_LIMIT)-(ANSWER_LIMIT/2):rand.nextInt(Math.abs(answer * 4))-(Math.abs(answer * 2));
+					wrongAnswer = (answer == 0)?rand.nextInt(ANSWER_LIMIT)-(ANSWER_LIMIT/2):rand.nextInt(Math.abs(answer * 4)+1)-(Math.abs(answer * 2));
 				}while(wrongAnswer == answer || answers.contains(wrongAnswer));
 				answers.set(i, wrongAnswer);
 				buttList.get(i).setText("" + wrongAnswer);
