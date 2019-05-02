@@ -484,7 +484,7 @@ public class Controller {
 	//public void scoreIncrease()
 	public void resetGame(Stage primaryStage) throws IOException {
 
-		PauseMenu.Menu mainMenu = new PauseMenu.Menu();
+		Menu mainMenu = new Menu();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();
@@ -498,7 +498,7 @@ public class Controller {
 
 	public void exitToMainMenu() throws IOException {
 
-		PauseMenu.Menu mainMenu = new PauseMenu.Menu();
+		Menu mainMenu = new Menu();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
 		loader.setController(mainMenu);
 		Pane root = loader.load();

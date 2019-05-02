@@ -102,7 +102,7 @@
                   <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="Coming Soon!" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
                            <font>
                               <Font name="Roboto Bold" size="17.0" />
                            </font>
@@ -122,7 +122,7 @@
                   <VBox minWidth="-Infinity" prefHeight="200.0" prefWidth="175.0" spacing="3.0">
                      <children>
                         <ImageView fitHeight="150.0" fitWidth="171.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="X Ship" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="186.0" style="&#10;" text="Coming Soon!" textAlignment="CENTER" textFill="#9270ff" wrapText="false">
                            <font>
                               <Font name="Roboto Bold" size="17.0" />
                            </font>
