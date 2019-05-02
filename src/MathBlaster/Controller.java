@@ -315,6 +315,12 @@ public class Controller {
 	}
 
 	private void updateScore(double distance){
+		/*Explanation of algorithm		
+		  difficulty = baseScore	
+		  distance multiplier = distance/370(full length between player and the answer boxes) + 1	
+		  fastmode multiplier: 1.99 + level/100	
+		  streak multiplier: streak/20 + 1	
+		  fastMode equation: difficulty * distanceMultiplier * fastModeMultiplier * streakMultiplier*/
 		int baseScore = 100 * difficulty;
 		double distanceMultiplier = 1 + (distance / 370.0);
 		double fastModeMultiplier = (fastMode)?1.99 + (currentLevel/100.0):1;
@@ -341,7 +347,7 @@ public class Controller {
 			pane.getChildren().add(btnList.get(i));
 		}
 	}
-	//test?
+	
 	private void updateLabels(){
 		scoreLabel = new Label("Score: " + (int)score);
 		scoreLabel.relocate(0,0);
